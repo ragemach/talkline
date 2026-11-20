@@ -122,13 +122,16 @@ def test_demo_ui_exports_real_zip_without_ai():
 
 
 def test_resume_local_draft_without_ollama_or_export():
-    from src.ai_content import demo_brief
-    draft = demo_brief('A local topic')
+    from src.business_content import generate_business
+    from src.toolkit_library import sample_toolkit
+
+    draft = generate_business('A local topic')
+    toolkit = dict(sample_toolkit(), topic='A local topic')
     with patch('src.ai_content.available_models', return_value=['qwen3:8b']), \
-         patch('src.ai_content.create_with_ollama', return_value=draft):
+         patch('src.toolkit.generate_toolkit', return_value=toolkit), \
+         patch('src.business_content.generate_business', return_value=draft):
         app = AppTest.from_file(str(APP), default_timeout=30).run()
         app.radio(key='engine_input').set_value('Local Ollama AI (free)').run()
-        app.checkbox[0].set_value(False)
         app.text_input(key='topic_input').set_value('A local topic')
         app.text_input(key='venue_input').set_value('Office')
         app.text_input(key='time_input').set_value('20:15')
@@ -137,7 +140,7 @@ def test_resume_local_draft_without_ollama_or_export():
         assert not app.exception and not app.error
 
     with patch('src.ai_content.available_models', return_value=[]), \
-         patch('src.ai_content.create_with_ollama', side_effect=AssertionError('Resume cannot rerun generation')):
+         patch('src.business_content.generate_business', side_effect=AssertionError('Resume cannot rerun generation')):
         reopened = AppTest.from_file(str(APP), default_timeout=30).run()
         assert not reopened.exception and not reopened.error
         assert reopened.session_state['brief'] == draft

@@ -77,6 +77,21 @@ def test_taboo_skips_invalid_candidates_when_enough_unique_cards_remain(monkeypa
     assert next(replies, None) is None
 
 
+def test_problem_solver_skips_repeated_titles_and_situations(monkeypatch):
+    demo = generate_game_night('A Night Out')
+    intro, batches = _model_replies(demo)
+    earlier = batches[-2]['cards'][0]
+    candidates = batches[-1]['cards']
+    candidates[:0] = [
+        {**candidates[0], 'title': earlier['title']},
+        {**candidates[0], 'situation': earlier['situation']},
+    ]
+    replies = iter([intro, *batches])
+    monkeypatch.setattr(ai_content, '_ask_json', lambda *args, **kwargs: next(replies))
+    assert generate_game_night('A Night Out', 'test-model:local') == demo
+    assert next(replies, None) is None
+
+
 def test_local_model_reports_the_failed_stage_without_substituting_demo(monkeypatch):
     demo = generate_game_night('A Night Out')
     intro, _ = _model_replies(demo)

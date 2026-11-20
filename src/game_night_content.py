@@ -18,7 +18,7 @@ _GAME_TITLES = {
 }
 _LEVELS = ('elementary', 'advanced')
 _BATCH_SIZE = 5
-_TABOO_CANDIDATES = 8
+_BATCH_CANDIDATES = 8
 _BATCH_ANGLES = (
     'people and places',
     'objects and routines',
@@ -304,12 +304,12 @@ def _validate_batch(mechanic, level, cards, earlier):
     return cards
 
 
-def _select_taboo_cards(level, candidates, earlier):
+def _select_batch(mechanic, level, candidates, earlier):
     selected = []
     last_error = None
     for card in candidates:
         try:
-            _validate_batch('taboo', level, [card], earlier + selected)
+            _validate_batch(mechanic, level, [card], earlier + selected)
         except ValueError as exc:
             last_error = exc
             continue
@@ -320,14 +320,13 @@ def _select_taboo_cards(level, candidates, earlier):
 
 
 def _generate_decks(topic, model, mechanic, result, on_batch):
+    schema = obj({'cards': {
+        'type': 'array',
+        'items': CARD_SCHEMAS[mechanic],
+        'minItems': _BATCH_SIZE,
+        'maxItems': _BATCH_CANDIDATES,
+    }})
     if mechanic == 'taboo':
-        schema = obj({'cards': {
-            'type': 'array',
-            'items': CARD_SCHEMAS[mechanic],
-            'minItems': _BATCH_SIZE,
-            'maxItems': _TABOO_CANDIDATES,
-        }})
-        count = _TABOO_CANDIDATES
         identity = 'word'
         instructions = (
             'Use a common English word or short expression as the target. For each target, '
@@ -338,8 +337,6 @@ def _generate_decks(topic, model, mechanic, result, on_batch):
             'The target must still be possible to describe without those clues.'
         )
     else:
-        schema = obj({'cards': items(CARD_SCHEMAS[mechanic], _BATCH_SIZE)})
-        count = _BATCH_SIZE
         identity = 'title'
         instructions = (
             'Write a short title, a concrete situation with a clear problem, and one challenge '
@@ -359,14 +356,12 @@ def _generate_decks(topic, model, mechanic, result, on_batch):
 
             def validate(data):
                 _check_schema(schema, data)
-                if mechanic == 'taboo':
-                    return _select_taboo_cards(level, data['cards'], earlier)
-                return _validate_batch(mechanic, level, data['cards'], earlier)
+                return _select_batch(mechanic, level, data['cards'], earlier)
 
             start = len(result[level]) + 1
             result[level].extend(_request(
                 f'{_GAME_TITLES[mechanic]} {level}, cards {start} to {start + _BATCH_SIZE - 1}',
-                f'Write {count} original cards for this game about the topic or a closely related situation. '
+                f'Write {_BATCH_CANDIDATES} original cards for this game about the topic or a closely related situation. '
                 f'{instructions} {level_guidance} Use the requested angle as a starting point. '
                 'Use the earlier entries as exclusions. Each card must work on its own.',
                 {
