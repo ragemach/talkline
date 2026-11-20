@@ -67,6 +67,14 @@ def _template(slide, path, text, max_bottom, *, size=None, lead=None):
     return shape
 
 
+def _dark_text(slide, *paths):
+    """Use the template's navy ink for text over its yellow page."""
+    for path in paths:
+        for paragraph in _shape(slide, path).text_frame.paragraphs:
+            for run in paragraph.runs:
+                run.font.color.rgb = RGBColor.from_string('19314D')
+
+
 def _button(slide, button_path, background_path, address):
     button = _shape(slide, button_path)
     for paragraph in button.text_frame.paragraphs:
@@ -118,22 +126,25 @@ def _style_specs(item):
     kind, data = item
     if kind == 'grammar':
         label, entry = data
-        return (
+        return tuple((paragraph,) for paragraph in (
             (f'{label} / {entry["title"]}', 16, True, 'FFFFFF'),
             (entry['pattern'], 13, True, 'FFE39B'),
             (entry['explanation'], 13, False, 'EBF1F9'),
             *((example, 13, False, 'DBE7F5') for example in entry['examples']),
-        )
+        ))
     return (
-        (('Idiom: ' if kind == 'idioms' else '') + data['expression'], 14, True, 'FFFFFF'),
-        (data['turkish'], 12.5, False, 'FFE39B'),
-        (data['example'], 12.5, False, 'D9E6F5'),
+        ((('Idiom: ' if kind == 'idioms' else '') + data['expression'], 14, True, 'FFFFFF'),
+         (f' / {data["turkish"]}', 12.5, False, 'FFE39B')),
+        ((data['example'], 12.5, False, 'D9E6F5'),),
     )
 
 
 def _card_height(item, width):
-    points = sum(_line_count(_text(value), (width - .28) * 72, size, bold=bold) * (size + 2)
-                 for value, size, bold, _ in _style_specs(item))
+    points = 0
+    for paragraph in _style_specs(item):
+        text = ' '.join(run[0] for run in paragraph)
+        size = max(run[1] for run in paragraph)
+        points += _line_count(_text(text), (width - .28) * 72, size, bold=paragraph[0][2]) * (size + 2)
     return (points + 11) / 72
 
 
@@ -149,16 +160,17 @@ def _card(slide, x, y, width, item):
     frame.word_wrap = True
     frame.auto_size = MSO_AUTO_SIZE.NONE
     frame.margin_left = frame.margin_right = frame.margin_top = frame.margin_bottom = 0
-    for index, (value, size, bold, color) in enumerate(_style_specs(item)):
+    for index, specs in enumerate(_style_specs(item)):
         paragraph = frame.add_paragraph() if index else frame.paragraphs[0]
-        paragraph.line_spacing = Pt(size + 2)
+        paragraph.line_spacing = Pt(max(run[1] for run in specs) + 2)
         paragraph.space_after = paragraph.space_before = Pt(0)
-        run = paragraph.add_run()
-        run.text = _text(value)
-        run.font.name = 'Arial'
-        run.font.size = Pt(size)
-        run.font.bold = bold
-        run.font.color.rgb = RGBColor.from_string(color)
+        for position, (value, size, bold, color) in enumerate(specs):
+            run = paragraph.add_run()
+            run.text = (' ' if position else '') + _text(value)
+            run.font.name = 'Arial'
+            run.font.size = Pt(size)
+            run.font.bold = bold
+            run.font.color.rgb = RGBColor.from_string(color)
     return height
 
 
@@ -214,6 +226,7 @@ def _level_pages(presentation, source, label, level):
         footer = _shape(slide, (69,))
         footer.left, footer.width = Inches(.55), Inches(6.4)
         _write(slide, (69,), f'Toolkit / {label} / {number} of {len(layout)}')
+        _dark_text(slide, (2, 4), (5,), (6,), (69,))
         bounds = (FULL_COLUMN,) if len(columns) == 1 else COLUMNS
         for (x, width), entries in zip(bounds, columns, strict=True):
             card_width = width - .26
@@ -245,6 +258,7 @@ def _grammar_pages(presentation, source, toolkit):
         footer = _shape(slide, (8,))
         footer.left, footer.width = Inches(.55), Inches(6.4)
         _write(slide, (8,), f'Mini Grammar / {number} of {len(layout)}')
+        _dark_text(slide, (2, 4), (5,), (8,))
         x, width = FULL_COLUMN
         y = GRAMMAR_TOP
         for item in rows:
@@ -286,13 +300,18 @@ def build_game_night_deck(topic, content, toolkit, game_files, *, feedback_url=R
     taboo, problem = content['games']
 
     cover, warmup = slides[:2]
-    _template(cover, (13,), topic, 2.07, lead=20)
+    topic_box = _shape(cover, (13,))
+    topic_box.left, topic_box.width = Inches(.5), Inches(6.5)
+    _template(cover, (13,), topic, 2.13, lead=19)
     _template(cover, (17,), content['subtitle'], 8.83, size=12)
+    _dark_text(cover, (2, 4), (13,), (18,))
     _notes(cover, f'{content["tagline"]}\nTonight’s topic is {topic}. First play Taboo, then Problem Solver.')
-    _template(warmup, (6,), content['opening'], 2.22, size=13, lead=15)
+    _shape(warmup, (6,)).top = Inches(1.36)
+    _template(warmup, (6,), content['opening'], 2.24, size=13, lead=15)
     for shape_id, question in zip((10, 19, 17), content['warmup'], strict=True):
         shape = _shape(warmup, (shape_id,))
         _template(warmup, (shape_id,), question, shape.top.inches + .64, lead=18)
+    _dark_text(warmup, (2, 4), (5,), (6,), (18,))
     _notes(warmup, f'{content["opening"]}\nInvite one short answer per person.')
 
     toolkit_slides = []
@@ -301,6 +320,7 @@ def build_game_night_deck(topic, content, toolkit, game_files, *, feedback_url=R
     grammar_slides = _grammar_pages(presentation, slides[5], toolkit)
 
     _write(slides[6], (7,), 'One target, with forbidden clues. Can your team guess it?')
+    _dark_text(slides[6], (2, 4), (5,), (7,), (23,))
     _remove(slides[6], 24, 28)
     for background_id, label_id, center, label in (
         (20, 22, 2.26, 'ELEMENTARY / A2–B1'),
@@ -314,13 +334,17 @@ def build_game_night_deck(topic, content, toolkit, game_files, *, feedback_url=R
     _rules_slide(slides[7], TABOO_STEPS,
                  [(13 + 9 * i, 14 + 9 * i) for i in range(6)], (62,), (60, 61),
                  game_files[0], 'taboo')
+    _dark_text(slides[7], (2, 4), (63,))
+    _dark_text(slides[8], (2, 4), (5,), (7,), (8,))
     _notes(slides[8], 'Take a 20-minute break. Tell everyone what time to come back for Problem Solver.')
+    _dark_text(slides[9], (4, 6), (7, 9))
     _notes(slides[9], f'{problem["title"]}\nKeep the same teams or give everyone a new partner.')
     _rules_slide(slides[10], PROBLEM_SOLVER_STEPS,
                  [(52 + 2 * i, 53 + 2 * i) for i in range(6)], (64,), (49, 50),
                  game_files[1], 'problem_solver')
 
     cooldown = slides[11]
+    _shape(cooldown, (6,)).top = Inches(1.36)
     _template(cooldown, (6,), content['closing'], 2.24, size=13, lead=15)
     for shape_id, prompt in zip((10, 14, 18), (
         'Which clue helped your team guess a word?',
@@ -328,7 +352,9 @@ def build_game_night_deck(topic, content, toolkit, game_files, *, feedback_url=R
         'What is one English expression you used tonight?',
     ), strict=True):
         _write(cooldown, (shape_id,), prompt)
+    _dark_text(cooldown, (2, 4), (5,), (6,), (19,))
     _notes(cooldown, content['closing'])
+    _dark_text(slides[12], (2, 4), (8,), (12,))
     _button(slides[12], (10,), (5, 6), feedback_url)
     _notes(slides[12], 'Thank the group and invite feedback. The Rate Us form needs internet.')
 

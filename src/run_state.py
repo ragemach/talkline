@@ -4,7 +4,7 @@ from jsonschema import Draft202012Validator
 from src.ai_content import REVIEW_SCHEMA, _validate
 from src.checkpoints import content_fingerprint
 from src.invitation_content import LABELS
-from src.session_sequence import FULL_SPONTANEOUS
+from src.session_sequence import FULL_BUSINESS, FULL_GAME_NIGHT, FULL_SPONTANEOUS
 from src.settings import EventDetails, UserSettings
 from src.toolkit import LEVELS, REVIEW_SCHEMA as TOOLKIT_REVIEW_SCHEMA, validate_level
 
@@ -87,6 +87,12 @@ def validate_draft(draft):
         if workflow == FULL_SPONTANEOUS and meta['concept'] == 'spontaneous':
             from src.spontaneous_content import validate_spontaneous
             validate_spontaneous(draft['brief'])
+        elif workflow == FULL_GAME_NIGHT and meta['concept'] == 'game_night':
+            from src.game_night_content import validate_game_night
+            validate_game_night(draft['brief'])
+        elif workflow == FULL_BUSINESS and meta['concept'] == 'business':
+            from src.business_content import validate_business
+            validate_business(draft['brief'])
         elif workflow is None:
             _validate(draft['brief'])
         else:

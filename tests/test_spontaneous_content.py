@@ -36,7 +36,7 @@ def test_local_batches_retry_a_duplicate_before_accepting_new_cards(monkeypatch)
             {'cards': game[level][start:start + 5]}
             for level in ('elementary', 'advanced') for start in range(0, 20, 5)
         ],
-        {section: value for section, value in demo.items() if section not in ('round1', 'game')},
+        {section: demo[section] for section in ('subtitle', 'tagline', 'opening', 'closing')},
     ]
     prompts = []
 
@@ -46,6 +46,8 @@ def test_local_batches_retry_a_duplicate_before_accepting_new_cards(monkeypatch)
         assert 'Coffee shops' in prompt
         if 'cards' in schema['properties']:
             assert schema['properties']['cards']['maxItems'] == 5
+        else:
+            assert 'warmup' not in schema['properties']
         return answers.pop(0)
 
     monkeypatch.setattr(ai_content, '_ask_json', ask)
@@ -73,6 +75,22 @@ def test_single_section_edit_preserves_other_content(monkeypatch):
     )
     assert revised == {**baseline, 'closing': closing}
     assert demo == baseline
+
+
+@pytest.mark.parametrize('ending', ['', '??'])
+def test_local_warmups_ask_for_and_require_one_question_mark(monkeypatch, ending):
+    demo = generate_spontaneous('Coffee shops')
+    questions = ['How was your week?', 'Do you like tea?', 'How is your day going?']
+    answers = [{'warmup': [item[:-1] + ending for item in questions]}, {'warmup': questions}]
+
+    def ask(prompt, schema, model, *, think):
+        assert 'each ending with exactly one question mark' in prompt
+        return answers.pop(0)
+
+    monkeypatch.setattr(ai_content, '_ask_json', ask)
+    revised = regenerate_spontaneous_section('Coffee shops', demo, 'warmup', 'qwen3:8b')
+    assert not answers
+    assert revised == {**demo, 'warmup': questions}
 
 
 def test_failed_section_retries_are_bounded_and_original_stays_available(monkeypatch):
@@ -133,7 +151,7 @@ def test_resume_retains_valid_batches_after_a_connection_failure(monkeypatch):
     remaining_answers = [
         *[{'cards': game['elementary'][start:start + 5]} for start in range(5, 20, 5)],
         *[{'cards': game['advanced'][start:start + 5]} for start in range(0, 20, 5)],
-        {section: value for section, value in demo.items() if section not in ('round1', 'game')},
+        {section: demo[section] for section in ('subtitle', 'tagline', 'opening', 'closing')},
     ]
     monkeypatch.setattr(ai_content, '_ask_json', lambda *args, **kwargs: remaining_answers.pop(0))
     resumed = generate_spontaneous(topic, model, resume=checkpoint, on_progress=report)

@@ -33,7 +33,8 @@ def isolated_settings(tmp_path):
     with patch('src.settings.load_settings',side_effect=lambda:load_settings(path)), \
          patch('src.settings.save_settings',side_effect=lambda settings:save_settings(settings,path)), \
          patch('src.run_store.RUN_PATH', tmp_path/'last_run.zip'), \
-         patch('src.checkpoints.SPONTANEOUS_PROGRESS_PATH', tmp_path/'spontaneous-progress.json'):
+         patch('src.checkpoints.SPONTANEOUS_PROGRESS_PATH', tmp_path/'spontaneous-progress.json'), \
+         patch('src.checkpoints.GAME_NIGHT_PROGRESS_PATH', tmp_path/'game-night-progress.json'):
         yield path
 
 
@@ -230,6 +231,78 @@ def test_spontaneous_demo_exports_and_edits_full_offline_session():
         fresh = AppTest.from_file(str(APP), default_timeout=90).run()
         assert fresh.session_state['brief']['closing'] == 'Share one thing you would change after our conversation today.'
         assert fresh.session_state['brief']['game'] == brief['game']
+
+
+def test_game_night_demo_exports_and_recovers_both_offline_games():
+    from pptx import Presentation
+    from src.session_sequence import FULL_GAME_NIGHT, GAME_NIGHT_FILES
+
+    with patch('src.ai_content.urlopen', side_effect=AssertionError('Demo must work offline')):
+        app = AppTest.from_file(str(APP), default_timeout=90).run()
+        app.text_input(key='topic_input').set_value('A Night of Team Challenges')
+        app.selectbox(key='concept_input').set_value('game_night')
+        app.button(key='generate').click().run()
+        assert not app.exception and not app.error, [error.value for error in app.error]
+        app.button(key='build').click().run()
+        assert not app.exception and not app.error, [error.value for error in app.error]
+        package = app.session_state['package']
+        with zipfile.ZipFile(BytesIO(package)) as kit:
+            assert kit.testzip() is None
+            payload = json.loads(kit.read('content.json'))
+            assert payload['stage'] == FULL_GAME_NIGHT
+            assert [game['mechanic'] for game in payload['content']['games']] == ['taboo', 'problem_solver']
+            assert all(len(game[level]) == 20 for game in payload['content']['games']
+                       for level in ('elementary', 'advanced'))
+            invitation = ' '.join(line for block in payload['invitation']['text'].values() for line in block)
+            assert 'A Night of Team Challenges' in invitation
+            assert 'Round 1: Play Taboo.' in invitation and 'Round 2: Play Problem Solver.' in invitation
+            guide = kit.read('TalkLine_Host_Guide.html').decode('utf-8')
+            assert guide.index('Round 1: Taboo') < guide.index('Break') < guide.index('Round 2: Problem Solver')
+            deck = Presentation(BytesIO(kit.read('TalkLine_Presentation.pptx')))
+            links = {rel.target_ref for slide in deck.slides for rel in slide.part.rels.values() if rel.is_external}
+            for filename in GAME_NIGHT_FILES:
+                assert f'href="{filename}"' in guide and filename in links
+                assert kit.read(filename).startswith(b'<!')
+            assert 'TalkLine_Invitation.gif' in kit.namelist()
+            assert 'TalkLine_Game.html' not in kit.namelist()
+
+        reopened = AppTest.from_file(str(APP), default_timeout=90).run()
+        assert not reopened.exception and not reopened.error
+        assert reopened.selectbox(key='concept_input').value == 'game_night'
+        assert reopened.session_state['package'] == package
+        reopened.selectbox(key='edit_session_part').set_value('Round 1 game card').run()
+        target = next(field for field in reopened.text_input if field.label == 'Target word')
+        target.set_value('Concert ticket')
+        next(button for button in reopened.button if button.label == 'Save game card').click().run()
+        assert not reopened.exception and not reopened.error
+        assert 'package' not in reopened.session_state
+        assert reopened.session_state['brief']['games'][0]['elementary'][0]['word'] == 'Concert ticket'
+        assert reopened.session_state['brief']['games'][1] == payload['content']['games'][1]
+
+
+def test_business_demo_exports_the_business_deck_and_verdict_game():
+    from pptx import Presentation
+    from src.session_sequence import BUSINESS_GAME_FILE, FULL_BUSINESS
+
+    with patch('src.ai_content.urlopen', side_effect=AssertionError('Demo must work offline')):
+        app = AppTest.from_file(str(APP), default_timeout=90).run()
+        app.text_input(key='topic_input').set_value('Business Beyond the Office')
+        app.selectbox(key='concept_input').set_value('business')
+        app.button(key='generate').click().run()
+        app.button(key='build').click().run()
+        assert not app.exception and not app.error, [error.value for error in app.error]
+        with zipfile.ZipFile(BytesIO(app.session_state['package'])) as kit:
+            payload = json.loads(kit.read('content.json'))
+            assert payload['stage'] == FULL_BUSINESS
+            assert payload['content']['game']['mechanic'] == 'smart_or_sneaky'
+            assert len(payload['content']['round1']) == 10
+            assert len(payload['content']['game']['advanced']) == 20
+            guide = kit.read('TalkLine_Host_Guide.html').decode()
+            deck = Presentation(BytesIO(kit.read('TalkLine_Presentation.pptx')))
+            assert f'href="{BUSINESS_GAME_FILE}"' in guide
+            assert any(rel.target_ref == BUSINESS_GAME_FILE for slide in deck.slides
+                       for rel in slide.part.rels.values() if rel.is_external)
+            assert BUSINESS_GAME_FILE in kit.namelist()
 
 
 def test_spontaneous_generation_resumes_after_local_connection_failure():

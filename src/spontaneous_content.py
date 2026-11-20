@@ -1,6 +1,7 @@
 """Content and local generation for the full Spontaneous Talk workflow."""
 
 from copy import deepcopy
+from dataclasses import dataclass
 import json
 from pathlib import Path
 
@@ -18,6 +19,7 @@ _GAME_COUNT_PER_LEVEL = 20
 _BATCH_SIZE = 5
 _TIERS = ('a2', 'b2', 'c1')
 _GAME_LEVELS = ('elementary', 'advanced')
+_DEFAULT_WARMUPS = ('How are you?', 'How was your day?', 'What do you like to do after work?')
 _DISCUSSION_ANGLES = (
     'a morning routine', 'strangers helping each other', 'a small personal expense',
     'friends making weekend plans', 'an awkward but harmless mistake',
@@ -47,16 +49,29 @@ _INTRO_FIELDS = {
     'closing': text(250),
     'warmup': items(text(48), 3),
 }
-_CONTENT = obj({
-    **_INTRO_FIELDS,
-    'round1': items(_ROUND_CARD, _DISCUSSION_COUNT),
-    'game': game_schema('patch_notes'),
-})
 _RULES = (
     'Choose the level that suits your group.',
     'Read the glitch and discuss the two patches.',
     'Agree on A or B, then reveal its consequence.',
     'Choose Keep or Reset and explain your decision.',
+)
+
+
+@dataclass(frozen=True)
+class DiscussionFormat:
+    mechanic: str
+    game_title: str
+    game_rules: tuple[str, ...]
+    discussion_angles: tuple[str, ...]
+    game_angles: dict[str, tuple[str, ...]]
+    game_guide: str
+
+
+_SPONTANEOUS = DiscussionFormat(
+    'patch_notes', 'Patch Notes', _RULES, _DISCUSSION_ANGLES, _PATCH_ANGLES,
+    'Each scenario is one precise, playful fictional rule. Both patches must control '
+    'that specific rule in different ways. Each outcome must follow from its own '
+    'patch and give players a reason to discuss whether to keep it.',
 )
 
 
@@ -100,15 +115,24 @@ def _check_round(cards):
 
 def validate_spontaneous(content):
     """Check the full draft without mutating it or calling a model."""
-    _check_schema(_CONTENT, content)
+    return validate_discussion(content, _SPONTANEOUS)
+
+
+def validate_discussion(content, format):
+    _check_schema(obj({
+        **_INTRO_FIELDS,
+        'round1': items(_ROUND_CARD, _DISCUSSION_COUNT),
+        'game': game_schema(format.mechanic),
+    }), content)
     _check_intro(content)
     _check_round(content['round1'])
-    validate_game(content['game'], 'patch_notes')
+    validate_game(content['game'], format.mechanic)
     return content
 
 
-def _game(cards):
-    return {'mechanic': 'patch_notes', 'title': 'Patch Notes', 'rules': list(_RULES), **cards}
+def discussion_game(cards, format):
+    return {'mechanic': format.mechanic, 'title': format.game_title,
+            'rules': list(format.game_rules), **cards}
 
 
 def _demo_spontaneous():
@@ -134,7 +158,7 @@ def _demo_spontaneous():
     )
     data = raw_game.partition('const GAME_DATA = ')[2]
     example, _ = json.JSONDecoder().raw_decode(data)
-    game = _game({
+    game = discussion_game({
         level: [{
             'title': card['title'],
             'scenario': card['glitch'],
@@ -144,7 +168,7 @@ def _demo_spontaneous():
             'outcome_b': card['patchB']['consequence'],
         } for card in example[level]]
         for level in _GAME_LEVELS
-    })
+    }, _SPONTANEOUS)
     return {
         'subtitle': bindings['deck.subtitle'],
         'tagline': 'Change one rule and see what happens.',
@@ -156,7 +180,7 @@ def _demo_spontaneous():
             'Think back to a rule you wanted to change and a patch you tried. Would you '
             'still make the same choice? Share one reason and one English expression you used.'
         ),
-        'warmup': ['How are you?', 'How was your day?', 'What do you like to do after work?'],
+        'warmup': list(_DEFAULT_WARMUPS),
         'round1': discussions,
         'game': game,
     }
@@ -185,26 +209,35 @@ def _request(label, instruction, data, schema, validator, model):
 
 def _intro(topic, round1, game, model, fields, feedback):
     schema = obj({field: _INTRO_FIELDS[field] for field in fields})
+    data = {'topic': topic, 'feedback': feedback}
+    if fields == ('warmup',):
+        label = 'Warm-up'
+        instruction = (
+            'Return three separate warm-up questions, each ending with exactly one question mark. '
+            + WARMUP_GUIDANCE
+        )
+    else:
+        label = 'Opening and closing'
+        instruction = (
+            'Write only the requested fields. Each opening or closing is one short paragraph '
+            'for the host to read aloud. Open by welcoming people to the topic. Close with a '
+            'reflection connecting the Round 1 discussion and Round 2 decisions, without '
+            'claiming how players answered. Keep the subtitle and tagline short.'
+        )
+        data.update(
+            discussion_titles=[card['title'] for card in round1[:3]],
+            game_titles=[game[level][0]['title'] for level in _GAME_LEVELS],
+        )
 
     def validate(data):
         _check_schema(schema, data)
         _check_intro(data)
         return data
 
-    return _request(
-        'Opening and closing',
-        'Write only the requested fields. Each opening or closing is one short paragraph '
-        'for the host to read aloud. Open by welcoming people to the topic. Close with a '
-        'reflection connecting the Round 1 discussion and Round 2 decisions, without '
-        'claiming how players answered. Keep title and subtitle short. ' + WARMUP_GUIDANCE,
-        {'topic': topic, 'discussion_titles': [card['title'] for card in round1[:3]],
-         'game_titles': [game[level][0]['title'] for level in _GAME_LEVELS],
-         'feedback': feedback},
-        schema, validate, model,
-    )
+    return _request(label, instruction, data, schema, validate, model)
 
 
-def _round1(topic, model, feedback, *, result=None, on_batch=None):
+def _round1(topic, model, feedback, format, *, result=None, on_batch=None):
     if result is None:
         result = []
     for offset in range(len(result), _DISCUSSION_COUNT, _BATCH_SIZE):
@@ -225,7 +258,7 @@ def _round1(topic, model, feedback, *, result=None, on_batch=None):
             'B2 compares two plausible responses, and C1 explores a conflict or social '
             'consequence. End each field with a question. Use at most 32 characters for '
             'titles, 115 for A2 and 165 each for B2 and C1. Avoid the earlier titles and ideas.',
-            {'topic': topic, 'angles': _DISCUSSION_ANGLES[offset:offset + batch_size],
+            {'topic': topic, 'angles': format.discussion_angles[offset:offset + batch_size],
              'earlier_titles': [card['title'] for card in result],
              'feedback': feedback},
             schema, validate, model,
@@ -247,7 +280,7 @@ def _check_game_cards(level, cards, earlier):
             raise ValueError('Elementary game fields must be at most 35 words.')
 
 
-def _patch_notes(topic, model, feedback, *, result=None, on_batch=None):
+def _game_batches(topic, model, feedback, format, *, result=None, on_batch=None):
     if result is None:
         result = {level: [] for level in _GAME_LEVELS}
     for level in _GAME_LEVELS:
@@ -268,29 +301,29 @@ def _patch_notes(topic, model, feedback, *, result=None, on_batch=None):
                 else 'Aim at B2 to C1 and give each choice a meaningful trade-off.'
             )
             result[level].extend(_request(
-                f'Patch Notes {level}, cards {offset + 1} to {offset + batch_size}',
-                f'Write {batch_size} different Patch Notes cards tied to the topic, using one '
+                f'{format.game_title} {level}, cards {offset + 1} to {offset + batch_size}',
+                f'Write {batch_size} different {format.game_title} cards tied to the topic, using one '
                 'angle per card from the supplied list. Invent a distinct title for each '
-                'specific scene. Earlier titles are exclusions, not examples to copy. Each '
-                'scenario is one precise, playful fictional rule. Both patches must control '
-                'that specific rule in different ways. Each outcome must follow from its '
-                'own patch and give players a reason to discuss whether to keep it. '
+                'specific scene. Earlier titles are exclusions, not examples to copy. '
+                f'{format.game_guide} '
                 'Be concrete. Avoid unrelated consequences, repeated settings and obvious '
                 f'right answers. Keep each field under 240 characters. {instructions}',
-                {'topic': topic, 'angles': _PATCH_ANGLES[level][offset:offset + batch_size],
+                {'topic': topic, 'angles': format.game_angles[level][offset:offset + batch_size],
                  'earlier_titles': [card['title'] for card in earlier],
                  'feedback': feedback},
                 schema, validate, model,
             ))
             if on_batch is not None:
                 on_batch()
-    return validate_game(_game(result), 'patch_notes')
+    return validate_game(discussion_game(result, format), format.mechanic)
 
 
-def _resume_state(topic, model, resume):
+def _resume_state(topic, model, resume, format):
+    # Existing Spontaneous drafts predate the mechanic field.
+    identity = {} if format.mechanic == 'patch_notes' else {'mechanic': format.mechanic}
     if resume is None:
         return {
-            'version': 1, 'topic': topic, 'model': model,
+            'version': 1, 'topic': topic, 'model': model, **identity,
             'round1': [], 'game': {level: [] for level in _GAME_LEVELS},
             'intro': None,
         }
@@ -298,6 +331,7 @@ def _resume_state(topic, model, resume):
         'version': {'type': 'integer', 'const': 1},
         'topic': {'const': topic},
         'model': {'const': model},
+        **{key: {'const': value} for key, value in identity.items()},
         'round1': {'type': 'array', 'items': _ROUND_CARD, 'maxItems': _DISCUSSION_COUNT},
         'game': obj({
             level: {'type': 'array', 'items': CHOICE_CARD, 'maxItems': _GAME_COUNT_PER_LEVEL}
@@ -329,12 +363,17 @@ def generate_spontaneous(topic, model=None, *, resume=None, on_progress=None):
     snapshots after accepted batches. Feed a saved snapshot back as resume to
     skip those batches. The topic and model must match.
     """
+    return generate_discussion(topic, model, _SPONTANEOUS, _demo_spontaneous,
+                               resume=resume, on_progress=on_progress)
+
+
+def generate_discussion(topic, model, format, demo, *, resume=None, on_progress=None):
     topic = _topic(topic)
     if model is None:
         if resume is not None:
             raise ValueError('Saved local-model progress needs the same model to resume.')
-        return validate_spontaneous(_demo_spontaneous())
-    state = _resume_state(topic, model, resume)
+        return validate_discussion(demo(), format)
+    state = _resume_state(topic, model, resume, format)
 
     def report():
         if on_progress is None:
@@ -346,27 +385,36 @@ def generate_spontaneous(topic, model=None, *, resume=None, on_progress=None):
 
     if resume is not None:
         report()
-    round1 = _round1(topic, model, '', result=state['round1'], on_batch=report)
-    game = _patch_notes(topic, model, '', result=state['game'], on_batch=report)
+    round1 = _round1(topic, model, '', format, result=state['round1'], on_batch=report)
+    game = _game_batches(topic, model, '', format, result=state['game'], on_batch=report)
     if state['intro'] is None:
-        state['intro'] = _intro(topic, round1, game, model, _INTRO_FIELDS, '')
+        framing_fields = tuple(field for field in _INTRO_FIELDS if field != 'warmup')
+        state['intro'] = {
+            **_intro(topic, round1, game, model, framing_fields, ''),
+            'warmup': list(_DEFAULT_WARMUPS),
+        }
         report()
-    return validate_spontaneous({**state['intro'], 'round1': round1, 'game': game})
+    return validate_discussion({**state['intro'], 'round1': round1, 'game': game}, format)
 
 
 def regenerate_spontaneous_section(topic, content, section, model, feedback=''):
     """Return a new draft with just the chosen section replaced."""
+    return regenerate_discussion_section(topic, content, section, model, feedback,
+                                         _SPONTANEOUS, _demo_spontaneous)
+
+
+def regenerate_discussion_section(topic, content, section, model, feedback, format, demo):
     topic = _topic(topic)
-    validate_spontaneous(content)
-    if section not in _CONTENT['properties']:
-        raise ValueError('Unknown Spontaneous Talk section.')
+    validate_discussion(content, format)
+    if section not in content:
+        raise ValueError('Unknown discussion section.')
     feedback = feedback.strip()[:1500]
     if model is None:
-        value = _demo_spontaneous()[section]
+        value = demo()[section]
     elif section == 'round1':
-        value = _round1(topic, model, feedback)
+        value = _round1(topic, model, feedback, format)
     elif section == 'game':
-        value = _patch_notes(topic, model, feedback)
+        value = _game_batches(topic, model, feedback, format)
     else:
         value = _intro(topic, content['round1'], content['game'], model, (section,), feedback)[section]
-    return validate_spontaneous({**content, section: value})
+    return validate_discussion({**content, section: value}, format)

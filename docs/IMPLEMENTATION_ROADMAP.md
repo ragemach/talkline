@@ -36,25 +36,35 @@ the concept and approved sample, not a universal 23-slide structure. Every sessi
 has one or two HTML games; Game Night has two. Preserve invitation source geometry
 and aspect ratio. See [research and decisions](ARCHITECTURE_DECISION_FA.md).
 
-## Verified foundation, not a finished product
+## Current implementation
 
 Windows/Python 3.14 bootstrap, local Ollama qwen3:8b, critique and section
 regeneration, saved event defaults, original-template invitation export and five
-concept presets are present. The saved-run milestone passed 160 tests.
-The prototype now packages a five-slide presentation and a playable two-card
-Patch Notes HTML game. Toolkit slides use content-sized panels and separate level
-and grammar pages. Full decks, full game card sets and publishing are pending.
+invitation styles are present. The Windows launcher health check passed.
 
-## R0 — shared session plan and template blueprints (next)
+Spontaneous Talk, Business English and Game Night can build complete offline Demo
+kits. Each produces an editable presentation with speaker notes, a Toolkit with
+separate levels and grammar, a host guide, game files, and an original-template
+invitation GIF. Spontaneous Talk includes ten tiered discussions followed by
+Patch Notes. Business English uses its blue reference deck with Smart or Sneaky. Game
+Night has Taboo before the break and Problem Solver after it. Each game uses
+twenty Elementary and twenty Advanced cards. The two game difficulty bands and
+three forbidden clues for Taboo follow the current HTML contract. The Toolkit
+retains its three learner groups.
+
+Pop Culture and Culture Exchange still use a short prototype. Live Business AI
+generation needs a test on a fresh topic. Online game publishing, Canva import
+verification, and broader weekly-use testing remain open.
+
+## R0 — shared session plan and template blueprints
 
 Spontaneous Talk now has a reproducible reference inventory:
 `scripts/catalogue_templates.py` creates `templates/spontaneous.blueprint.json`.
 It records all 23 source slides, nested text shape paths, local geometry, run
 font information, notes and a source fingerprint. Explicit bindings identify
 48 fields for the cover, warm-up, ten discussion cards and cooldown. Source
-changes and missing bound fields are rejected. This is a structural inventory,
-not a rendered deck or visual approval. Toolkit pagination, grammar and game
-bindings, hyperlinks, full rendering and UI integration remain pending.
+changes and missing bound fields are rejected. The Spontaneous Talk and Game
+Night renderers create native slides and use the matching offline game links.
 
 The prototype saves its latest successful draft and matching ZIP locally. The
 app restores the saved event details on reopening and hides downloads when the
@@ -63,15 +73,15 @@ attempts leave the previous successful work available.
 
 Started: `src/session_plan.py` validates ordered game slots, code-assigned IDs,
 supported mechanics and per-concept game counts. This is a planning foundation
-only, not the full v2 content schema or UI integration. Template blueprints,
-checkpoints and full UI integration remain pending.
+for the shared plan. The app uses the same meeting sequence for preview and export.
 
 Added `src/game_content.py`: mechanic-specific payload validation and binding to
 ordered slots. Taboo has a target and three forbidden words; Problem Solver has
 a situation and challenge; choice games retain choices/outcomes. Each payload
 requires twenty cards per level, rejects duplicate identities and model-provided
-IDs, and receives stable IDs during binding. These are structural checks, not
-CEFR certification. The new pipeline is not yet connected to generation/rendering.
+IDs, and receives stable IDs during binding. Full-session demos and local
+generation use the structural validators. Check language level and relevance
+when reviewing the generated material.
 
 - Introduce version 2 without silently reinterpreting the existing v1 contract:
   concept, template, event metadata, ordered activities, games[], levelled Toolkit,

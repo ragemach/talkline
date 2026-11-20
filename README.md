@@ -7,7 +7,7 @@ TalkLine Studio builds a reusable English-speaking session kit on your own compu
 1. Clone or download this repository and open the extracted folder.
 2. Install Python 3.14 and LibreOffice if they are missing.
 3. Double-click `START_WINDOWS.bat`. It creates a virtual environment and installs the app's Python dependencies on first launch.
-4. Open [TalkLine Studio](http://127.0.0.1:8501). Choose **Demo (offline)** and **Spontaneous Talk**, enter a topic, then generate and export.
+4. Open [TalkLine Studio](http://127.0.0.1:8501). Choose **Demo** and one of **Spontaneous Talk**, **Business English**, or **Game Night**, then generate and export. Demo follows fixed reference activities. Use Local Ollama for a new topic.
 5. For your own AI-written content, install Ollama and download a local model. The Windows setup was exercised with Python 3.14.5 and `qwen3:8b`. See the [local Ollama guide](docs/LOCAL_AI_FA.md).
 
 Internet is needed for the initial downloads. Routine generation and ZIP export run locally. The published feedback form requires internet when opened.
@@ -15,10 +15,12 @@ Internet is needed for the initial downloads. Routine generation and ZIP export 
 ## What works today
 
 - **Spontaneous Talk** creates an editable deck, a levelled Toolkit, ten tiered discussion cards, a 40-card offline Patch Notes game, an invitation and a host guide.
+- **Business English** uses the approved blue slides, ten tiered business discussions and a 40-card Smart or Sneaky game.
+- **Game Night** includes Taboo, a 20-minute break and Problem Solver. Each game has 40 cards and its own offline HTML file. The editable deck and host guide link to both.
 - **Toolkit** keeps A1/A2, B1 and B2/C1 in separate groups. Vocabulary, phrases and idioms include Turkish meanings and English usage examples. Mini grammar gets separate slides.
 - **Invitations** use one of the supplied styles and keep the source aspect ratio. The ZIP includes the editable invitation, a still image and an animated GIF.
-- **Save and resume** reopens the last saved draft and matching ZIP. An interrupted Spontaneous Talk generation can resume from the last completed batch for the same topic and model.
-- **Other concepts** are in development and still use the shorter prototype in the app. Game Night and Business English have separate offline game exporters under development.
+- **Save and resume** reopens the last saved draft and matching ZIP. Interrupted full-session generation can resume from the last completed batch for the same topic, concept and model.
+- **Pop Culture and Culture Exchange** still use the shorter prototype in the app. Online game hosting is a separate roadmap item.
 
 Extract the ZIP before opening the PowerPoint or host guide so their relative game links work. Review generated English and Turkish before presenting.
 

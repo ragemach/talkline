@@ -1,16 +1,20 @@
-"""Local editor for one part of the Spontaneous Talk draft."""
+"""Edit one part of a full session without regenerating the rest."""
 from copy import deepcopy
 
 import streamlit as st
 
 from src.checkpoints import content_fingerprint
-from src.spontaneous_content import validate_spontaneous
 
 
-def edit_spontaneous(brief):
+def edit_session(brief, validate):
     with st.expander('Edit a section'):
-        section = st.selectbox('Which part?', ['Opening and warm-up', 'Round 1 question',
-                                              'Round 2 game card', 'Wrap-up'], key='edit_session_part')
+        sections = ['Opening and warm-up']
+        if 'round1' in brief:
+            sections.append('Round 1 question')
+        else:
+            sections.append('Round 1 game card')
+        sections.extend(['Round 2 game card', 'Wrap-up'])
+        section = st.selectbox('Which part?', sections, key='edit_session_part')
         revision = content_fingerprint(brief)[:16]
         edited = deepcopy(brief)
         if section == 'Round 1 question':
@@ -23,17 +27,20 @@ def edit_spontaneous(brief):
                     card[level] = st.text_area(f'{level.upper()} question', value=card[level],
                                                max_chars=115 if level == 'a2' else 165).strip()
                 submitted = st.form_submit_button('Save question')
-        elif section == 'Round 2 game card':
+        elif section.endswith('game card'):
+            if 'games' in edited:
+                round_index = 0 if section.startswith('Round 1') else 1
+                game = edited['games'][round_index]
+            else:
+                game = edited['game']
+            mechanic = game['mechanic']
+            identity = 'word' if mechanic == 'taboo' else 'title'
             level = st.selectbox('Playing level', ['elementary', 'advanced'], format_func=str.title)
-            cards = brief['game'][level]
+            cards = game[level]
             index = st.selectbox('Game card', range(len(cards)),
-                                 format_func=lambda n: f"{n + 1}. {cards[n]['title']}")
-            with st.form(f'session_edit_{revision}_game_{level}_{index}'):
-                card = edited['game'][level][index]
-                fields = {'title': 'Card title', 'scenario': 'Glitch', 'choice_a': 'Patch A',
-                          'outcome_a': 'Outcome A', 'choice_b': 'Patch B', 'outcome_b': 'Outcome B'}
-                for field, label in fields.items():
-                    card[field] = st.text_area(label, value=card[field], max_chars=240).strip()
+                                 format_func=lambda n: f"{n + 1}. {cards[n][identity]}")
+            with st.form(f'session_edit_{revision}_{mechanic}_{level}_{index}'):
+                _edit_game_fields(cards[index], mechanic)
                 submitted = st.form_submit_button('Save game card')
         elif section == 'Opening and warm-up':
             with st.form(f'session_edit_{revision}_opening'):
@@ -48,7 +55,27 @@ def edit_spontaneous(brief):
         if not submitted:
             return None
         try:
-            return validate_spontaneous(edited)
+            return validate(edited)
         except ValueError as exc:
             st.error(f'This edit could not be saved. {exc}')
             return None
+
+
+def _edit_game_fields(card, mechanic):
+    if mechanic == 'taboo':
+        card['word'] = st.text_input('Target word', value=card['word'], max_chars=70).strip()
+        card['forbidden'] = [
+            st.text_input(f'Forbidden clue {index}', value=clue, max_chars=70).strip()
+            for index, clue in enumerate(card['forbidden'], 1)
+        ]
+        return
+    if mechanic == 'problem_solver':
+        fields = {'title': ('Card title', 70), 'situation': ('Situation', 240), 'challenge': ('Challenge', 240)}
+    else:
+        scenario, first, second = ('Glitch', 'Patch A', 'Patch B') if mechanic == 'patch_notes' else (
+            'Situation', 'Smart argument', 'Sneaky argument')
+        fields = {'title': ('Card title', 240), 'scenario': (scenario, 240),
+                  'choice_a': (first, 240), 'outcome_a': ('Outcome A', 240),
+                  'choice_b': (second, 240), 'outcome_b': ('Outcome B', 240)}
+    for field, (label, limit) in fields.items():
+        card[field] = st.text_area(label, value=card[field], max_chars=limit).strip()

@@ -6,11 +6,20 @@ from pathlib import Path
 import tempfile
 
 SPONTANEOUS_PROGRESS_PATH = Path(__file__).resolve().parents[1] / 'user_data' / 'spontaneous-progress.json'
+GAME_NIGHT_PROGRESS_PATH = SPONTANEOUS_PROGRESS_PATH.with_name('game-night-progress.json')
+BUSINESS_PROGRESS_PATH = SPONTANEOUS_PROGRESS_PATH.with_name('business-progress.json')
 
 
-def load_spontaneous_progress(topic, model):
+def _progress_path(concept):
+    return {
+        'spontaneous': SPONTANEOUS_PROGRESS_PATH, 'game_night': GAME_NIGHT_PROGRESS_PATH,
+        'business': BUSINESS_PROGRESS_PATH,
+    }[concept]
+
+
+def load_session_progress(concept, topic, model):
     try:
-        saved = load_checkpoint(SPONTANEOUS_PROGRESS_PATH)
+        saved = load_checkpoint(_progress_path(concept))
     except FileNotFoundError:
         return None
     if (saved.get('topic'), saved.get('model')) != (topic, model):
@@ -21,13 +30,13 @@ def load_spontaneous_progress(topic, model):
     return progress
 
 
-def save_spontaneous_progress(topic, model, progress):
-    save_checkpoint(SPONTANEOUS_PROGRESS_PATH, {'topic': topic, 'model': model, 'progress': progress})
+def save_session_progress(concept, topic, model, progress):
+    save_checkpoint(_progress_path(concept), {'topic': topic, 'model': model, 'progress': progress})
 
 
-def clear_spontaneous_progress(topic, model, progress):
-    if progress is not None and load_spontaneous_progress(topic, model) == progress:
-        SPONTANEOUS_PROGRESS_PATH.unlink(missing_ok=True)
+def clear_session_progress(concept, topic, model, progress):
+    if progress is not None and load_session_progress(concept, topic, model) == progress:
+        _progress_path(concept).unlink(missing_ok=True)
 
 
 def content_fingerprint(content: dict) -> str:

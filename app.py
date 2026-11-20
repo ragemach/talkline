@@ -1,4 +1,4 @@
-"""TalkLine Studio • Phase 1 — zero-fee local proof of concept."""
+"""TalkLine Studio's local session workspace."""
 from __future__ import annotations
 import json
 import hashlib
@@ -6,7 +6,8 @@ import zipfile
 from io import BytesIO
 import streamlit as st
 from src.ai_content import available_models, create_with_ollama, demo_brief, review_brief, regenerate_section, repair_reviewed_brief
-from src.game_export import GAME_FILENAME
+from src.business_content import generate_business, regenerate_business_section, validate_business
+from src.game_night_content import generate_game_night, validate_game_night
 from src.invitation_content import LABELS
 from src.settings import EventDetails, UserSettings, load_settings, save_settings
 from src.toolkit import generate_toolkit, LEVEL_LABELS
@@ -14,8 +15,7 @@ from src.toolkit_export import toolkit_html
 from src.toolkit_library import sample_toolkit
 from src.toolkit_pptx import build_toolkit_pptx
 from src.checkpoints import (
-    clear_spontaneous_progress, content_fingerprint, load_spontaneous_progress,
-    save_spontaneous_progress,
+    clear_session_progress, content_fingerprint, load_session_progress, save_session_progress,
 )
 from src.run_state import (
     DEMO_MODE, LOCAL_MODE, draft_from_state, export_revision,
@@ -24,13 +24,23 @@ from src.run_state import (
 from src.run_store import load_run, save_run
 from src.host_guide import HOST_GUIDE_FILENAME
 from src.session_export import build_session_export
-from src.session_editor import edit_spontaneous
-from src.spontaneous_content import generate_spontaneous, regenerate_spontaneous_section
+from src.session_editor import edit_session
+from src.spontaneous_content import generate_spontaneous, regenerate_spontaneous_section, validate_spontaneous
 from src.spontaneous_demo_toolkit import demo_spontaneous_toolkit
 from src.session_sequence import (
-    FULL_SPONTANEOUS, TOOLKIT_HTML_FILENAME, TOOLKIT_PPTX_FILENAME,
-    build_prototype_sequence, presentation_filename,
+    FULL_BUSINESS, FULL_GAME_NIGHT, FULL_SPONTANEOUS, FULL_WORKFLOWS, TOOLKIT_HTML_FILENAME,
+    TOOLKIT_PPTX_FILENAME, build_session_sequence, game_filenames, presentation_filename,
 )
+
+SESSION_GENERATORS = {
+    FULL_SPONTANEOUS: generate_spontaneous, FULL_BUSINESS: generate_business, FULL_GAME_NIGHT: generate_game_night,
+}
+SESSION_VALIDATORS = {
+    FULL_SPONTANEOUS: validate_spontaneous, FULL_BUSINESS: validate_business, FULL_GAME_NIGHT: validate_game_night,
+}
+SECTION_REGENERATORS = {
+    FULL_SPONTANEOUS: regenerate_spontaneous_section, FULL_BUSINESS: regenerate_business_section,
+}
 
 
 def save_current_run():
@@ -78,11 +88,11 @@ def restore_run_once():
                 raise ValueError('The ZIP belongs to a different version of the saved work.')
             with zipfile.ZipFile(BytesIO(saved.package)) as archive:
                 metadata = saved.draft['metadata']
-                required = {presentation_filename(metadata), GAME_FILENAME, HOST_GUIDE_FILENAME, 'content.json',
+                required = {presentation_filename(metadata), *game_filenames(metadata), HOST_GUIDE_FILENAME, 'content.json',
                             'TalkLine_Invitation.gif', 'TalkLine_Invitation.png', 'TalkLine_Invitation.pptx'}
                 if toolkit_for_event(saved.draft) is not None:
                     required.add(TOOLKIT_HTML_FILENAME)
-                    if metadata.get('workflow') != FULL_SPONTANEOUS:
+                    if metadata.get('workflow') not in FULL_WORKFLOWS.values():
                         required.add(TOOLKIT_PPTX_FILENAME)
                 if not required <= set(archive.namelist()) or archive.testzip() is not None:
                     raise ValueError('The saved ZIP is incomplete or damaged.')
@@ -97,7 +107,7 @@ def restore_run_once():
             st.session_state['package_revision'] = saved.export_revision
 
 
-st.set_page_config(page_title='TalkLine Studio • Local Starter',page_icon='⚡',layout='centered')
+st.set_page_config(page_title='TalkLine Studio',page_icon='⚡',layout='centered')
 restore_run_once()
 st.markdown('''<style>
 html {font-size:18px}
@@ -107,7 +117,7 @@ button, input, textarea {font-size:1rem !important}
 
 st.title('⚡ TalkLine Studio')
 st.caption('Your personal session workspace')
-st.info('Choose Spontaneous Talk for the full session workflow. Other concepts currently use the short prototype.')
+st.info('Choose Spontaneous Talk, Business English, or Game Night for a full session.')
 
 if 'defaults' not in st.session_state:
     try:
@@ -175,7 +185,7 @@ with st.sidebar:
         else:
             st.warning('Ollama or qwen3:8b is not ready. Install Ollama and run: `ollama pull qwen3:8b`')
         st.caption('Local generation may take several minutes on CPU. No cloud account is used.')
-        if concept != 'spontaneous':
+        if concept not in FULL_WORKFLOWS:
             auto_review=st.checkbox('Review language levels and game logic automatically (local AI)',value=True)
 
 with st.expander('Topic Toolkit · vocabulary, phrases and mini grammar'):
@@ -241,21 +251,22 @@ with st.expander('Topic Toolkit · vocabulary, phrases and mini grammar'):
                                file_name='TalkLine_Toolkit.pptx', mime='application/vnd.openxmlformats-officedocument.presentationml.presentation')
         st.caption('Toolkit PowerPoint uses your Business English template. The complete session presentation is still in development.')
 
-full_workflow_selected = concept == 'spontaneous'
-generate_label = 'Generate Spontaneous Talk session' if full_workflow_selected else 'Generate prototype'
+selected_workflow = FULL_WORKFLOWS.get(concept)
+full_workflow_selected = selected_workflow is not None
+generate_label = f'Generate {LABELS[concept]} session' if full_workflow_selected else 'Generate prototype'
 generation_model = selected_model if mode == LOCAL_MODE else None
 pending = None
 start_over = False
 if full_workflow_selected and generation_model and topic.strip():
     try:
-        pending = load_spontaneous_progress(topic.strip(), generation_model)
+        pending = load_session_progress(concept, topic.strip(), generation_model)
     except (ValueError, OSError) as exc:
         st.warning(f'An unfinished session could not be read. A new run can still start. {exc}')
     if pending is not None:
-        generate_label = 'Resume Spontaneous Talk generation'
+        generate_label = f'Resume {LABELS[concept]} generation'
         start_over = st.checkbox('Start over with new content', key='restart_full_generation')
         if start_over:
-            generate_label = 'Generate new Spontaneous Talk session'
+            generate_label = f'Generate new {LABELS[concept]} session'
 
 if st.button(generate_label,key='generate',type='primary',use_container_width=True,disabled=not topic.strip() or (mode.startswith('Local') and not models)):
     latest_progress = {'checkpoint': None if start_over else pending}
@@ -266,28 +277,37 @@ if st.button(generate_label,key='generate',type='primary',use_container_width=Tr
                               for key in ('toolkit', 'event_toolkit'))
             if not has_toolkit:
                 with st.spinner('Creating the session Toolkit...'):
-                    material = (generate_toolkit(topic, generation_model) if generation_model
-                                else demo_spontaneous_toolkit(topic))
+                    if generation_model:
+                        material = generate_toolkit(topic, generation_model)
+                    elif selected_workflow == FULL_GAME_NIGHT:
+                        from src.game_night_demo_toolkit import demo_game_night_toolkit
+                        material = demo_game_night_toolkit(topic)
+                    elif selected_workflow == FULL_BUSINESS:
+                        material = sample_toolkit()
+                        material['topic'] = topic.strip()
+                    else:
+                        material = demo_spontaneous_toolkit(topic)
                 set_toolkit(st.session_state, material)
                 save_current_run()
-            with st.spinner('Creating warm-up, discussion, and game cards...'):
+            generate_session = SESSION_GENERATORS[selected_workflow]
+            with st.spinner('Creating the warm-up and speaking activities...'):
                 if generation_model is None:
-                    brief = generate_spontaneous(topic)
+                    brief = generate_session(topic)
                 else:
                     progress_bar = st.progress(0, text='Preparing the local model...')
 
                     def record_progress(completed, total, checkpoint):
                         latest_progress['checkpoint'] = checkpoint
                         try:
-                            save_spontaneous_progress(topic.strip(), generation_model, checkpoint)
+                            save_session_progress(concept, topic.strip(), generation_model, checkpoint)
                         except (ValueError, OSError) as exc:
                             progress_bar.progress(completed / total, text=f'Completed batches: {completed} of {total}')
                             st.warning(f'Could not save this batch for later. {exc}')
                         else:
                             progress_bar.progress(completed / total, text=f'Saved batches: {completed} of {total}')
 
-                    brief = generate_spontaneous(topic, generation_model, resume=None if start_over else pending,
-                                                 on_progress=record_progress)
+                    brief = generate_session(topic, generation_model, resume=None if start_over else pending,
+                                             on_progress=record_progress)
         else:
             with st.spinner('Creating local speaking content...'):
                 brief = (create_with_ollama(topic, model=generation_model) if generation_model
@@ -302,7 +322,7 @@ if st.button(generate_label,key='generate',type='primary',use_container_width=Tr
         st.session_state['brief']=brief
         st.session_state['metadata']={'topic':topic.strip(),'venue':venue.strip(),'date':event_date.strip(),'time':event_time.strip(),'mode':mode,'model':selected_model if mode.startswith('Local') else None,'concept':concept}
         if full_workflow_selected:
-            st.session_state['metadata']['workflow'] = FULL_SPONTANEOUS
+            st.session_state['metadata']['workflow'] = selected_workflow
         if st.session_state.get('event_toolkit', {}).get('topic') != topic.strip():
             st.session_state.pop('event_toolkit', None)
         if mode.startswith('Demo') and topic.strip().casefold() == 'office boundaries':
@@ -313,7 +333,7 @@ if st.button(generate_label,key='generate',type='primary',use_container_width=Tr
         saved_to_disk = save_current_run()
         if saved_to_disk and full_workflow_selected and generation_model:
             try:
-                clear_spontaneous_progress(topic.strip(), generation_model, latest_progress['checkpoint'])
+                clear_session_progress(concept, topic.strip(), generation_model, latest_progress['checkpoint'])
             except (ValueError, OSError) as exc:
                 st.warning(f'The session is saved. Its unfinished progress file could not be cleared. {exc}')
         if auto_review and not full_workflow_selected:
@@ -336,7 +356,8 @@ if st.button(generate_label,key='generate',type='primary',use_container_width=Tr
 
 if st.session_state.get('brief'):
     brief=st.session_state['brief']; meta=st.session_state['metadata']
-    full_session = meta.get('workflow') == FULL_SPONTANEOUS
+    workflow = meta.get('workflow')
+    full_session = workflow in FULL_WORKFLOWS.values()
     current_inputs = {'topic': topic.strip(), 'venue': venue.strip(), 'date': event_date.strip(),
                       'time': event_time.strip(), 'concept': concept}
     inputs_match = all(meta.get(key) == value for key, value in current_inputs.items())
@@ -345,7 +366,7 @@ if st.session_state.get('brief'):
         st.button('Load saved event details', key='load_saved_inputs',
                   on_click=set_event_widgets, args=(st.session_state,))
     session_toolkit = toolkit_for_event(draft_from_state(st.session_state))
-    stages = build_prototype_sequence(brief, include_toolkit=session_toolkit is not None, full=full_session)
+    stages = build_session_sequence(meta, brief, include_toolkit=session_toolkit is not None)
     critical_issues=[]
     export_override=False
     st.caption('The export uses the event details shown below. Generate again to apply changes from the form.')
@@ -354,14 +375,16 @@ if st.session_state.get('brief'):
     st.write('**Topic:**',meta['topic'])
     st.write('**Subtitle:**',brief['subtitle'])
     st.write('**Warm-up:**',brief['warmup'])
-    st.write('**Round 1 discussion:**' if full_session else '**Round 1 sample:**')
-    st.json(brief['round1'],expanded=False)
+    if 'round1' in brief:
+        st.write('**Round 1 discussion:**' if full_session else '**Round 1 sample:**')
+        st.json(brief['round1'],expanded=False)
     if full_session:
         st.write('**Opening**', brief['opening'])
-        st.write('**Round 2 game**', brief['game']['title'])
-        st.caption(f"{len(brief['game']['elementary'])} Elementary and {len(brief['game']['advanced'])} Advanced cards")
-        with st.expander('Preview game cards'):
-            st.json(brief['game'], expanded=False)
+        games = brief['games'] if workflow == FULL_GAME_NIGHT else [brief['game']]
+        for game in games:
+            with st.expander(f"Preview {game['title']}"):
+                st.caption(f"{len(game['elementary'])} Elementary and {len(game['advanced'])} Advanced cards")
+                st.json(game, expanded=False)
         st.write('**Wrap-up**', brief['closing'])
     else:
         st.write('**Game sample:**')
@@ -411,13 +434,14 @@ if st.session_state.get('brief'):
                 except Exception as exc:
                     st.error(f'Section regeneration failed; previous valid content is retained: {exc}')
     if full_session:
-        updated = edit_spontaneous(brief)
+        updated = edit_session(brief, SESSION_VALIDATORS[workflow])
         if updated is not None:
             st.session_state['brief'] = updated
             save_current_run()
             st.rerun()
     revision = export_revision(draft_from_state(st.session_state))
-    if full_session and meta['model']:
+    regenerate_full_section = SECTION_REGENERATORS.get(workflow)
+    if regenerate_full_section and meta['model']:
         with st.expander('Regenerate one session section'):
             full_section = st.selectbox('Section', ['opening', 'warmup', 'round1', 'game', 'closing'],
                                         key='full_section')
@@ -425,7 +449,7 @@ if st.session_state.get('brief'):
             if st.button('Regenerate session section', key='regenerate_full'):
                 try:
                     with st.spinner('Rewriting and validating the selected section...'):
-                        revised = regenerate_spontaneous_section(
+                        revised = regenerate_full_section(
                             meta['topic'], brief, full_section, meta['model'], full_feedback)
                 except (ValueError, RuntimeError) as exc:
                     st.error(f'Section regeneration failed. {exc}')
@@ -462,8 +486,10 @@ if st.session_state.get('brief'):
                                file_name='TalkLine_Session.zip' if full_session else 'TalkLine_Studio_Prototype.zip',
                                mime='application/zip',use_container_width=True)
             st.caption('Extract the ZIP and open TalkLine_Host_Guide.html to follow the meeting sequence.')
-            st.download_button('Download offline speaking game', archive.read(GAME_FILENAME),
-                               file_name=GAME_FILENAME, mime='text/html')
+            filenames = game_filenames(meta)
+            labels = ('Download Taboo', 'Download Problem Solver') if workflow == FULL_GAME_NIGHT else ('Download offline speaking game',)
+            for label, filename in zip(labels, filenames, strict=True):
+                st.download_button(label, archive.read(filename), file_name=filename, mime='text/html')
             left,right=st.columns(2)
             with left:
                 st.download_button('Invitation GIF · original proportions',archive.read('TalkLine_Invitation.gif'),
