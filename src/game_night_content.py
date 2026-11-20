@@ -25,6 +25,12 @@ _BATCH_ANGLES = (
     'plans and surprises',
     'shared spaces and decisions',
 )
+_ADVANCED_PROBLEM_ANGLES = (
+    'making a fair decision about a limited budget',
+    'working out who is responsible when an agreement fails',
+    'resolving a conflict between two neighbourhood groups',
+    'restoring trust after a community event changes at short notice',
+)
 _ADVANCED_TABOO_ANGLES = (
     'recognizable terms for people, organizations and settings',
     'compact compound nouns and terms for processes or equipment',
@@ -327,7 +333,6 @@ def _generate_decks(topic, model, mechanic, result, on_batch):
         'maxItems': _BATCH_CANDIDATES,
     }})
     if mechanic == 'taboo':
-        identity = 'word'
         instructions = (
             'Use a common English word or short expression as the target. For each target, '
             'give exactly three short, obvious words or phrases someone would naturally use to '
@@ -337,7 +342,6 @@ def _generate_decks(topic, model, mechanic, result, on_batch):
             'The target must still be possible to describe without those clues.'
         )
     else:
-        identity = 'title'
         instructions = (
             'Write a short title, a concrete situation with a clear problem, and one challenge '
             'that asks players to propose and explain a practical solution. Use real-world '
@@ -349,7 +353,9 @@ def _generate_decks(topic, model, mechanic, result, on_batch):
             if level == 'elementary'
             else 'Use everyday B2 to C1 language and ideas. Avoid rare specialist words.'
         )
-        angles = _ADVANCED_TABOO_ANGLES if mechanic == 'taboo' and level == 'advanced' else _BATCH_ANGLES
+        angles = _BATCH_ANGLES
+        if level == 'advanced':
+            angles = _ADVANCED_TABOO_ANGLES if mechanic == 'taboo' else _ADVANCED_PROBLEM_ANGLES
         completed_batches = len(result[level]) // _BATCH_SIZE
         for angle in angles[completed_batches:]:
             earlier = result['elementary'] + result['advanced']
@@ -359,16 +365,16 @@ def _generate_decks(topic, model, mechanic, result, on_batch):
                 return _select_batch(mechanic, level, data['cards'], earlier)
 
             start = len(result[level]) + 1
+            context = {'topic': topic, 'angle': angle}
+            if mechanic == 'taboo':
+                context['earlier_entries'] = [card['word'] for card in earlier]
             result[level].extend(_request(
                 f'{_GAME_TITLES[mechanic]} {level}, cards {start} to {start + _BATCH_SIZE - 1}',
                 f'Write {_BATCH_CANDIDATES} original cards for this game about the topic or a closely related situation. '
                 f'{instructions} {level_guidance} Use the requested angle as a starting point. '
-                'Use the earlier entries as exclusions. Each card must work on its own.',
-                {
-                    'topic': topic,
-                    'angle': angle,
-                    'earlier_entries': [card[identity] for card in earlier],
-                },
+                'Use specific titles and different situations. Each card must work on its own. '
+                'If exclusions are supplied, do not use them as examples.',
+                context,
                 schema, validate, model,
             ))
             on_batch()

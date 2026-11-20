@@ -4,3 +4,6 @@
 *.gif binary
 *.png binary
 *.ttf binary
+
+# Keep the vendored data byte-for-byte consistent with its source manifest.
+references/open_language_profiles/*.csv -text whitespace=cr-at-eol
