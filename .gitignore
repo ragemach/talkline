@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.streamlit/secrets.toml
+output/
+dist/
+build/
+user_data/
+
+# Local work, credentials, and generated artifacts
+tmp/
+.env
+.env.*
+!.env.example

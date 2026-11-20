@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PATCH NOTES: REALITY UPDATE — TalkLine</title>
+<style>
+/* ==========================================================================
+   RESET & SYSTEM VARIABLES — LIQUID GLASS / REALITY GLITCH THEME
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --bg-dark: #0c0a1a;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #241442 0%, #110d24 50%, #080612 100%);
+  --glass-bg: rgba(28, 22, 53, 0.65);
+  --glass-bg-hover: rgba(38, 30, 72, 0.85);
+  --glass-border: rgba(168, 139, 250, 0.2);
+  --glass-border-glow: rgba(0, 240, 255, 0.4);
+  
+  --cyan: #00f0ff;
+  --cyan-glow: rgba(0, 240, 255, 0.25);
+  --purple: #a855f7;
+  --purple-glow: rgba(168, 85, 247, 0.25);
+  --amber: #f59e0b;
+  --amber-glow: rgba(245, 158, 11, 0.25);
+  --emerald: #10b981;
+  --emerald-glow: rgba(16, 185, 129, 0.25);
+  --rose: #f43f5e;
+  --rose-glow: rgba(244, 63, 94, 0.25);
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-dark);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  padding: 0;
+  line-height: 1.5;
+}
+
+#app {
+  width: 100%;
+  max-width: 680px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  #app {
+    padding: 24px 20px;
+  }
+}
+
+/* ==========================================================================
+   HEADER & TOP NAVIGATION
+   ========================================================================== */
+header.app-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(18, 14, 38, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 12px;
+  z-index: 100;
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+  color: #000;
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.brand-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #e2e8f0;
+}
+
+.mode-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(168, 85, 247, 0.15);
+  color: #d8b4fe;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.mode-tag.elementary {
+  background: rgba(0, 240, 255, 0.12);
+  color: #7dd3fc;
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  padding: 0;
+}
+
+.btn-icon:hover, .btn-icon:focus-visible {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+  outline: none;
+}
+
+.btn-icon svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* Progress Tracker Bar */
+.progress-container {
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  padding: 0 4px;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  border-radius: var(--radius-full);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+/* ==========================================================================
+   GLASS CARDS & CONTAINERS
+   ========================================================================= */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.36);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+/* ==========================================================================
+   BUTTONS & CONTROLS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  text-align: center;
+  user-select: none;
+  min-height: 50px;
+  line-height: 1.2;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
+  color: #ffffff;
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 4px 20px var(--cyan-glow);
+}
+
+.btn-primary:hover, .btn-primary:focus-visible {
+  background: linear-gradient(135deg, #0369a1 0%, #0891b2 100%);
+  box-shadow: 0 6px 24px rgba(0, 240, 255, 0.45);
+  outline: none;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-secondary:hover, .btn-secondary:focus-visible {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+.btn-patch {
+  width: 100%;
+  text-align: left;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  position: relative;
+  background: rgba(24, 18, 48, 0.85);
+  border: 1.5px solid var(--glass-border);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+.btn-patch:hover, .btn-patch:focus-visible {
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.btn-patch-a {
+  border-color: rgba(0, 240, 255, 0.35);
+}
+.btn-patch-a:hover, .btn-patch-a:focus-visible {
+  border-color: var(--cyan);
+  box-shadow: 0 8px 28px var(--cyan-glow);
+  background: rgba(18, 32, 60, 0.95);
+}
+
+.btn-patch-b {
+  border-color: rgba(168, 85, 247, 0.35);
+}
+.btn-patch-b:hover, .btn-patch-b:focus-visible {
+  border-color: var(--purple);
+  box-shadow: 0 8px 28px var(--purple-glow);
+  background: rgba(38, 20, 64, 0.95);
+}
+
+.patch-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+
+.patch-tag-a {
+  background: rgba(0, 240, 255, 0.15);
+  color: var(--cyan);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.patch-tag-b {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.patch-text {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #f1f5f9;
+}
+
+/* ==========================================================================
+   DECISION BUTTONS (KEEP & RESET)
+   ========================================================================== */
+.decision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-keep {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.35) 100%);
+  border: 1.5px solid var(--emerald);
+  color: #6ee7b7;
+  padding: 16px 12px;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 16px var(--emerald-glow);
+}
+
+.btn-keep:hover, .btn-keep:focus-visible {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.35) 0%, rgba(5, 150, 105, 0.55) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--emerald-glow);
+  color: #fff;
+  outline: none;
+}
+
+.btn-reset {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.2) 0%, rgba(225, 29, 72, 0.35) 100%);
+  border: 1.5px solid var(--rose);
+  color: #fda4af;
+  padding: 16px 12px;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 16px var(--rose-glow);
+}
+
+.btn-reset:hover, .btn-reset:focus-visible {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.35) 0%, rgba(225, 29, 72, 0.55) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--rose-glow);
+  color: #fff;
+  outline: none;
+}
+
+.btn-subtext {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   SCREENS & STAGES
+   ========================================================================== */
+.screen {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.screen.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   SCREEN 1 — START / INTRO
+   ========================================================================== */
+.hero-box {
+  text-align: center;
+  padding: 24px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.event-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.hero-title {
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 30%, var(--cyan) 75%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 480px) {
+  .hero-title {
+    font-size: 36px;
+  }
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 520px;
+  line-height: 1.5;
+}
+
+/* Mode Selection Cards */
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 560px) {
+  .mode-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.mode-card {
+  background: rgba(24, 18, 48, 0.7);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.mode-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.mode-card.elem::before {
+  background: linear-gradient(90deg, var(--cyan), #38bdf8);
+}
+
+.mode-card.adv::before {
+  background: linear-gradient(90deg, var(--purple), #ec4899);
+}
+
+.mode-card:hover, .mode-card:focus-visible {
+  transform: translateY(-3px);
+  background: rgba(34, 25, 68, 0.9);
+  outline: none;
+}
+
+.mode-card.elem:hover, .mode-card.elem:focus-visible {
+  border-color: var(--cyan);
+  box-shadow: 0 10px 30px var(--cyan-glow);
+}
+
+.mode-card.adv:hover, .mode-card.adv:focus-visible {
+  border-color: var(--purple);
+  box-shadow: 0 10px 30px var(--purple-glow);
+}
+
+.mode-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mode-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.mode-desc {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.45;
+  flex-grow: 1;
+}
+
+.mode-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.card-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--amber);
+}
+
+.start-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  transition: transform var(--transition-fast);
+}
+
+.mode-card:hover .start-arrow {
+  transform: translateX(3px);
+  background: #fff;
+  color: #000;
+}
+
+/* How to Play Guide */
+.how-to-play {
+  padding: 18px;
+  background: rgba(18, 14, 38, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  margin-top: 8px;
+}
+
+.guide-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.step-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 520px) {
+  .step-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-text strong {
+  color: #f1f5f9;
+  font-size: 13px;
+  display: block;
+}
+
+.step-text span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   GLITCH CARD VIEW (SCREEN 2)
+   ========================================================================== */
+.card-header-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.card-id-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.1);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.scenario-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.glitch-box {
+  background: rgba(12, 9, 28, 0.8);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  border-left: 4px solid var(--rose);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.glitch-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 6px;
+}
+
+.glitch-desc {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: #f8fafc;
+  line-height: 1.45;
+}
+
+/* Speaking Prompts Box */
+.prompts-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.prompts-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.prompt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prompt-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.prompt-item::before {
+  content: "💬";
+  font-size: 12px;
+  margin-top: 1px;
+}
+
+/* Accordion Toolkit Box */
+.toolkit-accordion {
+  background: rgba(20, 16, 44, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: var(--radius-md);
+  margin-bottom: 18px;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.toolkit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.toolkit-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #d8b4fe;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toolkit-toggle-icon {
+  font-size: 12px;
+  color: #c084fc;
+  transition: transform var(--transition-fast);
+}
+
+.toolkit-content {
+  display: none;
+  padding: 12px 14px;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid rgba(168, 85, 247, 0.15);
+}
+
+.toolkit-content.open {
+  display: flex;
+}
+
+.toolkit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+}
+
+.toolkit-row-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tk-phrase {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.tk-meaning {
+  font-size: 12px;
+  color: var(--cyan);
+  font-style: italic;
+}
+
+.tk-example {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Patch Selection Section */
+.patch-section-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.patches-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   CONSEQUENCE / PLOT TWIST VIEW (SCREEN 3)
+   ========================================================================== */
+.selected-patch-banner {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+
+.selected-patch-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.selected-patch-content {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.4;
+}
+
+.plot-twist-card {
+  background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.18) 0%, rgba(20, 14, 40, 0.95) 70%);
+  border: 1.5px solid var(--amber);
+  border-radius: var(--radius-lg);
+  padding: 22px 18px;
+  box-shadow: 0 10px 36px var(--amber-glow);
+  position: relative;
+  overflow: hidden;
+  animation: pulseGlow 2.5s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  from { box-shadow: 0 6px 24px var(--amber-glow); }
+  to { box-shadow: 0 12px 40px rgba(245, 158, 11, 0.4); }
+}
+
+.plot-twist-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.twist-badge {
+  background: var(--amber);
+  color: #000;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.twist-text {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.reaction-prompt {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #fde68a;
+  border-left: 3px solid var(--amber);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   FEEDBACK ACKNOWLEDGEMENT & NEXT BUTTON
+   ========================================================================== */
+.ack-box {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  margin-top: 14px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.ack-box.keep {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid var(--emerald);
+  color: #6ee7b7;
+}
+
+.ack-box.reset {
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid var(--rose);
+  color: #fda4af;
+}
+
+.ack-title {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.ack-text {
+  font-size: 13px;
+  opacity: 0.95;
+}
+
+/* ==========================================================================
+   COMPLETION SCREEN
+   ========================================================================== */
+.complete-hero {
+  text-align: center;
+  padding: 30px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.complete-icon {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.complete-title {
+  font-size: 32px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--cyan), #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin: 8px 0;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.stat-num.keep { color: var(--emerald); }
+.stat-num.reset { color: var(--rose); }
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   MODAL DIALOG (CONFIRM RESTART / CHANGE LEVEL)
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-backdrop.open {
+  display: flex;
+}
+
+.modal-box {
+  background: #181430;
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 380px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.modal-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.modal-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & REDUCED MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+
+/* Final accessibility and responsive refinements */
+:root { --text-muted: #b2bfd1; --text-dim: #9aa9bf; }
+html { scroll-behavior: smooth; }
+body { overflow-y: auto; }
+#app { max-width: 860px; min-width: 0; min-height: 100svh; padding-left: max(12px, env(safe-area-inset-left)); padding-right: max(12px, env(safe-area-inset-right)); padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+.glass-panel, .mode-card, .how-to-play, .toolkit-accordion { min-width: 0; }
+.glass-panel { overflow: visible; }
+.scenario-title, .glitch-desc, .patch-text, .selected-patch-content, .twist-text, .prompt-item, .step-text, .modal-text { overflow-wrap: anywhere; }
+.btn-icon { width: 44px; height: 44px; flex: 0 0 44px; }
+.btn { min-height: 52px; }
+.btn-patch { min-height: 88px; width: 100%; }
+.btn-patch.selected { outline: 2px solid var(--cyan); outline-offset: 2px; background: rgba(0, 240, 255, 0.12); }
+.btn-patch-b.selected { outline-color: var(--purple); background: rgba(168, 85, 247, 0.14); }
+.toolkit-header { width: 100%; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; min-height: 48px; }
+.toolkit-header:focus-visible { outline: 2px solid var(--cyan); outline-offset: -3px; }
+.toolkit-content { max-height: min(48vh, 420px); overflow-y: auto; overscroll-behavior: contain; }
+.toolkit-item { min-width: 0; }
+.tk-phrase, .tk-meaning, .tk-example { overflow-wrap: anywhere; }
+.prompt-list { min-width: 0; }
+.prompt-item { min-width: 0; }
+.decision-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.btn-keep, .btn-reset { min-width: 0; min-height: 64px; }
+.modal-backdrop { overflow-y: auto; }
+.modal-box { max-height: calc(100svh - 40px); overflow-y: auto; }
+:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+button { touch-action: manipulation; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+@media (min-width: 900px) { #app { max-width: 900px; } }
+@media (max-width: 380px) {
+  #app { padding: 10px 12px 20px; }
+  header.app-header { padding: 8px 9px; gap: 6px; }
+  .brand-title { font-size: 12px; }
+  .brand-badge { gap: 6px; }
+  .nav-actions { gap: 4px; }
+  .btn-icon { width: 40px; height: 40px; flex-basis: 40px; }
+  .glass-panel { padding: 16px; }
+  .hero-title { font-size: 27px; }
+  .scenario-title { font-size: 20px; }
+  .glitch-desc { font-size: 15px; }
+  .patch-text { font-size: 14px; }
+  .decision-grid { grid-template-columns: 1fr; gap: 10px; }
+  .btn-keep, .btn-reset { min-height: 58px; }
+  .card-header-meta { align-items: flex-start; gap: 7px; flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .plot-twist-card { animation: none !important; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ========================================================================
+       TOP HEADER (STATIONARY ON ALL SCREENS)
+       ======================================================================== -->
+  <header class="app-header" id="appHeader">
+    <div class="brand-badge">
+      <div class="brand-icon">⚡</div>
+      <div class="brand-title">TalkLine</div>
+      <div class="mode-tag" id="headerModeTag" style="display: none;">A2–B1</div>
+    </div>
+    
+    <div class="nav-actions">
+      <button class="btn-icon" id="btnBack" title="Back" aria-label="Go Back" style="display: none;">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <button class="btn-icon" id="btnRestart" title="Restart Level" aria-label="Restart Level" style="display: none;">
+        <svg viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+      </button>
+      <button class="btn-icon" id="btnChangeMode" title="Change Mode" aria-label="Change Mode" style="display: none;">
+        <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       PROGRESS BAR (VISIBLE IN PLAY MODES)
+       ======================================================================== -->
+  <div class="progress-container" id="progressContainer" style="display: none;">
+    <div class="progress-header">
+      <span id="progressText">GLITCH 01 / 20</span>
+      <span id="progressPercent">5%</span>
+    </div>
+    <div class="progress-bar-bg" role="progressbar" aria-label="Level progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="5">
+      <div class="progress-bar-fill" id="progressBarFill" style="width: 5%;"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       SCREEN 1 — START / MODE SELECTION
+       ======================================================================== -->
+  <section class="screen active" id="screenStart">
+    <div class="glass-panel hero-box">
+      <div class="event-pill">SPONTANEOUS TALK • ROUND 2</div>
+      <h1 class="hero-title" id="startTitle" tabindex="-1">PATCH NOTES:<br>REALITY UPDATE</h1>
+      <p class="hero-sub">
+        Reality has glitched! Everyday life suddenly follows strange rules.
+        Examine the glitch, debate two emergency patches, and face the unexpected plot twist!
+      </p>
+    </div>
+
+    <!-- Mode Selection Cards -->
+    <div class="mode-grid">
+      <!-- ELEMENTARY -->
+      <div class="mode-card elem" id="btnModeElem" tabindex="0" role="button" aria-label="Start Elementary Mode A2 to B1">
+        <div class="mode-card-header">
+          <div class="mode-title">ELEMENTARY</div>
+          <span class="mode-tag elementary">A2 – B1</span>
+        </div>
+        <p class="mode-desc">
+          Accessible, spontaneous, funny everyday glitches. Clear spoken English for relaxed, lively conversations.
+        </p>
+        <div class="mode-footer">
+          <span class="card-count">20 Cards</span>
+          <div class="start-arrow">→</div>
+        </div>
+      </div>
+
+      <!-- ADVANCED -->
+      <div class="mode-card adv" id="btnModeAdv" tabindex="0" role="button" aria-label="Start Advanced Mode B2 to C1">
+        <div class="mode-card-header">
+          <div class="mode-title">ADVANCED</div>
+          <span class="mode-tag">B2 – C1</span>
+        </div>
+        <p class="mode-desc">
+          Imaginative, clever, debatable social dilemmas. Nuanced trade-offs, philosophical twists, and deeper debates.
+        </p>
+        <div class="mode-footer">
+          <span class="card-count">20 Cards</span>
+          <div class="start-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How to Play 4-Step Guide -->
+    <div class="how-to-play">
+      <div class="guide-title">
+        <span>⚡</span> How to Play in 4 Steps
+      </div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong>Examine the Glitch</strong>
+            <span>Host reads the broken reality rule out loud to the group.</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong>Debate the Patches</strong>
+            <span>Compare Patch A vs Patch B using your Toolkit phrases.</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <strong>Face the Plot Twist!</strong>
+            <span>Host reveals ONLY your chosen patch's hidden consequence.</span>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text">
+            <strong>Keep or Reset</strong>
+            <span>Vote as a group: live with the patch (KEEP) or revert reality (RESET)?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SCREEN 2 — GLITCH VIEW
+       ======================================================================== -->
+  <section class="screen" id="screenGlitch" aria-live="polite" aria-atomic="true">
+    <div class="glass-panel">
+      
+      <div class="card-header-meta">
+        <span class="card-id-tag" id="glitchIdTag">#E01</span>
+        <span style="font-size: 11px; font-weight: 700; color: var(--text-dim);">TALKLINE SPONTANEOUS TALK</span>
+      </div>
+
+      <h2 class="scenario-title" id="glitchTitle" tabindex="-1">The Doors Are Confused</h2>
+
+      <!-- Glitch Description -->
+      <div class="glitch-box">
+        <div class="glitch-label">
+          <span>⚠️</span> GLITCH DETECTED
+        </div>
+        <p class="glitch-desc" id="glitchText">
+          Every door takes you back into the room you just left.
+        </p>
+      </div>
+
+      <!-- Discussion Prompts -->
+      <div class="prompts-box">
+        <div class="prompts-title">
+          <span>🗣️</span> Group Discussion Prompts
+        </div>
+        <div class="prompt-list" id="promptsList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Expandable Toolkit Panel -->
+      <div class="toolkit-accordion">
+        <button type="button" class="toolkit-header" id="toolkitHeader" aria-expanded="false" aria-controls="toolkitContent">
+          <span class="toolkit-title">
+            <span>💡</span> Toolkit Phrases & Meanings
+          </span>
+          <span class="toolkit-toggle-icon" id="toolkitToggleIcon">▼</span>
+        </button>
+        <div class="toolkit-content" id="toolkitContent">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Two Patches Section -->
+      <div class="patch-section-title">CHOOSE A PATCH TO DEPLOY</div>
+      <div class="patches-stack">
+        <!-- PATCH A -->
+        <button class="btn-patch btn-patch-a" id="btnSelectPatchA">
+          <span class="patch-tag patch-tag-a">PATCH A</span>
+          <span class="patch-text" id="patchAText">Appoint one official 'Door Captain' per building. Everyone must follow them through doors in a single file.</span>
+        </button>
+
+        <!-- PATCH B -->
+        <button class="btn-patch btn-patch-b" id="btnSelectPatchB">
+          <span class="patch-tag patch-tag-b">PATCH B</span>
+          <span class="patch-text" id="patchBText">Everyone must walk through doorways backwards while whistling a short tune.</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SCREEN 3 & 4 — CONSEQUENCE & FINAL DECISION
+       ======================================================================== -->
+  <section class="screen" id="screenConsequence" aria-live="polite" aria-atomic="true">
+    <div class="glass-panel">
+      
+      <!-- Selected Patch Reminder -->
+      <div class="selected-patch-banner">
+        <div class="selected-patch-label" id="consequencePatchBadge">DEPLOYED PATCH A</div>
+        <div class="selected-patch-content" id="consequencePatchText">The text of the patch you chose</div>
+      </div>
+
+      <!-- Plot Twist Consequence Card -->
+      <div class="plot-twist-card">
+        <div class="plot-twist-header">
+          <span class="twist-badge">⚡ PLOT TWIST REVEAL</span>
+        </div>
+        <p class="twist-text" id="consequenceTwistText" tabindex="-1">
+          The Captain decides where everyone goes, but you have to follow them everywhere — including during their personal errands.
+        </p>
+        <div class="reaction-prompt">
+          👉 <strong>Group Reaction:</strong> Now that you see what happened... would you still choose this patch? Or is it time to hit Factory Reset?
+        </div>
+      </div>
+
+      <!-- Final Decision Buttons -->
+      <div id="decisionControls">
+        <div class="decision-grid">
+          <button class="btn-keep" id="btnKeep">
+            <span>✓ KEEP</span>
+            <span class="btn-subtext">Live with this patch</span>
+          </button>
+          <button class="btn-reset" id="btnReset">
+            <span>↺ RESET</span>
+            <span class="btn-subtext">Revert reality to normal</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Playful Acknowledgement & Next Glitch (Appears after Keep/Reset) -->
+      <div id="ackContainer" style="display: none;">
+        <div class="ack-box" id="ackBox">
+          <div class="ack-title" id="ackTitle">Reality Patched!</div>
+          <div class="ack-text" id="ackDesc">You chose to embrace the chaos.</div>
+        </div>
+
+        <button class="btn btn-primary" id="btnNextGlitch" style="width: 100%; margin-top: 14px;">
+          Next Glitch →
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SCREEN 5 — COMPLETION / SUMMARY
+       ======================================================================== -->
+  <section class="screen" id="screenComplete">
+    <div class="glass-panel complete-hero">
+      <div class="complete-icon">🎉</div>
+      <h2 class="complete-title" id="completeTitle" tabindex="-1">REALITY STABILIZED!</h2>
+      <p class="hero-sub">
+        You've completed all 20 glitches in this update! Great discussions, spontaneous ideas, and fantastic English practice.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num keep" id="statKept">0</div>
+          <div class="stat-label">Patches Kept</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num reset" id="statReset">0</div>
+          <div class="stat-label">Realities Reset</div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 320px; margin-top: 10px;">
+        <button class="btn btn-primary" id="btnReplayDeck">Replay This Level</button>
+        <button class="btn btn-secondary" id="btnReturnHome">Change Level / Main Menu</button>
+      </div>
+    </div>
+  </section>
+
+</div> <!-- /#app -->
+
+<!-- ========================================================================
+     CONFIRMATION MODAL
+     ======================================================================== -->
+<div class="modal-backdrop" id="modalConfirm" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMessage" tabindex="-1">
+    <h3 class="modal-title" id="modalTitle">Confirm Action</h3>
+    <p class="modal-text" id="modalMessage">Are you sure you want to proceed?</p>
+    <div class="modal-buttons">
+      <button class="btn btn-secondary" id="modalBtnCancel">Cancel</button>
+      <button class="btn btn-primary" id="modalBtnConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================================
+     INLINE JAVASCRIPT GAME LOGIC
+     ======================================================================== -->
+<script>
+(function() {
+  "use strict";
+
+  const GAME_DATA = {"elementary":[{"id":"E01","title":"The Doors Are Confused","glitch":"Every door takes you back into the room you just left. The bathroom door sends you to a completely random spot in the building.","patchA":{"text":"Give one Door Captain a master key that cancels the loop for everyone walking directly behind them.","consequence":"The key opens every door, but nobody can leave without the Captain. Even a bathroom trip becomes a group activity."},"patchB":{"text":"Install special arrows on door frames. Walking backwards through a marked door cancels the loop.","consequence":"The arrows work, but every building entrance looks like a crowd rehearsing a backwards dance."},"prompts":["Would you follow the Captain or walk backwards everywhere?","Who would be the worst person to put in charge of every door?"],"toolkit":[{"phrase":"I’d rather…","meaning":"… yapmayı tercih ederim","example":"I'd rather walk backwards than follow a stranger."},{"phrase":"I think…","meaning":"bence…","example":"I think this rule is funny."},{"phrase":"end up","meaning":"sonunda … olmak / … ile bitmek","example":"If you don't plan ahead, you end up regretting it."}]},{"id":"E02","title":"The Talking Crosswalk","glitch":"Pedestrian traffic lights shout personal life advice instead of showing red or green lights.","patchA":{"text":"Add a large MUTE button that restores normal red and green lights for one minute.","consequence":"Crossing becomes safe, but people keep pressing MUTE again. A line forms around the button instead of at the crossing."},"patchB":{"text":"Replace the advice with a quiz and a clear green light when you answer correctly.","consequence":"The light tells you when to cross, but one wrong answer means waiting for the next quiz. People start studying at bus stops."},"prompts":["Would you rather push a button or answer a quiz?","What advice would you hate to hear from a traffic light?"],"toolkit":[{"phrase":"I think…","meaning":"bence…","example":"I think street trivia would make walking much more fun."},{"phrase":"In my opinion…","meaning":"bana göre…","example":"In my opinion, it is a good idea."},{"phrase":"make sense","meaning":"mantıklı olmak / anlamlı gelmek","example":"A trivia question makes sense to keep people alert."}]},{"id":"E03","title":"The Umbrella Magnet","glitch":"Whenever it rains, all open umbrellas magnetically pull towards the nearest stranger, forming giant shared canopy clusters.","patchA":{"text":"Cover umbrella tips with large rubber caps that stop the magnetic pull.","consequence":"You walk alone again, but the bulky caps make your umbrella almost impossible to fit through a café door."},"patchB":{"text":"Create connected umbrella walking groups, with one leader to control where everyone goes.","consequence":"The group stays dry and moves safely, but one person stopping for coffee means eight people must stop too."},"prompts":["Would you join a group of strangers to stay dry?","Would you rather have a huge umbrella or a crowded umbrella team?"],"toolkit":[{"phrase":"be worth it","meaning":"değmek","example":"Staying completely dry is totally worth the awkwardness."},{"phrase":"it depends on","meaning":"…a bağlı olmak / duruma göre değişir","example":"It depends on who you get magnetically attached to."},{"phrase":"come up with","meaning":"(fikir) bulmak / üretmek","example":"We need to come up with a better plan."}]},{"id":"E04","title":"The Runaway Wi-Fi","glitch":"Wi-Fi signals no longer fill rooms evenly; they bounce around walls like a playful laser pointer that you have to chase.","patchA":{"text":"Fix the Wi-Fi signal to one glowing spot above the coffee machine.","consequence":"The internet never moves, but everyone has to crowd around the coffee machine to stay connected."},"patchB":{"text":"Give people small mirror hats that reflect the moving Wi-Fi signal straight to their devices.","consequence":"The signal follows you, but the shiny hats reflect sunlight into everyone else’s eyes."},"prompts":["Would you work beside the coffee machine or wear a mirror hat?","How much trouble would you accept for perfect internet?"],"toolkit":[{"phrase":"I’d choose…","meaning":"… seçerdim","example":"I'd choose the coffee machine spot every single time."},{"phrase":"end up","meaning":"sonunda … olmak / … ile bitmek","example":"You might end up with tired legs after a full workday."},{"phrase":"For example…","meaning":"örneğin…","example":"For example, I can fly to work."}]},{"id":"E05","title":"The Taxi Tourist","glitch":"Every yellow taxi refuses to take direct routes, insisting on showing passengers three completely bizarre historic spots first.","patchA":{"text":"Make taxi navigation follow the shortest available route, with no tourist stops.","consequence":"The tour is gone, but the taxi takes tiny side streets and narrow alleys to save a few metres."},"patchB":{"text":"Let passengers skip the tour by answering a quick riddle before the taxi moves.","consequence":"A correct answer gives you a direct ride. A wrong one adds an extra mystery landmark to the tour."},"prompts":["Would you choose narrow streets or a difficult riddle?","What strange landmark would you show a tourist?"],"toolkit":[{"phrase":"in that case","meaning":"o zaman / bu durumda","example":"In that case, I'd rather take the metro."},{"phrase":"on purpose","meaning":"bilerek / kasten","example":"The driver gives impossible riddles on purpose."},{"phrase":"I agree because…","meaning":"katılıyorum çünkü…","example":"I agree with Patch B because riddles make rides fun."}]},{"id":"E06","title":"The Moving Bus Stop","glitch":"Whenever someone checks when the bus will arrive, the bus stop moves to the next street. People keep chasing it.","patchA":{"text":"Fix every bus stop to the ground with a strong metal frame.","consequence":"Stops stay in one place, but the big frames block half the pavement. Waiting for a bus becomes an obstacle course."},"patchB":{"text":"Give each passenger a stop button that summons the bus to where they are standing.","consequence":"The bus finds everyone, but it stops for every single passenger. A five-minute ride takes half an hour."},"prompts":["Would you walk to a fixed stop or call the bus to you?","What is the longest you would wait for a bus?"],"toolkit":[{"phrase":"In my opinion…","meaning":"bana göre…","example":"In my opinion, the stop should stay put."},{"phrase":"I’d rather…","meaning":"… yapmayı tercih ederim","example":"I’d rather have a fixed stop than chase it."},{"phrase":"come up with","meaning":"(fikir) bulmak / üretmek","example":"We need to come up with a better way to catch the bus."}]},{"id":"E07","title":"The Polite Seagulls","glitch":"Bosphorus seagulls refuse to eat bread or simit unless the passenger introduces themselves with a formal handshake gesture.","patchA":{"text":"Designate one passenger on each ferry as the 'Ambassador to Birds' to greet all seagulls officially.","consequence":"Seagulls accept food quietly, but the Ambassador is followed home by 200 grateful birds every evening."},"patchB":{"text":"Play an official seagull greeting over the ferry speakers so nobody has to greet birds personally.","consequence":"The birds accept the recording, but the greeting repeats every three minutes. Tourists start copying it and bowing at birds."},"prompts":["Would you volunteer to greet the seagulls on a ferry?","Would you rather lead the birds or hear a greeting every three minutes?"],"toolkit":[{"phrase":"what's the point of","meaning":"… ne anlamı var? / … neye yarar?","example":"What's the point of feeding birds if they follow you home?"},{"phrase":"I’m not sure…","meaning":"emin değilim…","example":"I'm not sure I want 200 seagulls sleeping on my balcony."},{"phrase":"make sense","meaning":"mantıklı olmak / anlamlı gelmek","example":"A polite introduction makes sense to respect nature."}]},{"id":"E08","title":"The Complimenting Autocorrect","glitch":"Your phone adds “You look amazing!” to the end of every text message, even messages to your landlord or your boss.","patchA":{"text":"Turn off all automatic text changes, including the unwanted compliments.","consequence":"Your messages stay private, but autocorrect no longer fixes spelling mistakes. Your serious texts become full of funny typos."},"patchB":{"text":"Show the complete message and ask you to approve it before sending.","consequence":"You can remove every unwanted compliment, but sending a long text now takes ten extra taps."},"prompts":["Would you accept funny typos or check every message twice?","Who would be the worst person to receive an accidental compliment?"],"toolkit":[{"phrase":"I think…","meaning":"bence…","example":"I think my landlord would be confused."},{"phrase":"I’d rather…","meaning":"… yapmayı tercih ederim","example":"I’d rather check my message before sending it."},{"phrase":"In my opinion…","meaning":"bana göre…","example":"In my opinion, sending texts should be simple."}]},{"id":"E09","title":"The Elevator Dance-Off","glitch":"Elevator doors refuse to open on your floor until all passengers inside complete three seconds of synchronized disco dancing.","patchA":{"text":"Install a button that uses extra elevator power to unlock the doors without dancing.","consequence":"The doors open without dancing, but the elevator uses so much power that it moves one floor every five minutes."},"patchB":{"text":"Project three hologram dancers that perform the required moves for the passengers.","consequence":"The elevator opens normally, but the holograms keep dancing in the mirror long after everyone leaves."},"prompts":["Would you take a slow lift or share it with hologram dancers?","Would you dance in an elevator with your boss?"],"toolkit":[{"phrase":"be worth it","meaning":"değmek","example":"Dancing for 3 seconds is totally worth saving 15 minutes."},{"phrase":"end up","meaning":"sonunda … olmak / … ile bitmek","example":"If you don't plan ahead, you end up regretting it."},{"phrase":"it depends on","meaning":"…a bağlı olmak / duruma göre değişir","example":"It depends on who else is in the elevator with you."}]},{"id":"E10","title":"The Photographic Pigeons","glitch":"City pigeons carry invisible lenses, snapping candid street photos of people and dropping printed Polaroid copies from the sky.","patchA":{"text":"Mandate high-fashion reflective trench coats so all pigeon snapshots turn out overexposed.","consequence":"Your privacy is protected, but on sunny afternoons the entire boulevard glows like a disco ball."},"patchB":{"text":"Give pigeons a camera setting that works only when a person agrees to be photographed.","consequence":"People can choose their portraits, but the pigeons now line up in front of you and refuse to leave until you say yes or no."},"prompts":["Would you ask a pigeon to take your photo?","Would you prefer a shiny coat or birds asking for permission?"],"toolkit":[{"phrase":"I’d choose…","meaning":"… seçerdim","example":"I'd choose the gallery option because free photos are cool."},{"phrase":"In my opinion…","meaning":"bana göre…","example":"In my opinion, it is a good idea."},{"phrase":"end up","meaning":"sonunda … olmak / … ile bitmek","example":"You might end up famous for eating a döner awkwardly."}]},{"id":"E11","title":"The Automatic Handshake","glitch":"Whenever two people stand within 1 metre of each other, an irresistible magnetic impulse forces them to shake hands vigorously.","patchA":{"text":"Change the handshake impulse into a short bow whenever two strangers get close.","consequence":"Nobody has to touch strangers, but busy metro cars look like a group bowing to each other all day."},"patchB":{"text":"Give everyone gloves that turn the handshake impulse into a friendly wave.","consequence":"Nobody shakes hands, but crowded streets are filled with people waving like they are running for mayor."},"prompts":["Would you rather bow or wave at every stranger?","What is the funniest way to greet somebody?"],"toolkit":[{"phrase":"I’m not sure…","meaning":"emin değilim…","example":"I'm not sure which greeting is less embarrassing."},{"phrase":"come up with","meaning":"(fikir) bulmak / üretmek","example":"We need to come up with a better plan."},{"phrase":"in that case","meaning":"o zaman / bu durumda","example":"In that case, I will always keep my hands in my pockets."}]},{"id":"E12","title":"The Borrowed Voice","glitch":"Every time you speak, your words come out of the nearest loudspeaker in a random voice.","patchA":{"text":"Give everyone an earpiece that sends their real voice only to the person they are addressing.","consequence":"Private conversations work, but the tiny earpieces keep calling the wrong friend when two people have the same name."},"patchB":{"text":"Put speech bubbles on personal screens instead of broadcasting random voices.","consequence":"People can read the right words, but everyone now stares at screens during face-to-face conversations."},"prompts":["Would you rather speak through an earpiece or read speech bubbles?","What would be embarrassing to hear in a stranger’s voice?"],"toolkit":[{"phrase":"I think…","meaning":"bence…","example":"I think this rule is funny."},{"phrase":"I’d rather…","meaning":"… yapmayı tercih ederim","example":"I’d rather stay home than go out."},{"phrase":"what's the point of","meaning":"… ne anlamı var? / … neye yarar?","example":"What’s the point of speaking if a machine repeats every word?"}]},{"id":"E13","title":"The Escaping Shoes","glitch":"If you stand still in one spot for more than 15 seconds, your shoes quietly unlace and walk away to browse nearby shop windows.","patchA":{"text":"Give shoes clip-on locks that keep them on your feet while you stand still.","consequence":"Your shoes stay put, but taking them off at home takes two minutes and a tiny key."},"patchB":{"text":"Create shoe parking spaces at bus stops and shops, where shoes automatically wait for their owner.","consequence":"The shoes stop wandering, but every parking rack contains 300 almost identical black trainers."},"prompts":["Would you lock your shoes or park them at the bus stop?","Where would your shoes go if they could walk?"],"toolkit":[{"phrase":"I’d rather…","meaning":"… yapmayı tercih ederim","example":"I'd rather giggle at the bus stop than lose my sneakers."},{"phrase":"In my opinion…","meaning":"bana göre…","example":"In my opinion, it is a good idea."},{"phrase":"make sense","meaning":"mantıklı olmak / anlamlı gelmek","example":"A shoe valet makes sense in busy shopping districts."}]},{"id":"E14","title":"The Stray Cat Council","glitch":"City street cats form formal neighborhood parliaments, occupying park benches and meowing in structured political debate.","patchA":{"text":"Provide designated miniature wooden parliamentary chairs next to human benches.","consequence":"Human benches are free, but cat debates become official municipal ordinances that humans must respect."},"patchB":{"text":"Appoint a neighborhood 'Cat Translator' with a smartphone microphone to translate council decisions.","consequence":"You understand their demands, but 90% of legislation involves higher salmon taxes and banning vacuum cleaners."},"prompts":["If Istanbul street cats ruled the city, what rule would they change first?","Would you vote for a cat mayor if they promised shorter work hours?"],"toolkit":[{"phrase":"I think…","meaning":"bence…","example":"I think cats would run the city better than human politicians."},{"phrase":"come up with","meaning":"(fikir) bulmak / üretmek","example":"The cats came up with a tax on vacuum cleaners."},{"phrase":"on purpose","meaning":"bilerek / kasten","example":"They occupy the sunniest bench on purpose."}]},{"id":"E15","title":"The Mysterious Lost Property","glitch":"Whenever you lose a small personal item (keys, lip balm, transit card), it instantly materializes inside a random stranger's pocket.","patchA":{"text":"Add a return alert to your phone. Whenever a lost object lands in someone else’s pocket, one tap sends it back to you.","consequence":"You recover everything, but your phone sends dozens of urgent return alerts while you are trying to have dinner."},"patchB":{"text":"Send all lost items to a marked collection shelf in the nearest square instead of strangers’ pockets.","consequence":"Nothing ends up in strangers’ pockets, but the shelf fills with hundreds of keys and lip balms. Finding yours is a treasure hunt."},"prompts":["Would you want instant phone alerts or one lost-item shelf?","What would be the funniest object to find in your pocket?"],"toolkit":[{"phrase":"end up","meaning":"sonunda … olmak / … ile bitmek","example":"Your keys might end up in a bus driver's jacket."},{"phrase":"be worth it","meaning":"değmek","example":"Climbing a pedestal is worth it to avoid locksmith fees."},{"phrase":"For example…","meaning":"örneğin…","example":"For example, I can fly to work."}]},{"id":"E16","title":"The Heavy Smartphone","glitch":"Smartphones gain 200 grams of physical weight for every 10 consecutive minutes of mindless short-form video scrolling.","patchA":{"text":"Give phones a reset button that removes the extra weight after a quick stretch break.","consequence":"Phones feel light again, but people stop in the middle of streets to stretch every ten minutes."},"patchB":{"text":"Automatically pause endless video scrolling as soon as the phone gets too heavy.","consequence":"Phones stay light, but your video stops just before the ending. You have to wait an hour to see what happens."},"prompts":["Would you rather take stretch breaks or lose your scrolling videos?","When does your phone become a distraction?"],"toolkit":[{"phrase":"end up","meaning":"sonunda … olmak / … ile bitmek","example":"If you don't plan ahead, you end up regretting it."},{"phrase":"I’d rather…","meaning":"… yapmayı tercih ederim","example":"I'd rather talk on the phone than do 50 push-ups."},{"phrase":"it depends on","meaning":"…a bağlı olmak / duruma göre değişir","example":"It depends on whether you have urgent work on your phone."}]},{"id":"E17","title":"The Complaining Streetlights","glitch":"City streetlights develop gloomy personalities, audibly sighing and muttering about rainy weather and tired pedestrians.","patchA":{"text":"Give streetlights a cheerful voice setting that replaces every complaint.","consequence":"They stop complaining, but every late-night walk comes with loud motivational speeches about your life choices."},"patchB":{"text":"Let pedestrians press QUIET on the pole to stop complaints for five minutes.","consequence":"The complaints stop, but the lights start flashing a giant “THANK YOU FOR PRESSING QUIET” sign each time."},"prompts":["Would you prefer cheerful speeches or flashing thank-you signs?","What would a streetlight complain about in your neighbourhood?"],"toolkit":[{"phrase":"I agree because…","meaning":"katılıyorum çünkü…","example":"I agree with Patch B because quiet walks are peaceful."},{"phrase":"In my opinion…","meaning":"bana göre…","example":"In my opinion, it is a good idea."},{"phrase":"come up with","meaning":"(fikir) bulmak / üretmek","example":"We need to come up with a better plan."}]},{"id":"E18","title":"The Group Selfie Mix-Up","glitch":"Whenever friends take a group selfie, the camera puts the face of a stranger in the background on one person’s body.","patchA":{"text":"Turn on a face-lock filter that keeps only the people nearest the camera.","consequence":"Your faces stay correct, but anyone at the back of the group disappears from the photo."},"patchB":{"text":"Ask everyone in the group to tap their own face on the screen before the photo is taken.","consequence":"Everyone looks like themselves, but the photo takes so long that the first people are already tired of smiling."},"prompts":["Would you rather lose your friends at the back or make everyone tap the screen?","Who takes the longest to get ready for a group photo?"],"toolkit":[{"phrase":"in that case","meaning":"o zaman / bu durumda","example":"In that case, I would choose to show only five mood colours."},{"phrase":"end up","meaning":"sonunda … olmak / … ile bitmek","example":"You might end up explaining your mood to everyone in the building."},{"phrase":"In my opinion…","meaning":"bana göre…","example":"In my opinion, taking a selfie should be easy."}]},{"id":"E19","title":"The Flying Hats of Kadıköy","glitch":"Any hat or cap worn within 100 metres of the ferry pier lifts off like a miniature helicopter and hovers at eye level.","patchA":{"text":"Require all hats to be anchored with an elastic chin strap tied securely under the jaw.","consequence":"Hats stay on heads, but stylish adults everywhere look like oversized kindergarten students on a field trip."},"patchB":{"text":"Give flying hats an automatic return button so owners can call their hats back to their heads.","consequence":"You get your hat back, but every hat flies home at once when people press RETURN. The sky becomes a crowded hat motorway."},"prompts":["Would you wear a chin strap or use a flying-hat button?","What would a flying hat do at the ferry pier?"],"toolkit":[{"phrase":"I’d choose…","meaning":"… seçerdim","example":"I'd choose the flying joystick hat without hesitation."},{"phrase":"For example…","meaning":"örneğin…","example":"For example, I can fly to work."},{"phrase":"be worth it","meaning":"değmek","example":"Flying your own hat is definitely worth a few collisions."}]},{"id":"E20","title":"The Escalator Surprise","glitch":"Metro escalators switch direction whenever someone on the steps laughs out loud, sending everyone slowly backwards.","patchA":{"text":"Add a laughter sensor that pauses the escalator safely before it can reverse direction.","consequence":"No one gets carried backwards, but one funny conversation can stop the escalator ten times."},"patchB":{"text":"Lock the escalator direction for one full ride whenever a passenger steps on.","consequence":"Everyone travels safely, but people going the other way must wait for the lock to end, even when nobody is on the steps."},"prompts":["Would you prefer frequent stops or waiting for a direction lock?","Could you stop yourself laughing on an escalator?"],"toolkit":[{"phrase":"I think…","meaning":"bence…","example":"I think this rule is funny."},{"phrase":"I’d rather…","meaning":"… yapmayı tercih ederim","example":"I'd rather laugh and take the slide than be gloomy."},{"phrase":"make sense","meaning":"mantıklı olmak / anlamlı gelmek","example":"Adding slide chutes makes total sense for metro stations."}]}],"advanced":[{"id":"A01","title":"The Apology Epidemic","glitch":"Whenever an individual commits a minor public infraction (bumping a shoulder, dropping a receipt), everyone within 20 metres automatically apologizes with intense theatrical sincerity.","patchA":{"text":"Designate strictly regulated 'Infraction-Free Zones' where automatic apologies are legally disabled.","consequence":"Public spaces become quieter, but rude behavior multiplies inside the zones as individuals exploit the lack of social consequence."},"patchB":{"text":"Reroute the acoustic feedback so that only the perpetrator's own voice echoes the apology in triple volume.","consequence":"Bystanders are spared embarrassment, but everyday public clumsiness now sounds like a theatrical opera solo."},"prompts":["Would you prefer everyone apologising or just the person who made the mistake?","Could a city ever have too many apologies?"],"toolkit":[{"phrase":"the thing is","meaning":"mesele şu ki","example":"The thing is, insincere apologies strip the word of meaning."},{"phrase":"that being said","meaning":"bununla birlikte / yine de","example":"That being said, public harmony might actually improve."},{"phrase":"draw the line at","meaning":"… noktasında sınır koymak","example":"I draw the line at being forced to apologize for strangers."}]},{"id":"A02","title":"The Opinion Footnotes","glitch":"Whenever someone shares an opinion in public, a floating footnote appears with a statistic that is true but missing important context.","patchA":{"text":"Let anyone challenge a footnote and request a 30-second explanation from its source.","consequence":"Context becomes easier to find, but even a casual chat can turn into a long public hearing."},"patchB":{"text":"Replace each statistic with one automatic counterargument from another point of view.","consequence":"People hear different sides, but every simple opinion sounds like the start of an argument."},"prompts":["Would you trust a statistic without hearing the full story?","Would you choose fact-checking delays or instant counterarguments?"],"toolkit":[{"phrase":"trade-off","meaning":"kazanç–kayıp dengesi","example":"There is a trade-off between useful context and fast conversations."},{"phrase":"be inclined to","meaning":"…meye eğilimli olmak","example":"I would be inclined to challenge a statistic before accepting it."},{"phrase":"take for granted","meaning":"değerini bilmemek","example":"We often take the context behind a statistic for granted."}]},{"id":"A03","title":"The Commuter Teleporter","glitch":"Metro gates can teleport you to your destination, but they open only when you smile genuinely. Being tired after work means you might get stuck.","patchA":{"text":"Put a live comedy hologram beside each gate to help commuters laugh naturally.","consequence":"More people teleport successfully, but the same terrible jokes play all day. People arrive at work laughing at jokes they hate."},"patchB":{"text":"Replace the smile test with a quick personal selfie to confirm you really want to travel.","consequence":"Tired commuters can teleport, but perfectionists keep retaking selfies and form long lines at the gates."},"prompts":["Would you rather hear terrible jokes or take a selfie to travel?","Should a transport system care how happy you look?"],"toolkit":[{"phrase":"be better off","meaning":"…sa daha iyi durumda olmak","example":"We'd be better off enduring traffic than faking enlightenment."},{"phrase":"have no choice but to","meaning":"başka çaresi olmamak","example":"Commuters would have no choice but to master meditation."},{"phrase":"go without saying","meaning":"söylemeye gerek yok","example":"It goes without saying that Monday morning joy is unnatural."}]},{"id":"A04","title":"The Memory Postcards","glitch":"Photographing any historic monument prints out a vintage postcard containing a vivid, anonymous childhood memory from a random previous visitor.","patchA":{"text":"Establish a privacy clearinghouse where visitors can pre-screen and redact their memories before release.","consequence":"Unwanted secrets stay safe, but all distributed postcards contain sanitized, boring memories about lost umbrellas."},"patchB":{"text":"Let people choose to receive postcards containing only memories that previous visitors have volunteered to share.","consequence":"Personal secrets stay private, but some visitors submit wildly exaggerated memories to make their lives sound more exciting."},"prompts":["Would you read a stranger’s childhood memory?","Should people share their memories or keep them private?"],"toolkit":[{"phrase":"for the sake of","meaning":"… uğruna / … hatırına","example":"I'd surrender a memory for the sake of genuine human connection."},{"phrase":"come to terms with","meaning":"kabullenmek / alışmak","example":"Visitors must come to terms with losing absolute emotional privacy."},{"phrase":"turn out","meaning":"sonuçlanmak / ortaya çıkmak","example":"The experiment turned out to be far more profound than tourist sightseeing."}]},{"id":"A05","title":"The Meeting Room Telepathy","glitch":"During corporate presentations, participants' unspoken critical evaluations manifest as floating, semi-translucent captions above their heads.","patchA":{"text":"Offer a privacy visor that hides the floating captions above your head during meetings.","consequence":"You can think freely again, but wearing a visor becomes a clear sign that you have something to hide."},"patchB":{"text":"Let each person replace their thought captions with a single chosen emoji.","consequence":"Private thoughts disappear, but every serious meeting becomes a sea of confusing smiley faces and thumbs-up signs."},"prompts":["Would you hide your thoughts or replace them with emojis?","Would a meeting be better if everyone could see honest reactions?"],"toolkit":[{"phrase":"the thing is","meaning":"mesele şu ki","example":"The thing is, complete transparency would destroy workplace diplomacy."},{"phrase":"trade-off","meaning":"kazanç–kayıp dengesi","example":"There is a tricky trade-off between clarity and politeness."},{"phrase":"that being said","meaning":"bununla birlikte / yine de","example":"That being said, wearing poker visors might actually level the playing field."}]},{"id":"A06","title":"The Uninvited Doppelgänger","glitch":"Whenever you experience acute social hesitation, a duplicate version of you materializes, brimming with flawless charisma and swagger.","patchA":{"text":"Equip yourself with a remote recall trigger that re-absorbs the duplicate back into your subconscious at will.","consequence":"You control when they leave, but re-absorbing their confidence leaves you feeling twice as introverted for 24 hours."},"patchB":{"text":"Partner with your duplicate as a synchronized tag-team for all networking, public speaking, and weddings.","consequence":"You become a social powerhouse, but your friends and family gradually prefer hanging out with your charismatic twin."},"prompts":["Would you trust a more confident version of yourself?","What would happen if your friends preferred your duplicate?"],"toolkit":[{"phrase":"draw the line at","meaning":"… noktasında sınır koymak","example":"I draw the line at letting a duplicate replace me with my friends."},{"phrase":"be inclined to","meaning":"…meye eğilimli olmak","example":"I'd be inclined to use the tag-team approach for work conferences."},{"phrase":"take for granted","meaning":"değerini bilmemek","example":"We take for granted that our flaws are part of our authentic charm."}]},{"id":"A07","title":"The Jury of Strangers","glitch":"Any public disagreement exceeding 70 decibels automatically freezes reality, appointing the 5 nearest bystanders as an impromptu binding supreme court.","patchA":{"text":"Cap jury deliberation at 90 seconds, with verdicts restricted to awarding a mandatory symbolic pastry to the winner.","consequence":"Disputes resolve swiftly with pastry, but unscrupulous individuals provoke arguments solely to score free baklava."},"patchB":{"text":"Allow either disputing party to dismiss the jury by opting into a public arm-wrestling contest instead.","consequence":"Verdicts avoid bias, but civic conflicts in the city are increasingly dominated by heavyweight fitness enthusiasts."},"prompts":["Would you let five strangers settle an argument for you?","Is a quick but silly decision better than a long, fair one?"],"toolkit":[{"phrase":"be better off","meaning":"…sa daha iyi durumda olmak","example":"Disputing parties would be better off sharing pastries than wrestling."},{"phrase":"go without saying","meaning":"söylemeye gerek yok","example":"It goes without saying that bystander juries would be hilariously biased."},{"phrase":"turn out","meaning":"sonuçlanmak / ortaya çıkmak","example":"The arm-wrestling alternative turned out to favor bodybuilders."}]},{"id":"A08","title":"The Museum of Tomorrow","glitch":"City galleries exhibit fully functional household appliances from the year 2085, but visitors cannot touch them without triggering automated warning alarms.","patchA":{"text":"Let visitors test future gadgets only after completing a safety form that disables the alarms.","consequence":"The gadgets are safe to try, but the safety forms are so long that people spend more time reading than using them."},"patchB":{"text":"Offer one visitor a special one-day loan pass that disables the alarm on a single gadget.","consequence":"People can borrow a future device, but visitors turn up in ridiculous costumes trying to win the weekly loan-pass draw."},"prompts":["Would you fill in a huge form or compete for a loan pass?","Which future household device would you most want to test?"],"toolkit":[{"phrase":"have no choice but to","meaning":"başka çaresi olmamak","example":"Society would have no choice but to adjust to future innovations."},{"phrase":"trade-off","meaning":"kazanç–kayıp dengesi","example":"There is a profound trade-off between foresight and present satisfaction."},{"phrase":"for the sake of","meaning":"… uğruna / … hatırına","example":"Don't test future gadgets merely for the sake of novelty."}]},{"id":"A09","title":"The Public Secret","glitch":"Whenever someone whispers confidential gossip in a public space, the nearest architectural ornament repeats the secret in a booming baritone voice.","patchA":{"text":"Construct acoustic isolation telephone booths across city sidewalks for private disclosures.","consequence":"Gossip stays protected, but line-ups outside the booths resemble confessionals, attracting crowds of curious listeners outside."},"patchB":{"text":"Encode the whispered speech into abstract synthesized jazz solos played by the building facade.","consequence":"Secrets remain unintelligible to most, but seasoned jazz musicians rapidly become the city's top blackmailers."},"prompts":["Should public places offer private spaces for personal conversations?","Would you trust a building that turned secrets into music?"],"toolkit":[{"phrase":"the thing is","meaning":"mesele şu ki","example":"The thing is, human beings simply cannot resist talking about others."},{"phrase":"come to terms with","meaning":"kabullenmek / alışmak","example":"People must come to terms with the reality that walls truly have ears."},{"phrase":"draw the line at","meaning":"… noktasında sınır koymak","example":"I draw the line at letting architectural statues broadcast my love life."}]},{"id":"A10","title":"The Job Interview Swap","glitch":"During job interviews, the name badges of applicants and interviewers magically swap, so nobody can tell who is interviewing whom.","patchA":{"text":"Use private one-time digital identity passes that show the correct names before each interview.","consequence":"Everyone is identified correctly, but checking the passes makes the first ten minutes feel like airport security."},"patchB":{"text":"Turn interviews into two-way interviews and verify both people’s identities before they swap questions.","consequence":"The badges are no longer confusing, but managers now have to convince applicants to join their company — and some fail."},"prompts":["Would you rather have strict identity checks or a two-way interview?","Should job candidates interview their future boss?"],"toolkit":[{"phrase":"be inclined to","meaning":"…meye eğilimli olmak","example":"I'd be inclined to favor Patch B to challenge corporate arrogance."},{"phrase":"that being said","meaning":"bununla birlikte / yine de","example":"That being said, some managers might panic under interrogation."},{"phrase":"be better off","meaning":"…sa daha iyi durumda olmak","example":"Job seekers are better off knowing company culture before signing."}]},{"id":"A11","title":"The Over-Philosophical GPS","glitch":"Navigation systems calculate mathematically impeccable routes, but the turn-by-turn voice insists on examining your life trajectory at every intersection.","patchA":{"text":"Replace the philosophical voice with simple directions sent as short vibrations through the steering wheel.","consequence":"The lectures stop and directions work, but the constant buzzing makes every journey feel like holding an electric toothbrush."},"patchB":{"text":"Add a SKIP button that immediately replaces each long lecture with a normal spoken direction.","consequence":"Directions are clear again, but drivers press SKIP so often that the car keeps loudly saying “SKIPPED!” at every junction."},"prompts":["Would you choose a buzzing steering wheel or a very noisy SKIP button?","Would you ever take advice about life from your GPS?"],"toolkit":[{"phrase":"take for granted","meaning":"değerini bilmemek","example":"We take for granted how mindlessly we rush through our daily routines."},{"phrase":"trade-off","meaning":"kazanç–kayıp dengesi","example":"The trade-off lies between peaceful quiet and toll-road expenses."},{"phrase":"turn out","meaning":"sonuçlanmak / ortaya çıkmak","example":"The philosophical detour turned out to prevent a terrible collision."}]},{"id":"A12","title":"The Unsolicited Statues","glitch":"Historic marble statues step down from their plinths between 4 PM and 6 PM to deliver impassioned, unsolicited lectures on civic virtue to shoppers.","patchA":{"text":"Construct sound-dampening acoustic glass cases around all historical monument plinths.","consequence":"Pedestrians shop in peace, but preserving historic integrity now makes central boulevards resemble open-air aquariums."},"patchB":{"text":"Send wandering statues to a designated stage for one scheduled public performance each evening.","consequence":"Shoppers are no longer interrupted, but local performers must compete with famous historical statues for the best stage time."},"prompts":["Would you visit a performance by a talking statue?","Should public art be quiet or interactive?"],"toolkit":[{"phrase":"go without saying","meaning":"söylemeye gerek yok","example":"It goes without saying that ancient orators possessed formidable rhetoric."},{"phrase":"for the sake of","meaning":"… uğruna / … hatırına","example":"Allow the rap battles for the sake of vibrant street culture."},{"phrase":"the thing is","meaning":"mesele şu ki","example":"The thing is, modern shopping districts lack historical awareness."}]},{"id":"A13","title":"The Historical Mirrors","glitch":"Reflective surfaces no longer show your present appearance; they reflect whoever gazed into the glass precisely 24 hours earlier.","patchA":{"text":"Introduce camera-based smart screens that display digital real-time avatars instead of physical mirrors.","consequence":"You see your present self, but software updates and latency mean your reflection occasionally lags behind your blinks."},"patchB":{"text":"Offer small personal smart mirrors that show a live image instead of yesterday’s reflection.","consequence":"Your reflection is accurate, but the mirrors are so small that trying to fix your hair in a public bathroom becomes a daily challenge."},"prompts":["Would you rather trust a smart mirror or see yesterday’s reflection?","Would a one-day-old reflection be useful for anything?"],"toolkit":[{"phrase":"come to terms with","meaning":"kabullenmek / alışmak","example":"One must come to terms with shaving by touch alone."},{"phrase":"have no choice but to","meaning":"başka çaresi olmamak","example":"People would have no choice but to care less about visual vanity."},{"phrase":"be inclined to","meaning":"…meye eğilimli olmak","example":"I'd be inclined to try the reflective diary approach for self-growth."}]},{"id":"A14","title":"The Accidental Parade","glitch":"Whenever five strangers walk in the same direction, a marching parade magically forms behind them and blocks the pavement.","patchA":{"text":"Mark special parade lanes that automatically move every new parade away from normal footpaths.","consequence":"Pavements are clear, but someone walking to the pharmacy can accidentally lead a parade on a two-kilometre detour."},"patchB":{"text":"Give people an opt-out badge so they do not count toward the five-person parade rule.","consequence":"Parades become rare, but the opt-out badges are so bright that crowded streets look like a neon costume party."},"prompts":["Would you accept a parade following you or wear a huge bright badge?","Where would an accidental parade cause the most trouble?"],"toolkit":[{"phrase":"draw the line at","meaning":"… noktasında sınır koymak","example":"I draw the line at blocking the entire pavement."},{"phrase":"that being said","meaning":"bununla birlikte / yine de","example":"That being said, a surprise parade could be funny."},{"phrase":"trade-off","meaning":"kazanç–kayıp dengesi","example":"There is a trade-off between fun and getting somewhere on time."}]},{"id":"A15","title":"The Borrowed Shadows","glitch":"On bright sunny afternoons, people's shadows detach, wandering through the city to mimic and follow intriguing strangers instead of their owners.","patchA":{"text":"Wear a subtle magnetic ankle bracelet that pins your shadow securely beneath your shoe soles.","consequence":"Your shadow stays obedient, but standing under direct sunlight feels as heavy as wearing lead boots."},"patchB":{"text":"Give every shadow a one-hour exploration permit that automatically pulls it back to its owner when the time ends.","consequence":"Your shadow always returns, but it sometimes brings back the silhouette of a stranger it liked, creating very confusing double shadows."},"prompts":["Would you keep your shadow close or give it one hour of freedom?","Where would your shadow go first if it could explore Istanbul?"],"toolkit":[{"phrase":"be better off","meaning":"…sa daha iyi durumda olmak","example":"We'd be better off letting our shadows explore while we focus on work."},{"phrase":"take for granted","meaning":"değerini bilmemek","example":"We take for granted that our silhouettes belong exclusively to us."},{"phrase":"turn out","meaning":"sonuçlanmak / ortaya çıkmak","example":"The shadow's souvenir turned out to be an unexpected love letter."}]},{"id":"A16","title":"The Public Furniture Election","glitch":"City park benches and outdoor chairs develop artificial collective judgment, buzzing with low static when a person with negative energy tries to sit.","patchA":{"text":"Cover public benches with special cushions that cancel their ability to judge people.","consequence":"Anyone can sit again, but the cushions make every bench bounce gently. Trying to drink coffee on one becomes a challenge."},"patchB":{"text":"Let anyone override the bench’s judgment by giving one nearby person a genuine compliment.","consequence":"Benches finally allow people to sit, but strangers begin complimenting each other’s shoes just to get a seat."},"prompts":["Should a public bench be allowed to judge you?","Would you compliment a stranger just to sit down?"],"toolkit":[{"phrase":"the thing is","meaning":"mesele şu ki","example":"The thing is, public furniture must remain free and unconditional."},{"phrase":"for the sake of","meaning":"… uğruna / … hatırına","example":"Offer a quick compliment for the sake of resting tired legs."},{"phrase":"go without saying","meaning":"söylemeye gerek yok","example":"It goes without saying that emotional policing on benches is absurd."}]},{"id":"A17","title":"The Public Promise Clock","glitch":"Every promise made in public creates a glowing countdown above the speaker. If time runs out, everyone nearby hears an alarm.","patchA":{"text":"Make each promise countdown and its alarm visible or audible only to the person making the promise.","consequence":"Promises stay private, but other people can no longer tell whether someone is taking a deadline seriously."},"patchB":{"text":"Allow people to transfer a promise to a volunteer who agrees to complete it instead.","consequence":"More promises get fulfilled, but professional promise-collectors begin charging high fees."},"prompts":["Would you trust someone more if their promises had visible deadlines?","Would you ever take over a promise made by a friend?"],"toolkit":[{"phrase":"have no choice but to","meaning":"başka çaresi olmamak","example":"People have no choice but to meet the deadline once they make a public promise."},{"phrase":"be inclined to","meaning":"…meye eğilimli olmak","example":"I’d be inclined to keep a promise if the deadline were visible."},{"phrase":"trade-off","meaning":"kazanç–kayıp dengesi","example":"There is a trade-off between public pressure and private responsibility."}]},{"id":"A18","title":"The Premonition Map","glitch":"Urban digital map applications display phantom streets, cafés, and gardens that have not yet been built, predicting future city development.","patchA":{"text":"Show only places that inspectors have visited and confirmed exist.","consequence":"You never visit a fake location, but new cafés are missing from the map for weeks. People walk right past places they want to find."},"patchB":{"text":"Keep future places in a separate prediction layer with clear estimated opening dates.","consequence":"Real directions work again, but hopeful visitors keep arriving at empty lots with picnic blankets, waiting for cafés to appear."},"prompts":["Would you rather use an accurate map or see possible future places?","Would you visit an empty lot because an app promised a new café?"],"toolkit":[{"phrase":"that being said","meaning":"bununla birlikte / yine de","example":"That being said, picnicking on predicted future gardens sounds delightful."},{"phrase":"come to terms with","meaning":"kabullenmek / alışmak","example":"Urban planners must come to terms with citizens anticipating future spaces."},{"phrase":"be better off","meaning":"…sa daha iyi durumda olmak","example":"Travelers are better off relying on present facts than speculative dreams."}]},{"id":"A19","title":"The Generosity Spotlight","glitch":"Whenever someone helps another person, a city billboard announces their name and the exact value of the help.","patchA":{"text":"Replace every name with the same anonymous symbol and hide the value of the help.","consequence":"People can help in private, but some organisations begin claiming credit for acts they did not do."},"patchB":{"text":"Replace announcements about past help with anonymous requests for help that people can choose to answer.","consequence":"Nobody gets publicly ranked for kindness, but the city billboards fill up with increasingly tiny requests, like “Please hold my coffee for ten seconds.”"},"prompts":["Would you rather keep help anonymous or let billboards ask for help?","Can an act of kindness still feel special if everyone knows about it?"],"toolkit":[{"phrase":"draw the line at","meaning":"… noktasında sınır koymak","example":"I draw the line at helping someone only to appear on a billboard."},{"phrase":"for the sake of","meaning":"… uğruna / … hatırına","example":"Some people may volunteer for the sake of public recognition."},{"phrase":"the thing is","meaning":"mesele şu ki","example":"The thing is, kindness should not become a competition."}]},{"id":"A20","title":"The Neighborhood Remote","glitch":"Infrared TV and AC remotes synchronize across entire city blocks: pressing 'Volume Up' in apartment 3 raises the volume in apartment 12.","patchA":{"text":"Pair every remote with one owner-approved TV or AC unit using a private device code.","consequence":"No remote controls a stranger’s device, but visiting friends must ask for a temporary code just to change the temperature."},"patchB":{"text":"Make each remote work only while pointed directly at one device for five uninterrupted seconds.","consequence":"Accidental changes stop, but families stand completely still, arms outstretched, whenever someone wants to switch channels."},"prompts":["Would you choose private codes or the five-second pointing rule?","How would you react if your neighbour controlled your television?"],"toolkit":[{"phrase":"go without saying","meaning":"söylemeye gerek yok","example":"It goes without saying that watching classic movies together fosters community."},{"phrase":"be inclined to","meaning":"…meye eğilimli olmak","example":"I'd be inclined to surrender personal streaming for warm neighborhood bonds."},{"phrase":"take for granted","meaning":"değerini bilmemek","example":"We take for granted how isolated individualized entertainment has made us."}]}]};
+  const state = {
+    mode: null,
+    deck: [],
+    currentIndex: 0,
+    currentStage: "start",
+    records: [] // One stable record per card: { patch: "A"|"B", decision: "KEEP"|"RESET"|null }
+  };
+
+  const $ = id => document.getElementById(id);
+  const headerModeTag = $("headerModeTag");
+  const btnBack = $("btnBack");
+  const btnRestart = $("btnRestart");
+  const btnChangeMode = $("btnChangeMode");
+  const progressContainer = $("progressContainer");
+  const progressText = $("progressText");
+  const progressPercent = $("progressPercent");
+  const progressBarFill = $("progressBarFill");
+  const screenStart = $("screenStart");
+  const screenGlitch = $("screenGlitch");
+  const screenConsequence = $("screenConsequence");
+  const screenComplete = $("screenComplete");
+  const btnModeElem = $("btnModeElem");
+  const btnModeAdv = $("btnModeAdv");
+  const glitchIdTag = $("glitchIdTag");
+  const glitchTitle = $("glitchTitle");
+  const glitchText = $("glitchText");
+  const promptsList = $("promptsList");
+  const toolkitHeader = $("toolkitHeader");
+  const toolkitContent = $("toolkitContent");
+  const toolkitToggleIcon = $("toolkitToggleIcon");
+  const btnSelectPatchA = $("btnSelectPatchA");
+  const btnSelectPatchB = $("btnSelectPatchB");
+  const patchAText = $("patchAText");
+  const patchBText = $("patchBText");
+  const consequencePatchBadge = $("consequencePatchBadge");
+  const consequencePatchText = $("consequencePatchText");
+  const consequenceTwistText = $("consequenceTwistText");
+  const decisionControls = $("decisionControls");
+  const btnKeep = $("btnKeep");
+  const btnReset = $("btnReset");
+  const ackContainer = $("ackContainer");
+  const ackBox = $("ackBox");
+  const ackTitle = $("ackTitle");
+  const ackDesc = $("ackDesc");
+  const btnNextGlitch = $("btnNextGlitch");
+  const statKept = $("statKept");
+  const statReset = $("statReset");
+  const btnReplayDeck = $("btnReplayDeck");
+  const btnReturnHome = $("btnReturnHome");
+  const modalConfirm = $("modalConfirm");
+  const modalBox = modalConfirm.querySelector(".modal-box");
+  const modalTitle = $("modalTitle");
+  const modalMessage = $("modalMessage");
+  const modalBtnCancel = $("modalBtnCancel");
+  const modalBtnConfirm = $("modalBtnConfirm");
+
+  let modalCallback = null;
+  let modalReturnFocus = null;
+
+  function currentCard() {
+    return state.deck[state.currentIndex] || null;
+  }
+
+  function currentRecord() {
+    return state.records[state.currentIndex] || null;
+  }
+
+  function ensureRecord(index) {
+    if (!state.records[index]) state.records[index] = { patch: null, decision: null };
+    return state.records[index];
+  }
+
+  function counts() {
+    return state.records.reduce((result, record) => {
+      if (record && record.decision === "KEEP") result.keep++;
+      if (record && record.decision === "RESET") result.reset++;
+      return result;
+    }, { keep: 0, reset: 0 });
+  }
+
+  function showModal(title, message, onConfirm) {
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    modalReturnFocus = document.activeElement;
+    modalCallback = onConfirm;
+    modalConfirm.classList.add("open");
+    modalConfirm.setAttribute("aria-hidden", "false");
+    $("app").inert = true;
+    modalBtnCancel.focus();
+  }
+
+  function closeModal(restoreFocus) {
+    modalConfirm.classList.remove("open");
+    modalConfirm.setAttribute("aria-hidden", "true");
+    $("app").inert = false;
+    modalCallback = null;
+    if (restoreFocus !== false && modalReturnFocus && typeof modalReturnFocus.focus === "function") {
+      modalReturnFocus.focus();
+    }
+    modalReturnFocus = null;
+  }
+
+  modalBtnCancel.addEventListener("click", () => closeModal(true));
+  modalBtnConfirm.addEventListener("click", () => {
+    const callback = modalCallback;
+    closeModal(false);
+    if (typeof callback === "function") callback();
+  });
+
+  modalConfirm.addEventListener("click", event => {
+    if (event.target === modalConfirm) closeModal(true);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (!modalConfirm.classList.contains("open")) return;
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeModal(true);
+      return;
+    }
+    if (event.key === "Tab") {
+      const focusables = Array.from(modalBox.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'));
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first.focus();
+      }
+    }
+  });
+
+  function showScreen(screenEl, focusEl) {
+    [screenStart, screenGlitch, screenConsequence, screenComplete].forEach(screen => {
+      const active = screen === screenEl;
+      screen.classList.toggle("active", active);
+      screen.setAttribute("aria-hidden", String(!active));
+    });
+    window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    if (focusEl) focusEl.focus({ preventScroll: true });
+  }
+
+  function updateProgress() {
+    if (state.currentStage === "start" || state.currentStage === "complete" || !state.deck.length) {
+      progressContainer.style.display = "none";
+      return;
+    }
+    progressContainer.style.display = "flex";
+    const total = state.deck.length;
+    const current = state.currentIndex + 1;
+    const pct = Math.round((current / total) * 100);
+    progressText.textContent = "GLITCH " + String(current).padStart(2, "0") + " / " + total;
+    progressPercent.textContent = pct + "%";
+    progressBarFill.style.width = pct + "%";
+    progressBarFill.parentElement.setAttribute("aria-valuenow", String(pct));
+  }
+
+  function updateHeader() {
+    const inLevel = state.currentStage !== "start" && !!state.mode;
+    headerModeTag.style.display = inLevel ? "inline-flex" : "none";
+    headerModeTag.textContent = state.mode === "elementary" ? "A2–B1" : "B2–C1";
+    headerModeTag.className = "mode-tag " + (state.mode === "elementary" ? "elementary" : "");
+    [btnBack, btnRestart, btnChangeMode].forEach(button => { button.style.display = inLevel ? "flex" : "none"; });
+  }
+
+  function updateShell() {
+    updateHeader();
+    updateProgress();
+  }
+
+  function setHome() {
+    state.mode = null;
+    state.deck = [];
+    state.currentIndex = 0;
+    state.records = [];
+    state.currentStage = "start";
+    updateShell();
+    showScreen(screenStart, $("startTitle"));
+  }
+
+  function startLevel(modeKey) {
+    if (!Object.prototype.hasOwnProperty.call(GAME_DATA, modeKey)) return;
+    state.mode = modeKey;
+    state.deck = GAME_DATA[modeKey];
+    state.currentIndex = 0;
+    state.records = Array(state.deck.length).fill(null);
+    renderGlitchCard();
+  }
+
+  function appendTextElement(parent, className, text) {
+    const element = document.createElement("div");
+    element.className = className;
+    element.textContent = text;
+    parent.appendChild(element);
+    return element;
+  }
+
+  function renderToolkit(card) {
+    toolkitContent.replaceChildren();
+    card.toolkit.forEach(item => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "toolkit-item";
+      const head = document.createElement("div");
+      head.className = "toolkit-row-head";
+      const phrase = document.createElement("span");
+      phrase.className = "tk-phrase";
+      phrase.textContent = item.phrase;
+      const meaning = document.createElement("span");
+      meaning.className = "tk-meaning";
+      meaning.textContent = "— " + item.meaning;
+      const example = document.createElement("div");
+      example.className = "tk-example";
+      example.textContent = "“" + item.example + "”";
+      head.append(phrase, meaning);
+      wrapper.append(head, example);
+      toolkitContent.appendChild(wrapper);
+    });
+    toolkitContent.classList.remove("open");
+    toolkitHeader.setAttribute("aria-expanded", "false");
+    toolkitToggleIcon.textContent = "▼";
+  }
+
+  function renderGlitchCard() {
+    const card = currentCard();
+    if (!card) return setHome();
+    state.currentStage = "glitch";
+    const record = currentRecord();
+    glitchIdTag.textContent = "#" + card.id;
+    glitchTitle.textContent = card.title;
+    glitchText.textContent = card.glitch;
+    promptsList.replaceChildren();
+    card.prompts.forEach(prompt => appendTextElement(promptsList, "prompt-item", prompt));
+    renderToolkit(card);
+    patchAText.textContent = card.patchA.text;
+    patchBText.textContent = card.patchB.text;
+    btnSelectPatchA.classList.toggle("selected", !!record && record.patch === "A");
+    btnSelectPatchB.classList.toggle("selected", !!record && record.patch === "B");
+    btnSelectPatchA.setAttribute("aria-pressed", String(!!record && record.patch === "A"));
+    btnSelectPatchB.setAttribute("aria-pressed", String(!!record && record.patch === "B"));
+    updateShell();
+    showScreen(screenGlitch, glitchTitle);
+  }
+
+  function renderAck(decision) {
+    if (decision === "KEEP") {
+      ackBox.className = "ack-box keep";
+      ackTitle.textContent = "✓ Reality Patched!";
+      ackDesc.textContent = "You chose to live with the chaos. The universe has updated its rules!";
+    } else {
+      ackBox.className = "ack-box reset";
+      ackTitle.textContent = "↺ Factory Reset!";
+      ackDesc.textContent = "Reality has been restored to default settings. Order is preserved!";
+    }
+  }
+
+  function renderConsequence(editing) {
+    const card = currentCard();
+    const record = currentRecord();
+    if (!card || !record || !record.patch) return renderGlitchCard();
+    state.currentStage = "consequence";
+    const chosen = record.patch === "A" ? card.patchA : card.patchB;
+    consequencePatchBadge.textContent = "DEPLOYED PATCH " + record.patch;
+    consequencePatchText.textContent = chosen.text;
+    // Only the selected consequence is written to the visible consequence element.
+    consequenceTwistText.textContent = chosen.consequence;
+    const hasDecision = record.decision === "KEEP" || record.decision === "RESET";
+    // Editing a previous decision must show ONLY the choice controls, not an old acknowledgement.
+    decisionControls.style.display = (editing || !hasDecision) ? "block" : "none";
+    ackContainer.style.display = (!editing && hasDecision) ? "block" : "none";
+    btnNextGlitch.textContent = state.currentIndex === state.deck.length - 1
+      ? "View Mission Summary →"
+      : "Next Glitch (" + (state.currentIndex + 2) + " / " + state.deck.length + ") →";
+    btnNextGlitch.disabled = !hasDecision || !!editing;
+    if (hasDecision) renderAck(record.decision);
+    updateShell();
+    showScreen(screenConsequence, consequenceTwistText);
+  }
+
+  function selectPatch(patchChoice) {
+    if (state.currentStage !== "glitch" || !["A", "B"].includes(patchChoice)) return;
+    const record = ensureRecord(state.currentIndex);
+    if (record.patch !== patchChoice) record.decision = null;
+    record.patch = patchChoice;
+    renderConsequence(true);
+  }
+
+  toolkitHeader.addEventListener("click", () => {
+    const isOpen = toolkitContent.classList.toggle("open");
+    toolkitHeader.setAttribute("aria-expanded", String(isOpen));
+    toolkitToggleIcon.textContent = isOpen ? "▲" : "▼";
+  });
+
+  btnSelectPatchA.addEventListener("click", () => selectPatch("A"));
+  btnSelectPatchB.addEventListener("click", () => selectPatch("B"));
+
+  function handleDecision(decision) {
+    if (state.currentStage !== "consequence" || !["KEEP", "RESET"].includes(decision)) return;
+    const record = currentRecord();
+    if (!record || !record.patch) return;
+    // Reconfirming the same decision is valid after coming back to edit a card.
+    // Records are keyed by card, so a repeated tap cannot duplicate statistics.
+    record.decision = decision;
+    decisionControls.style.display = "none";
+    ackContainer.style.display = "block";
+    renderAck(decision);
+    btnNextGlitch.disabled = false;
+  }
+
+  btnKeep.addEventListener("click", () => handleDecision("KEEP"));
+  btnReset.addEventListener("click", () => handleDecision("RESET"));
+
+  btnNextGlitch.addEventListener("click", () => {
+    if (state.currentStage !== "consequence") return;
+    const record = currentRecord();
+    if (!record || !record.patch || !record.decision) return;
+    if (state.currentIndex < state.deck.length - 1) {
+      state.currentIndex += 1;
+      renderGlitchCard();
+    } else {
+      renderCompleteScreen();
+    }
+  });
+
+  function renderCompleteScreen() {
+    const totalDecisions = state.records.filter(record => record && record.decision).length;
+    if (totalDecisions !== state.deck.length) return renderGlitchCard();
+    state.currentStage = "complete";
+    const result = counts();
+    statKept.textContent = String(result.keep);
+    statReset.textContent = String(result.reset);
+    updateShell();
+    showScreen(screenComplete, $("completeTitle"));
+  }
+
+  btnBack.addEventListener("click", () => {
+    if (state.currentStage === "consequence") {
+      // Return to the patch choice without discarding the saved patch or decision.
+      renderGlitchCard();
+    } else if (state.currentStage === "glitch") {
+      if (state.currentIndex > 0) {
+        state.currentIndex -= 1;
+        if (currentRecord() && currentRecord().patch) renderConsequence(true);
+        else renderGlitchCard();
+      } else {
+        showModal("Return to Level Selection?", "Your current level progress will be cleared. Return to the main menu?", setHome);
+      }
+    } else if (state.currentStage === "complete") {
+      state.currentIndex = state.deck.length - 1;
+      if (currentRecord() && currentRecord().patch) renderConsequence(true);
+      else renderGlitchCard();
+    }
+  });
+
+  btnRestart.addEventListener("click", () => {
+    showModal("Restart Level?", "This clears every patch and decision in the selected level and starts again at Card 01.", () => startLevel(state.mode));
+  });
+
+  btnChangeMode.addEventListener("click", () => {
+    showModal("Change Level?", "Your current progress will be cleared and you will return to level selection.", setHome);
+  });
+
+  function bindModeCard(element, mode) {
+    element.addEventListener("click", () => startLevel(mode));
+    element.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        startLevel(mode);
+      }
+    });
+  }
+  bindModeCard(btnModeElem, "elementary");
+  bindModeCard(btnModeAdv, "advanced");
+
+  btnReplayDeck.addEventListener("click", () => {
+    if (state.mode) startLevel(state.mode);
+  });
+  btnReturnHome.addEventListener("click", () => {
+    showModal("Return to Level Selection?", "Your completed level's progress will be cleared. Return to the main menu?", setHome);
+  });
+
+  // Defensive boot-time validation of all cards and Toolkit entries.
+  const toolkitNames = new Set(["I think…", "I’d choose…", "I’m not sure…", "I agree because…", "In my opinion…", "I’d rather…", "For example…", "Because…", "end up", "on purpose", "come up with", "what's the point of", "be worth it", "it depends on", "in that case", "make sense", "be better off", "trade-off", "turn out", "take for granted", "the thing is", "have no choice but to", "that being said", "be inclined to", "for the sake of", "draw the line at", "go without saying", "come to terms with"]);
+  for (const mode of ["elementary", "advanced"]) {
+    for (const card of GAME_DATA[mode]) {
+      if (!card.id || !card.title || !card.glitch || !card.patchA?.text || !card.patchA?.consequence ||
+          !card.patchB?.text || !card.patchB?.consequence || card.prompts.length !== 2 ||
+          card.toolkit.length !== 3 || !card.toolkit.every(t => toolkitNames.has(t.phrase) && t.meaning && t.example)) {
+        throw new Error("Invalid card content: " + card.id);
+      }
+    }
+  }
+  // Defensive boot-time dataset integrity check; fail clearly instead of rendering a broken deck.
+  ["elementary", "advanced"].forEach(mode => {
+    if (!Array.isArray(GAME_DATA[mode]) || GAME_DATA[mode].length !== 20) throw new Error("Invalid card count for " + mode);
+  });
+  updateShell();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#002F65">
+  <meta name="description" content="Smart or Sneaky? A TalkLine Business English speaking game.">
+  <title>Smart or Sneaky? | TalkLine Business English</title>
+  <style>
+    /* TalkLine's five brand colors. All translucent/gradient values derive from them. */
+    :root {
+      --navy: #002F65;
+      --blue: #2288D0;
+      --sky: #5EC9F3;
+      --purple: #A133EE;
+      --white: #FFFFFF;
+      --frost: rgba(255, 255, 255, .88);
+      --rim: rgba(255, 255, 255, .50);
+      --blur: blur(18px) saturate(155%);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { min-height: 100%; background: var(--navy); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(ellipse 75% 46% at 6% 8%, rgba(94,201,243,.53), transparent 78%),
+                  radial-gradient(ellipse 68% 56% at 93% 21%, rgba(161,51,238,.44), transparent 78%),
+                  radial-gradient(ellipse 80% 65% at 26% 94%, rgba(34,136,208,.58), transparent 80%),
+                  var(--navy);
+      background-attachment: fixed;
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    /* Large blurred light pools give the glass something to refract, all done in CSS. */
+    body::before, body::after {
+      content: ""; position: fixed; z-index: 0; pointer-events: none;
+      width: 360px; height: 360px; border-radius: 50%; filter: blur(58px);
+    }
+    body::before { top: -180px; left: calc(50% - 335px); background: rgba(94,201,243,.24); }
+    body::after { bottom: -185px; left: calc(50% + 40px); background: rgba(161,51,238,.27); }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; cursor: pointer; }
+    button:disabled { opacity: .44; cursor: not-allowed; }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid var(--white);
+      outline-offset: 3px;
+    }
+    .app {
+      position: relative; z-index: 1;
+      width: min(100%, 480px); height: 100vh; height: 100dvh; min-height: 0;
+      margin: 0 auto; display: flex; flex-direction: column;
+      border-left: 1px solid rgba(255,255,255,.14);
+      border-right: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(165deg, rgba(255,255,255,.13), rgba(0,47,101,.22) 42%, rgba(255,255,255,.07));
+      backdrop-filter: blur(9px) saturate(135%);
+      -webkit-backdrop-filter: blur(9px) saturate(135%);
+      box-shadow: 0 18px 80px rgba(0,47,101,.28);
+    }
+    .site-header {
+      position: relative; z-index: 3;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 11px; padding: 16px 18px 14px;
+      background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.04));
+      border-bottom: 1px solid rgba(255,255,255,.33);
+      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+    }
+    .brand {
+      color: var(--white); font-size: 10px; font-weight: 900;
+      letter-spacing: .8px; line-height: 1.4; white-space: nowrap;
+    }
+    .header-links { display: flex; align-items: center; justify-content: flex-end; gap: 13px; flex-wrap: wrap; }
+    .text-link {
+      color: var(--white); font-size: 12px; font-weight: 700;
+      text-decoration: underline; text-decoration-color: rgba(255,255,255,.65);
+      text-underline-offset: 4px;
+    }
+    .main { flex: 1; min-height: 0; width: 100%; padding: 17px 18px 18px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+    .eyebrow, .choose-label {
+      margin: 0 0 10px; color: var(--sky); font-size: 12px;
+      font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    .title { font-size: clamp(46px, 12.8vw, 65px); line-height: .99; letter-spacing: -2.5px; font-weight: 900; margin: 0; text-shadow: 0 2px 24px rgba(0,47,101,.34); }
+    .title .accent { color: var(--sky); }
+    .intro { margin: 16px 0 20px; font-size: 16px; line-height: 1.5; font-weight: 700; max-width: 380px; }
+    /* Liquid glass: frosted panels, light rim, soft internal reflection. */
+    .rules-card, .marketing-card, .twist-card, .phrase-card, .finish-card {
+      position: relative; overflow: hidden; border-radius: 19px;
+      border: 1px solid var(--rim);
+      background: linear-gradient(150deg, rgba(255,255,255,.95), rgba(255,255,255,.86) 58%, rgba(94,201,243,.79));
+      color: var(--navy);
+      backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,.95), inset 0 -1px 1px rgba(255,255,255,.18), 0 14px 32px rgba(0,47,101,.19);
+    }
+    .rules-card::before, .marketing-card::before, .finish-card::before {
+      content: ""; position: absolute; pointer-events: none;
+      top: -65px; right: -60px; width: 210px; height: 125px;
+      background: radial-gradient(ellipse, rgba(255,255,255,.82), rgba(255,255,255,0) 73%);
+      transform: rotate(-17deg);
+    }
+    .rules-card { padding: 16px 17px 14px; }
+    .rules-title { margin: 0 0 11px; font-weight: 900; font-size: 13px; letter-spacing: .7px; }
+    .rule-line { display: flex; align-items: baseline; gap: 10px; margin: 0 0 10px; line-height: 1.4; font-size: 15px; font-weight: 650; }
+    .rule-line:last-child { margin-bottom: 0; }
+    .rule-number { font-size: 18px; font-weight: 900; min-width: 16px; }
+    .choose-label { margin: 23px 0 11px; }
+    .level-button {
+      width: 100%; min-height: 78px; border-radius: 17px;
+      border: 1px solid rgba(255,255,255,.59);
+      display: flex; align-items: center; justify-content: space-between;
+      text-align: left; padding: 13px 18px; margin: 10px 0;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,.73), 0 10px 24px rgba(0,47,101,.16);
+      transition: transform .17s ease, filter .17s ease;
+    }
+    .level-button:active:not(:disabled) { transform: scale(.985); }
+    .level-button:hover:not(:disabled) { filter: brightness(1.07); }
+    .level-button.elementary { background: linear-gradient(135deg, rgba(255,255,255,.93), rgba(94,201,243,.84)); color: var(--navy); }
+    .level-button.advanced { background: linear-gradient(120deg, rgba(161,51,238,.86), rgba(0,47,101,.88)); color: var(--white); }
+    .level-name { display: block; font-size: 20px; font-weight: 900; letter-spacing: .4px; }
+    .level-sub { display: block; font-size: 13px; font-weight: 700; margin-top: 3px; }
+    .level-arrow { font-size: 31px; font-weight: 400; }
+    .fine-print { color: var(--white); font-size: 12px; margin: 19px 0 0; text-align: center; line-height: 1.4; font-weight: 700; }
+    .game-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+    .counter { margin: 0; color: var(--white); font-size: 16px; font-weight: 900; }
+    .level-tag { border-radius: 99px; padding: 8px 12px; font-size: 10px; font-weight: 900; letter-spacing: .8px; white-space: nowrap; border: 1px solid rgba(255,255,255,.57); backdrop-filter: blur(8px); }
+    .level-tag.elementary { background: rgba(94,201,243,.88); color: var(--navy); }
+    .level-tag.advanced { background: linear-gradient(125deg, var(--purple), var(--navy)); color: var(--white); }
+    .progress-track { width: 100%; height: 5px; margin: 0 0 13px; border-radius: 20px; background: rgba(255,255,255,.29); overflow: hidden; border: 1px solid rgba(255,255,255,.24); }
+    .progress-fill { width: 5%; height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--sky), var(--white)); transition: width 220ms ease; }
+    .marketing-card { padding: 18px 17px 16px; }
+    .card-overline { position: relative; font-size: 11px; letter-spacing: 1.4px; font-weight: 900; margin: 0 0 11px; }
+    .move-text { position: relative; margin: 0 0 17px; font-size: clamp(20px, 5.4vw, 26px); line-height: 1.3; letter-spacing: -.35px; font-weight: 900; overflow-wrap: break-word; }
+    .vote-title { margin: 0 0 10px; font-size: 12px; line-height: 1.35; font-weight: 800; }
+    .vote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .vote-label {
+      min-width: 0; min-height: 77px; border-radius: 14px;
+      padding: 9px 6px; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; gap: 5px;
+      text-align: center; color: var(--white);
+      border: 1px solid rgba(255,255,255,.42);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,.33), 0 5px 12px rgba(0,47,101,.13);
+    }
+    .vote-label.smart { background: linear-gradient(135deg, rgba(34,136,208,.98), rgba(0,47,101,.93)); }
+    .vote-label.sneaky { background: linear-gradient(135deg, rgba(161,51,238,.98), rgba(0,47,101,.92)); }
+    .vote-label svg { width: 24px; height: 24px; stroke: currentColor; }
+    .vote-label span { font-weight: 900; font-size: 15px; letter-spacing: .1px; }
+    .twist-card { margin-top: 11px; padding: 13px 15px; min-height: 84px; }
+    .twist-card:not(.revealed) {
+      background: linear-gradient(155deg, rgba(255,255,255,.22), rgba(94,201,243,.13));
+      border: 1px dashed rgba(255,255,255,.66); color: var(--white);
+    }
+    .twist-card.revealed { background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(94,201,243,.87)); color: var(--navy); border: 1px solid rgba(255,255,255,.90); }
+    .twist-heading { margin: 0 0 6px; font-size: 11px; letter-spacing: 1.4px; font-weight: 900; }
+    .twist-placeholder { font-size: 13px; line-height: 1.45; font-weight: 700; margin: 0; }
+    .twist-text { font-size: 16px; line-height: 1.4; font-weight: 850; margin: 0; }
+    .twist-question { font-size: 14px; font-weight: 900; margin: 8px 0 0; }
+    .phrase-card {
+      margin-top: 11px; padding: 13px 14px 14px;
+      background: linear-gradient(140deg, rgba(255,255,255,.19), rgba(255,255,255,.10));
+      color: var(--white); border-color: rgba(255,255,255,.35);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,.40);
+    }
+    .phrase-heading { font-weight: 900; font-size: 10px; letter-spacing: 1.4px; margin: 0 0 10px; }
+    .phrases { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .phrase { padding: 8px 9px; border-radius: 10px; background: rgba(0,47,101,.35); border: 1px solid rgba(255,255,255,.15); font-weight: 750; font-size: 12px; line-height: 1.4; }
+    .game-actions {
+      position: relative; z-index: 4; width: 100%; flex-shrink: 0;
+      padding: 11px 18px max(13px, env(safe-area-inset-bottom));
+      background: linear-gradient(160deg, rgba(255,255,255,.20), rgba(0,47,101,.70));
+      border-top: 1px solid rgba(255,255,255,.39);
+      backdrop-filter: blur(25px) saturate(170%); -webkit-backdrop-filter: blur(25px) saturate(170%);
+      display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.60fr) minmax(0, .95fr); gap: 9px;
+    }
+    .action {
+      min-height: 51px; padding: 9px 6px; border-radius: 13px;
+      border: 1px solid rgba(255,255,255,.47);
+      background: rgba(255,255,255,.16); color: var(--white);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,.34);
+      font-size: 13px; font-weight: 900; letter-spacing: .22px; line-height: 1.16;
+    }
+    .action.primary { background: linear-gradient(140deg, rgba(255,255,255,.96), rgba(94,201,243,.86)); color: var(--navy); border-color: var(--white); font-size: 15px; min-height: 55px; }
+    .action.primary:disabled { opacity: .38; }
+    .finish-card { padding: 23px 21px; }
+    .finish-kicker { position: relative; font-size: 11px; font-weight: 900; letter-spacing: 1.3px; margin: 0 0 13px; }
+    .finish-title { position: relative; font-weight: 900; font-size: clamp(32px, 9vw, 47px); line-height: 1.04; margin: 0 0 22px; letter-spacing: -1.15px; }
+    .finish-q { font-size: 21px; line-height: 1.32; font-weight: 850; margin: 17px 0; }
+    .finish-divider { height: 1px; background: rgba(0,47,101,.25); margin: 19px 0; }
+    .end-actions { display: grid; gap: 11px; margin-top: 20px; }
+    .end-button { min-height: 58px; border-radius: 14px; font-weight: 900; font-size: 18px; padding: 13px; border: 1px solid var(--rim); box-shadow: inset 0 1px 1px rgba(255,255,255,.42); }
+    .end-button.again { background: linear-gradient(120deg, rgba(255,255,255,.96), rgba(94,201,243,.86)); color: var(--navy); }
+    .end-button.switch { background: linear-gradient(125deg, rgba(161,51,238,.91), rgba(0,47,101,.94)); color: var(--white); }
+    dialog {
+      width: min(calc(100vw - 30px), 440px); max-height: min(90vh, 700px); overflow-y: auto;
+      border: 1px solid rgba(255,255,255,.72); border-radius: 20px; padding: 24px;
+      background: linear-gradient(150deg, rgba(0,47,101,.95), rgba(34,136,208,.88));
+      color: var(--white); font-family: Arial, Helvetica, sans-serif;
+      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      box-shadow: 0 24px 70px rgba(0,47,101,.40);
+    }
+    dialog::backdrop { background: rgba(0,47,101,.69); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); }
+    .dialog-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .dialog-head h2 { margin: 0 0 14px; font-size: 27px; }
+    .dialog-steps { margin: 0; padding-left: 23px; line-height: 1.5; font-size: 16px; }
+    .dialog-steps li { margin: 0 0 12px; padding-left: 3px; }
+    .dialog-note { margin: 15px 0 0; font-weight: 700; color: var(--white); font-size: 14px; }
+    .animate-slide { animation: enterCard 260ms cubic-bezier(.18,.76,.26,1) both; }
+    .animate-pop { animation: popTwist 240ms cubic-bezier(.2,.9,.3,1.2) both; }
+    @keyframes enterCard { from { opacity: .55; transform: translateX(18px) scale(.99); } to { opacity: 1; transform: translateX(0) scale(1); } }
+    @keyframes popTwist { from { opacity: .45; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .rules-card, .marketing-card, .finish-card, .twist-card.revealed { background: rgba(255,255,255,.98); }
+      .phrase-card { background: rgba(0,47,101,.94); }
+    }
+    @media (max-width: 355px) {
+      .site-header { padding-inline: 11px; }
+      .brand { font-size: 9.5px; letter-spacing: .4px; }
+      .header-links { gap: 7px; }
+      .text-link { font-size: 10px; }
+      .main { padding: 16px 11px 14px; }
+      .marketing-card { padding: 15px 12px 14px; }
+      .vote-label { min-height: 70px; }
+      .vote-label span { font-size: 13px; }
+      .phrase { font-size: 11px; padding: 7px 6px; }
+      .game-actions { padding-inline: 11px; gap: 6px; }
+      .action { font-size: 12px; }
+      .action.primary { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="site-header">
+      <div class="brand">TALKLINE / BUSINESS ENGLISH</div>
+      <nav class="header-links" aria-label="Game links">
+        <a href="#" class="text-link" id="levelLink" hidden>Change level</a>
+        <a href="#" class="text-link" id="helpLink">How to play</a>
+      </nav>
+    </header>
+
+    <main class="main" id="mainContent">
+      <!-- START: no cards, points or individual voting input. -->
+      <section id="startScreen" aria-label="Choose a level">
+        <p class="eyebrow">THE BUSINESS ENGLISH TABLE GAME</p>
+        <h1 class="title">Smart<br><span class="accent">or Sneaky?</span></h1>
+        <p class="intro">Brilliant marketing or a clever little trap? You decide.</p>
+        <div class="rules-card">
+          <p class="rules-title">THE GAME IN 3 LINES</p>
+          <p class="rule-line"><span class="rule-number">1.</span><span>See a marketing move.</span></p>
+          <p class="rule-line"><span class="rule-number">2.</span><span>Pick SMART or SNEAKY. Tell us why.</span></p>
+          <p class="rule-line"><span class="rule-number">3.</span><span>Reveal the twist. Change your mind?</span></p>
+        </div>
+        <p class="choose-label">CHOOSE YOUR LEVEL</p>
+        <button id="elementaryButton" class="level-button elementary" type="button">
+          <span><span class="level-name">ELEMENTARY</span><span class="level-sub">A2–B1 · Simple situations</span></span>
+          <span class="level-arrow" aria-hidden="true">›</span>
+        </button>
+        <button id="advancedButton" class="level-button advanced" type="button">
+          <span><span class="level-name">ADVANCED</span><span class="level-sub">B2–C1 · Trickier situations</span></span>
+          <span class="level-arrow" aria-hidden="true">›</span>
+        </button>
+        <p class="fine-print">20 cards per level. No points. Just good conversations.</p>
+      </section>
+
+      <!-- CARD: static side labels are deliberately not vote buttons. -->
+      <section id="cardScreen" hidden aria-label="Marketing situation">
+        <div class="game-meta">
+          <p id="cardCounter" class="counter">Card 1 / 20</p>
+          <span id="levelTag" class="level-tag elementary">ELEMENTARY</span>
+        </div>
+        <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Cards completed" aria-valuemin="0" aria-valuemax="20" aria-valuenow="1"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="marketing-card" id="marketingCard">
+          <p class="card-overline">TIME FOR THE VERDICT!</p>
+          <h2 class="move-text" id="moveText"></h2>
+          <p class="vote-title">Choose a side. Hear one reason for each.</p>
+          <div class="vote-grid" aria-label="Discussion choices; no vote is recorded">
+            <div class="vote-label smart">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>
+              <span>SMART MOVE</span>
+            </div>
+            <div class="vote-label sneaky">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.5 15.5 5 5"/><path d="M10.8 7.5v4.1"/><path d="M10.8 14.2h.01"/></svg>
+              <span>SNEAKY TRICK</span>
+            </div>
+          </div>
+        </div>
+        <div class="twist-card" id="twistCard" aria-live="polite" aria-atomic="true">
+          <p class="twist-heading">PLOT TWIST!</p>
+          <p class="twist-placeholder" id="twistPlaceholder">A new fact is waiting. Reveal it after both sides speak.</p>
+          <p class="twist-text" id="twistText" hidden></p>
+          <p class="twist-question" id="twistQuestion" hidden>Would you change your mind?</p>
+        </div>
+        <div class="phrase-card" aria-label="Useful English sentence starters">
+          <p class="phrase-heading">STEAL A PHRASE FROM THE TOOLKIT</p>
+          <div class="phrases">
+            <div class="phrase">“I'd fall for it because…”</div>
+            <div class="phrase">“It's aimed at…”</div>
+            <div class="phrase">“It comes across as…”</div>
+            <div class="phrase">“I've changed my mind because…”</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- END: only replay or switch-level actions. -->
+      <section id="endScreen" hidden aria-label="Game finished">
+        <p class="eyebrow">ALL 20 CARDS COMPLETE</p>
+        <div class="finish-card">
+          <p class="finish-kicker">ONE LAST QUESTION...</p>
+          <h2 class="finish-title">Time for the verdict!</h2>
+          <p class="finish-q">Which trick would fool you most?</p>
+          <div class="finish-divider"></div>
+          <p class="finish-q">Which smart move do you respect?</p>
+        </div>
+        <div class="end-actions">
+          <button class="end-button again" id="playAgainButton" type="button">Play again</button>
+          <button class="end-button switch" id="switchLevelButton" type="button">Switch level</button>
+        </div>
+        <p class="fine-print">Thanks for bringing your opinions to TalkLine.</p>
+      </section>
+    </main>
+
+    <div class="game-actions" id="gameActions" hidden>
+      <button class="action" id="backButton" type="button">BACK</button>
+      <button class="action primary" id="twistButton" type="button">PLOT TWIST</button>
+      <button class="action" id="nextButton" type="button">NEXT</button>
+    </div>
+  </div>
+
+  <!-- Native dialog works offline; Escape and outside clicks close it too. -->
+  <dialog id="helpDialog" aria-labelledby="helpTitle">
+    <div class="dialog-head">
+      <h2 id="helpTitle">How to play</h2>
+      <a class="text-link" id="closeHelpLink" href="#">Close</a>
+    </div>
+    <ol class="dialog-steps">
+      <li>The host shows a marketing move.</li>
+      <li>Everyone chooses: SMART MOVE or SNEAKY TRICK.</li>
+      <li>Hear two different opinions. Discuss using Toolkit phrases.</li>
+      <li>The host reveals a PLOT TWIST. Change your mind if you want!</li>
+    </ol>
+    <p class="dialog-note">The host controls the screen. Everyone else just talks.</p>
+  </dialog>
+
+  <script>
+    'use strict';
+
+    // Edit these arrays to add cards. Each card needs only { move, twist }.
+    // All state stays in memory; there is no storage, scoring or vote tracking.
+    const elementaryCards = [
+      { move: 'A shop shows “Only 2 left!” next to a bag.', twist: 'The shop has a hundred of the same bag in the back!' },
+      { move: 'A shop prices a jacket at 99.99 instead of 100.', twist: 'Every price in the shop looks like this!' },
+      { move: 'A famous singer advertises a shampoo.', twist: 'She uses a different shampoo at home!' },
+      { move: 'A snack shop says “Buy one, get one free.”', twist: 'You didn’t want even one snack before you saw the sign!' },
+      { move: 'An app offers a free month.', twist: 'You must give your card number, and cancelling is hard!' },
+      { move: 'A café gives you a stamp card: ten coffees, then one free.', twist: 'The café is far from your home!' },
+      { move: 'An online shop says “Free delivery over 500 lira.”', twist: 'You add things you don’t need to reach 500!' },
+      { move: 'A phone advert shows only perfect photos.', twist: 'The photos are edited!' },
+      { move: 'A box says “NEW!” in big letters.', twist: 'Only the box is new, not the product!' },
+      { move: 'A shop plays slow music and smells like fresh cookies.', twist: 'You stay twenty minutes longer and buy more!' },
+      { move: 'A bakery gives free cake samples to everyone who walks in.', twist: 'The baker gives you the recipe, too—even if you buy nothing!' },
+      { move: 'A cafe puts a friendly handwritten message on every cup.', twist: 'All the messages say exactly the same thing!' },
+      { move: 'A shop puts a “Staff favourite” sign next to a backpack.', twist: 'The staff have never seen anyone use that backpack!' },
+      { move: 'A shampoo advert shows real people using the product.', twist: 'The photos have no filters, and the people are real customers!' },
+      { move: 'A restaurant gives a funny name to its biggest sandwich.', twist: 'Everyone orders it just to say the name out loud!' },
+      { move: 'A sports shop lets you try shoes before buying them.', twist: 'You can wear them on a short run outside the shop!' },
+      { move: 'An app asks what kind of adverts you want to see.', twist: 'You can also choose to see no adverts at all!' },
+      { move: 'A juice bottle has a big picture of fresh strawberries.', twist: 'The drink contains only a tiny amount of strawberry juice!' },
+      { move: 'A cafe puts its most popular drink at the top of the menu.', twist: 'It is the owner’s favourite, but nobody else orders it!' },
+      { move: 'A shop sends you a message: “We miss you!”', twist: 'It sends the same message every morning for a week!' }
+    ];
+
+    const advancedCards = [
+      { move: 'A website shows a crossed-out “original price” next to the sale price.', twist: 'The item was never sold at the original price!' },
+      { move: 'An influencer says “This is not an ad,” but wears the brand in every video.', twist: 'They received free products every month!' },
+      { move: 'An online shop says “Customers also bought…” under every product.', twist: 'You came for one thing and leave with five!' },
+      { move: 'A brand puts a green leaf and the word “eco” on its packaging.', twist: 'Only one per cent of its materials is recycled!' },
+      { move: 'A brand sells “limited-edition” products with a countdown clock.', twist: 'The “limited” edition returns every month!' },
+      { move: 'A subscription renews automatically after the free trial.', twist: 'The reminder email arrives after the payment!' },
+      { move: 'A company tells a warm story about its founder starting in a garage.', twist: 'An advertising agency wrote the story last year!' },
+      { move: 'A product page shows hundreds of five-star reviews.', twist: 'Many reviewers received the product for free!' },
+      { move: 'A “premium” label makes a product cost twice as much.', twist: 'It comes from the same factory as the cheaper one!' },
+      { move: 'A brand uses jokes and memes to sound like your friend.', twist: 'The same brand ignores your complaint email!' },
+      { move: 'A brand lets customers vote for its next ice-cream flavour.', twist: 'The winning flavour was already in production before voting began!' },
+      { move: 'A company admits that an advert exaggerated what its product could do.', twist: 'It corrects the ad publicly and offers refunds without being asked.' },
+      { move: 'A fitness app uses your activity data to show personalised ads.', twist: 'The option to stop this is hidden deep in its settings.' },
+      { move: 'A brand makes fun of its own product failures in a campaign.', twist: 'It also fixes the problems and invites customers to test the new version.' },
+      { move: 'A website labels one product “Trending right now”.', twist: '“Trending” means people clicked on it—not that anyone bought it.' },
+      { move: 'A company gives products to small creators and asks for honest reviews.', twist: 'It publishes their negative reviews alongside the positive ones.' },
+      { move: 'A streaming platform promotes an “ad-free experience”.', twist: 'Shows still feature paid brand placements that viewers cannot skip.' },
+      { move: 'A wellness drink advert boasts that it is “clinically tested”.', twist: 'The test measured whether people liked its taste, not whether it worked.' },
+      { move: 'An online store sends one reminder about a forgotten shopping cart.', twist: 'It clearly says why you got the message and how to stop reminders.' },
+      { move: 'A new snack brand uses handmade-looking packaging to seem independent.', twist: 'It is owned by a large company that sells an almost identical snack.' }
+    ];
+
+    const $ = (id) => document.getElementById(id);
+    const state = { level: null, cardIndex: 0, revealed: [], navigationLocked: false };
+    const screens = { start: $('startScreen'), card: $('cardScreen'), end: $('endScreen') };
+    const cardsForLevel = () => state.level === 'ELEMENTARY' ? elementaryCards : advancedCards;
+
+    function showScreen(name) {
+      Object.entries(screens).forEach(([key, element]) => { element.hidden = key !== name; });
+      $('gameActions').hidden = name !== 'card';
+      $('levelLink').hidden = name === 'start';
+    }
+
+    function restart(level) {
+      state.level = level;
+      state.cardIndex = 0;
+      state.revealed = new Array(cardsForLevel().length).fill(false);
+      state.navigationLocked = false;
+      showScreen('card');
+      renderCard(true);
+      $('mainContent').scrollTop = 0;
+    }
+
+    function returnToStart() {
+      state.level = null;
+      state.cardIndex = 0;
+      state.revealed = [];
+      state.navigationLocked = false;
+      showScreen('start');
+      $('mainContent').scrollTop = 0;
+    }
+
+    function animateAgain(element, className) {
+      element.classList.remove(className);
+      void element.offsetWidth; // restart the short CSS animation
+      element.classList.add(className);
+    }
+
+    function renderCard(animate) {
+      const cards = cardsForLevel();
+      const card = cards[state.cardIndex];
+      const isRevealed = state.revealed[state.cardIndex];
+      $('cardCounter').textContent = `Card ${state.cardIndex + 1} / ${cards.length}`;
+      $('progressTrack').setAttribute('aria-valuemax', String(cards.length));
+      $('progressTrack').setAttribute('aria-valuenow', String(state.cardIndex + 1));
+      $('progressFill').style.width = `${((state.cardIndex + 1) / cards.length) * 100}%`;
+      $('levelTag').textContent = state.level;
+      $('levelTag').className = `level-tag ${state.level === 'ELEMENTARY' ? 'elementary' : 'advanced'}`;
+      $('moveText').textContent = card.move;
+      $('twistPlaceholder').hidden = isRevealed;
+      $('twistText').hidden = !isRevealed;
+      $('twistQuestion').hidden = !isRevealed;
+      $('twistText').textContent = isRevealed ? card.twist : '';
+      $('twistCard').classList.toggle('revealed', isRevealed);
+      $('backButton').disabled = state.cardIndex === 0;
+      $('twistButton').disabled = isRevealed;
+      $('nextButton').disabled = false;
+      if (animate) animateAgain($('marketingCard'), 'animate-slide');
+    }
+
+    function revealTwist() {
+      if (state.level === null || state.revealed[state.cardIndex]) return;
+      state.revealed[state.cardIndex] = true;
+      renderCard(false);
+      animateAgain($('twistCard'), 'animate-pop');
+    }
+
+    function navigate(direction) {
+      if (state.level === null || state.navigationLocked) return;
+      const cards = cardsForLevel();
+      const next = state.cardIndex + direction;
+      if (next < 0 || next > cards.length) return;
+      state.navigationLocked = true; // avoids accidental double-skips on rapid taps
+      if (next === cards.length) {
+        showScreen('end');
+      } else {
+        state.cardIndex = next;
+        renderCard(true);
+      }
+      $('mainContent').scrollTop = 0;
+      window.setTimeout(() => { state.navigationLocked = false; }, 250);
+    }
+
+    $('elementaryButton').addEventListener('click', () => restart('ELEMENTARY'));
+    $('advancedButton').addEventListener('click', () => restart('ADVANCED'));
+    $('backButton').addEventListener('click', () => navigate(-1));
+    $('nextButton').addEventListener('click', () => navigate(1));
+    $('twistButton').addEventListener('click', revealTwist);
+    $('playAgainButton').addEventListener('click', () => restart(state.level));
+    $('switchLevelButton').addEventListener('click', returnToStart);
+    $('levelLink').addEventListener('click', (event) => { event.preventDefault(); returnToStart(); });
+
+    const dialog = $('helpDialog');
+    $('helpLink').addEventListener('click', (event) => { event.preventDefault(); if (!dialog.open) dialog.showModal(); });
+    $('closeHelpLink').addEventListener('click', (event) => { event.preventDefault(); dialog.close(); });
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+
+    document.addEventListener('keydown', (event) => {
+      if (dialog.open || screens.card.hidden || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.key === 'ArrowLeft') { event.preventDefault(); navigate(-1); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); navigate(1); }
+    });
+  </script>
+</body>
+</html>

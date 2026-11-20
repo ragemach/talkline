@@ -1,0 +1,104 @@
+[
+  {
+    "file": "TALKLINE - Pop Culture - Streaming Culture.pptx.pptx",
+    "slides": 20,
+    "sha256": "41c5231a459d651121e7fd4ef49c231fdf028040fe0e03e9903c8c22e8af834c",
+    "fonts": [
+      "Arial",
+      "Arial Bold",
+      "Arial Italics"
+    ],
+    "size": {
+      "cx": "6858000",
+      "cy": "9144000"
+    }
+  },
+  {
+    "file": "Talkline Business Beyond the Office.pptx",
+    "slides": 22,
+    "sha256": "a62da9f9ca71de93cf32267a507990957981505ba3ab6dc763a8796371196510",
+    "fonts": [
+      "Arial",
+      "Arial Bold",
+      "Arial Italics"
+    ],
+    "size": {
+      "cx": "6858000",
+      "cy": "9144000"
+    }
+  },
+  {
+    "file": "TALKLINE GAMENIGHT TABOO-PROBLEM SOLVER.pptx",
+    "slides": 13,
+    "sha256": "ff578aa9f34c50c4de727caba40f590899aaed7429a5a589bd480b7955243681",
+    "fonts": [
+      "Arial",
+      "Arial Bold",
+      "Arial Bold Italics",
+      "Arial Italics",
+      "Calibri (MS) Bold"
+    ],
+    "size": {
+      "cx": "6858000",
+      "cy": "9144000"
+    }
+  },
+  {
+    "file": "TalkLine_Business_Interview (2).pptx (2).pptx",
+    "slides": 21,
+    "sha256": "0ed2a4ea9264e463e70fcb84065cfea0fb265cdaf42e5f02c546e0965b4c82d2",
+    "fonts": [
+      "Arial",
+      "Arial Bold",
+      "Arial Bold Italics",
+      "Arial Italics"
+    ],
+    "size": {
+      "cx": "6858000",
+      "cy": "9144000"
+    }
+  },
+  {
+    "file": "Talkline_CULTURE EXCHANGE The Travel Bug.pptx",
+    "slides": 20,
+    "sha256": "8a4703e6ac3b4f703014d4cce00835a151f922c1bc5fd6d1c45b8cb5e4eacddc",
+    "fonts": [
+      "Arial",
+      "Arial Bold",
+      "Arial Italics"
+    ],
+    "size": {
+      "cx": "6858000",
+      "cy": "9144000"
+    }
+  },
+  {
+    "file": "Talkline_Readable_Colors.pptx.pptx",
+    "slides": 20,
+    "sha256": "d29deb9298013d3b30091b85b93005f1bd6d4b5bdc6a0e962e0716052b1df6f5",
+    "fonts": [
+      "Playwrite US Modern",
+      "Segoe UI",
+      "Segoe UI Bold"
+    ],
+    "size": {
+      "cx": "6858000",
+      "cy": "9144000"
+    }
+  },
+  {
+    "file": "TALKLINE_Spontaneous_Talk_Things_We_Pretend_to_Understand.pptx.pptx",
+    "slides": 20,
+    "sha256": "9d0443c5a2ffa41d5ae85565ea30cd8e67428aaf73e156a04c6e81058b4737d0",
+    "fonts": [
+      "Arial",
+      "Arial Bold",
+      "Arial Italics",
+      "Calibri (MS) Bold"
+    ],
+    "size": {
+      "cx": "6858000",
+      "cy": "9144000"
+    }
+  }
+]

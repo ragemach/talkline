@@ -1,0 +1,7503 @@
+{
+  "blueprint_version": 1,
+  "concept": "spontaneous",
+  "source_file": "Completed_Spontaneous_Talk_23_Slides_READABLE.pptx",
+  "source_sha256": "0055755157c36a4d2af72337d8b945d991c305873b61aeb189da57ff54d808ad",
+  "size_emu": [
+    6858000,
+    9144000
+  ],
+  "slides": [
+    {
+      "source_slide": 1,
+      "role": "cover",
+      "fields": [
+        {
+          "shape_path": [
+            2
+          ],
+          "name": "TextBox 2",
+          "sample_text": "Welcome to",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            4690110,
+            6126480,
+            293370
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Welcome to",
+                  "font": "Arial Italics",
+                  "size_pt": 17.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            3
+          ],
+          "name": "TextBox 3",
+          "sample_text": "TalkLine",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            4973955,
+            6126480,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TalkLine",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "SPONTANEOUS TALK",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            5513070,
+            6126480,
+            247650
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "SPONTANEOUS TALK",
+                  "font": "Arial Bold",
+                  "size_pt": 15.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "REALITY HAS A GLITCH!",
+          "content_key": "topic",
+          "bounds_emu": [
+            365760,
+            6153150,
+            6126480,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "REALITY HAS A GLITCH!",
+                  "font": "Arial Bold",
+                  "size_pt": 30.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            8
+          ],
+          "name": "TextBox 8",
+          "sample_text": "What If Life Had Different Rules?",
+          "content_key": "deck.subtitle",
+          "bounds_emu": [
+            365760,
+            6793230,
+            6126480,
+            293370
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "What If Life Had Different Rules?",
+                  "font": "Arial Italics",
+                  "size_pt": 18.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            9,
+            11
+          ],
+          "name": "TextBox 11",
+          "sample_text": "ISTANBUL  •  ENGLISH CONVERSATION NIGHT",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            8412480,
+            436245
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "ISTANBUL  •  ENGLISH CONVERSATION NIGHT",
+                  "font": "Arial Bold",
+                  "size_pt": 16.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            14,
+            16
+          ],
+          "name": "TextBox 16",
+          "sample_text": "TALKLINE",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            3121152,
+            628650
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKLINE",
+                  "font": "Arial Bold",
+                  "size_pt": 21.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            17,
+            19
+          ],
+          "name": "TextBox 19",
+          "sample_text": "SPEAK  ·  CONNECT  ·  IMAGINE",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            3096768,
+            250698
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "SPEAK  ·  CONNECT  ·  IMAGINE",
+                  "font": "Arial Bold",
+                  "size_pt": 11.8,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "SYSTEM  /  ERROR",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            3230880,
+            338709
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "SYSTEM  /  ERROR",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27,
+            29
+          ],
+          "name": "TextBox 29",
+          "sample_text": "REALITY",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            3413760,
+            762762
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "REALITY",
+                  "font": "Arial Bold",
+                  "size_pt": 35.49,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            30,
+            32
+          ],
+          "name": "TextBox 32",
+          "sample_text": "GL!TCH",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -38100,
+            3413760,
+            806196
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "GL!TCH",
+                  "font": "Arial Bold",
+                  "size_pt": 37.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            33,
+            35
+          ],
+          "name": "TextBox 35",
+          "sample_text": "NEW RULES ARE LOADING...",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            3352800,
+            399669
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "NEW RULES ARE LOADING...",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            38,
+            40
+          ],
+          "name": "TextBox 40",
+          "sample_text": "RULES\nCHANGED",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            1950720,
+            921258
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "RULES",
+                  "font": "Arial Bold",
+                  "size_pt": 12.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "CHANGED",
+                  "font": "Arial Bold",
+                  "size_pt": 12.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            43,
+            45
+          ],
+          "name": "TextBox 45",
+          "sample_text": "WHAT IF...?",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            1767840,
+            531114
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "WHAT IF...?",
+                  "font": "Arial Bold",
+                  "size_pt": 17.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Welcome participants. This is TalkLine’s Reality Has a Glitch! spontaneous-speaking session. Ask everyone to imagine that ordinary life has new rules. No right or wrong answers. The artwork is editable PowerPoint shapes. The event date and specific venue were not supplied, so they are intentionally not invented on the cover."
+    },
+    {
+      "source_slide": 2,
+      "role": "warmup",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "WARM-UP",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "WARM-UP",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "🧊  ICEBREAKER",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            619125,
+            5943600,
+            432435
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "🧊  ICEBREAKER",
+                  "font": "Calibri (MS) Bold",
+                  "size_pt": 30.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Pick one and chat with the person next to you!",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            1123950,
+            5943600,
+            356616
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Pick one and chat with the person next to you!",
+                  "font": "Arial Italics",
+                  "size_pt": 16.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7,
+            9
+          ],
+          "name": "TextBox 9",
+          "sample_text": "1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "1",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            10
+          ],
+          "name": "TextBox 10",
+          "sample_text": "How was your day?",
+          "content_key": "deck.warmup.0",
+          "bounds_emu": [
+            1188720,
+            1654302,
+            5120640,
+            457200
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "H",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                },
+                {
+                  "text": "ow was your day?",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            11,
+            13
+          ],
+          "name": "TextBox 13",
+          "sample_text": "2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "2",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "What animal would you be?",
+          "content_key": "deck.warmup.1",
+          "bounds_emu": [
+            1188720,
+            3025902,
+            5120640,
+            457200
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Wh",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                },
+                {
+                  "text": "at animal would you be?",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15,
+            17
+          ],
+          "name": "TextBox 17",
+          "sample_text": "3",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "3",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18
+          ],
+          "name": "TextBox 18",
+          "sample_text": "Do you talk to yourself?",
+          "content_key": "deck.warmup.2",
+          "bounds_emu": [
+            1188720,
+            4397502,
+            5120640,
+            457200
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "D",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                },
+                {
+                  "text": "o you talk to yourself?",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            19
+          ],
+          "name": "TextBox 19",
+          "sample_text": "⏱  2 minutes each — then share with the group!",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            6061710,
+            5943600,
+            365760
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "⏱  2 minutes each — then share with the group!",
+                  "font": "Arial Bold",
+                  "size_pt": 17.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Warm-up: choose one question per pair (about 2 minutes), then invite 2–3 answers. Keep the energy light and encourage creative responses. Offer a simpler follow-up if someone is hesitant."
+    },
+    {
+      "source_slide": 3,
+      "role": "toolkit_a2",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TOOLKIT",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TOOLKIT",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Toolkit",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            575310,
+            5943600,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Toolkit",
+                  "font": "Arial Bold",
+                  "size_pt": 30.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "A2 — Essential Expressions",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            986790,
+            5943600,
+            201930
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2 — Essential Expressions",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7,
+            9
+          ],
+          "name": "TextBox 9",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "I think…  —  bence…\n“I think this rule is funny.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7680960,
+            923925
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "I think…",
+                  "font": "Arial Bold",
+                  "size_pt": 15.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  bence…",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I think this rule is funny.”",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            17,
+            19
+          ],
+          "name": "TextBox 19",
+          "sample_text": "I’d choose…  —  … seçerdim\n“I’d choose three-day weekends.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7680960,
+            923925
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "I’d choose…",
+                  "font": "Arial Bold",
+                  "size_pt": 15.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  … seçerdim",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I’d choose three-day weekends.”",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            22,
+            24
+          ],
+          "name": "TextBox 24",
+          "sample_text": "I’m not sure…  —  emin değilim…\n“I’m not sure I like that.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7680960,
+            923925
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "I’m not sure…",
+                  "font": "Arial Bold",
+                  "size_pt": 15.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  emin değilim…",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I’m not sure I like that.”",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27,
+            29
+          ],
+          "name": "TextBox 29",
+          "sample_text": "I agree because…  —  katılıyorum çünkü…\n“I agree because it is fair.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7680960,
+            923925
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "I agree because…",
+                  "font": "Arial Bold",
+                  "size_pt": 15.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  katılıyorum çünkü…",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I agree because it is fair.”",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            32,
+            34
+          ],
+          "name": "TextBox 34",
+          "sample_text": "In my opinion…  —  bana göre…\n“In my opinion, it is a good idea.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7680960,
+            923925
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "In my opinion…",
+                  "font": "Arial Bold",
+                  "size_pt": 15.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  bana göre…",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“In my opinion, it is a good idea.”",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            37,
+            39
+          ],
+          "name": "TextBox 39",
+          "sample_text": "I’d rather…  —  … yapmayı tercih ederim\n“I’d rather stay home than go out.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7680960,
+            923925
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "I’d rather…",
+                  "font": "Arial Bold",
+                  "size_pt": 15.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  … yapmayı tercih ederim",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I’d rather stay home than go out.”",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            42,
+            44
+          ],
+          "name": "TextBox 44",
+          "sample_text": "For example…  —  örneğin…\n“For example, I can fly to work.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7680960,
+            923925
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "For example…",
+                  "font": "Arial Bold",
+                  "size_pt": 15.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  örneğin…",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“For example, I can fly to work.”",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            47,
+            49
+          ],
+          "name": "TextBox 49",
+          "sample_text": "Because…  —  çünkü…\n“I’d choose it because it’s fun.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7680960,
+            923925
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Because…",
+                  "font": "Arial Bold",
+                  "size_pt": 15.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  çünkü…",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I’d choose it because it’s fun.”",
+                  "font": "Arial",
+                  "size_pt": 15.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Introduce the eight A2 speaking starters: I think…, I’d choose…, I’m not sure…, I agree because…, In my opinion…, I’d rather…, For example…, Because…. Model one original answer, then invite a short sentence."
+    },
+    {
+      "source_slide": 4,
+      "role": "toolkit_b1",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TOOLKIT",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TOOLKIT",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Toolkit",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            575310,
+            5943600,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Toolkit",
+                  "font": "Arial Bold",
+                  "size_pt": 30.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "B1 — Useful Phrases",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            986790,
+            5943600,
+            685800
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B1 — Useful Phrases",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7,
+            9
+          ],
+          "name": "TextBox 9",
+          "sample_text": "B1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12
+          ],
+          "name": "TextBox 12",
+          "sample_text": "end up  —  sonunda … olmak / … ile bitmek\n\"If you don't plan ahead, you end up regretting it.\"",
+          "content_key": null,
+          "bounds_emu": [
+            640080,
+            1764030,
+            5577840,
+            685800
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "end up",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  sonunda … olmak / … ile bitmek",
+                  "font": "Arial",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"If you don't plan ahead, you end up regretting it.\"",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "on purpose  —  bilerek / kasten\n\"I don't think she did it on purpose.\"",
+          "content_key": null,
+          "bounds_emu": [
+            640080,
+            2614422,
+            5577840,
+            685800
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "on purpose",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  bilerek / kasten",
+                  "font": "Arial",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"I don't think she did it on purpose.\"",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18
+          ],
+          "name": "TextBox 18",
+          "sample_text": "come up with  —  (fikir) bulmak / üretmek\n\"We need to come up with a better plan.\"",
+          "content_key": null,
+          "bounds_emu": [
+            640080,
+            3464814,
+            5577840,
+            685800
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "come up with",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  (fikir) bulmak / üretmek",
+                  "font": "Arial",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"We need to come up with a better plan.\"",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "what's the point of  —  … ne anlamı var? / … neye yarar?\n\"What's the point of arguing about it?\"",
+          "content_key": null,
+          "bounds_emu": [
+            640080,
+            4315206,
+            5577840,
+            685800
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "what's the point of",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  … ne anlamı var? / … neye yarar?",
+                  "font": "Arial",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"What's the point of arguing about it?\"",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24
+          ],
+          "name": "TextBox 24",
+          "sample_text": "be worth it  —  değmek\n\"The effort was totally worth it in the end.\"",
+          "content_key": null,
+          "bounds_emu": [
+            640080,
+            5165598,
+            5577840,
+            685800
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "be worth it",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  değmek",
+                  "font": "Arial",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"The effort was totally worth it in the end.\"",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "it depends on  —  …a bağlı olmak / duruma göre değişir\n\"It depends on how much free time I have.\"",
+          "content_key": null,
+          "bounds_emu": [
+            640080,
+            6015990,
+            5577840,
+            685800
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "it depends on",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  …a bağlı olmak / duruma göre değişir",
+                  "font": "Arial",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"It depends on how much free time I have.\"",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            30
+          ],
+          "name": "TextBox 30",
+          "sample_text": "in that case  —  o zaman / bu durumda\n\"In that case, I'd probably change my mind.\"",
+          "content_key": null,
+          "bounds_emu": [
+            640080,
+            6866382,
+            5577840,
+            685800
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "in that case",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  o zaman / bu durumda",
+                  "font": "Arial",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"In that case, I'd probably change my mind.\"",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            33
+          ],
+          "name": "TextBox 33",
+          "sample_text": "make sense  —  mantıklı olmak / anlamlı gelmek\n\"That doesn't make sense to me at all.\"",
+          "content_key": null,
+          "bounds_emu": [
+            640080,
+            7716774,
+            5577840,
+            685800
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "make sense",
+                  "font": "Arial Bold",
+                  "size_pt": 14.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "  —  mantıklı olmak / anlamlı gelmek",
+                  "font": "Arial",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"That doesn't make sense to me at all.\"",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Read the eight B1 phrases with examples. Emphasize end up, come up with, and in that case as useful ways to explain consequences and reactions. Ask participants to borrow one expression in Round 1."
+    },
+    {
+      "source_slide": 5,
+      "role": "toolkit_b2_c1",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TOOLKIT",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TOOLKIT",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Toolkit",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            575310,
+            5943600,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Toolkit",
+                  "font": "Arial Bold",
+                  "size_pt": 30.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "B2 & C1 — Advanced Expressions",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            986790,
+            5943600,
+            201930
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2 & C1 — Advanced Expressions",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7,
+            9
+          ],
+          "name": "TextBox 9",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "be better off\n…sa daha iyi durumda olmak\n“You’d be better off staying home.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "be better off",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "…sa daha iyi durumda olmak",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“You’d be better off staying home.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            17,
+            19
+          ],
+          "name": "TextBox 19",
+          "sample_text": "trade-off\nkazanç–kayıp dengesi\n“There’s a trade-off between time and money.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "trade-off",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "kazanç–kayıp dengesi",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“There’s a trade-off between time and money.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            22,
+            24
+          ],
+          "name": "TextBox 24",
+          "sample_text": "turn out\nsonuçlanmak / ortaya çıkmak\n“It turned out better than expected.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "turn out",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "sonuçlanmak / ortaya çıkmak",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“It turned out better than expected.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27,
+            29
+          ],
+          "name": "TextBox 29",
+          "sample_text": "take for granted\ndeğerini bilmemek\n“We take clean water for granted.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "take for granted",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "değerini bilmemek",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“We take clean water for granted.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            32,
+            34
+          ],
+          "name": "TextBox 34",
+          "sample_text": "the thing is\nmesele şu ki\n“The thing is, I don’t agree.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "the thing is",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "mesele şu ki",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“The thing is, I don’t agree.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            37,
+            39
+          ],
+          "name": "TextBox 39",
+          "sample_text": "have no choice but to\nbaşka çaresi olmamak\n“We had no choice but to leave.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "have no choice but to",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "başka çaresi olmamak",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“We had no choice but to leave.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            40,
+            42
+          ],
+          "name": "TextBox 42",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            45,
+            47
+          ],
+          "name": "TextBox 47",
+          "sample_text": "that being said\nbununla birlikte / yine de\n“It’s fun. That being said, it’s risky.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "that being said",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "bununla birlikte / yine de",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“It’s fun. That being said, it’s risky.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            50,
+            52
+          ],
+          "name": "TextBox 52",
+          "sample_text": "be inclined to\n…meye eğilimli olmak\n“I’d be inclined to try it once.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "be inclined to",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "…meye eğilimli olmak",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I’d be inclined to try it once.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            55,
+            57
+          ],
+          "name": "TextBox 57",
+          "sample_text": "for the sake of\n… uğruna / … hatırına\n“I’d do it for the sake of peace.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "for the sake of",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "… uğruna / … hatırına",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I’d do it for the sake of peace.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            60,
+            62
+          ],
+          "name": "TextBox 62",
+          "sample_text": "draw the line at\n… noktasında sınır koymak\n“I draw the line at losing my privacy.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "draw the line at",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "… noktasında sınır koymak",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I draw the line at losing my privacy.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            65,
+            67
+          ],
+          "name": "TextBox 67",
+          "sample_text": "go without saying\nsöylemeye gerek yok\n“It goes without saying that rules matter.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "go without saying",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "söylemeye gerek yok",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“It goes without saying that rules matter.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            70,
+            72
+          ],
+          "name": "TextBox 72",
+          "sample_text": "come to terms with\nkabullenmek / alışmak\n“I’d struggle to come to terms with it.”",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            4023360,
+            1360170
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "come to terms with",
+                  "font": "Arial Bold",
+                  "size_pt": 15.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "kabullenmek / alışmak",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "“I’d struggle to come to terms with it.”",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Introduce B2 then C1, six expressions each. Show how they make disagreement and predictions more precise. The example sentence beneath every item demonstrates natural use. Invite one original sentence."
+    },
+    {
+      "source_slide": 6,
+      "role": "mini_grammar",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "MINI GRAMMAR",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "MINI GRAMMAR",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Mini Grammar",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            575310,
+            5943600,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Mini Grammar",
+                  "font": "Arial Bold",
+                  "size_pt": 30.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Quick structures for tonight's discussion",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            986790,
+            5943600,
+            201930
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Quick structures for tonight's discussion",
+                  "font": "Arial Italics",
+                  "size_pt": 12.99,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            9,
+            11
+          ],
+          "name": "TextBox 11",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "can / can't + base verb\nBir şeyi yapabilme veya yapamama durumunu ifade eder.\n\"I can sleep anywhere — even on the bus.\"\n\"You can't lie to me — your nose is red!\"\n✓ DO:  \"She can play the guitar.\"\n✗ DON'T:  \"She can plays the guitar.\"",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            6949440,
+            2957322
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "can / can't + base verb",
+                  "font": "Arial Bold",
+                  "size_pt": 19.1,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "Bir şeyi yapabilme veya yapamama durumunu ifade eder.",
+                  "font": "Arial Italics",
+                  "size_pt": 14.4,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"I can sleep anywhere — even on the bus.\"",
+                  "font": "Arial",
+                  "size_pt": 16.2,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"You can't lie to me — your nose is red!\"",
+                  "font": "Arial",
+                  "size_pt": 16.2,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "✓ DO:  ",
+                  "font": "Arial Bold",
+                  "size_pt": 15.3,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "\"She can play the guitar.\"",
+                  "font": "Arial",
+                  "size_pt": 15.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "✗ DON'T:  ",
+                  "font": "Arial Bold",
+                  "size_pt": 15.3,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "\"She can plays the guitar.\"",
+                  "font": "Arial",
+                  "size_pt": 15.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            17,
+            19
+          ],
+          "name": "TextBox 19",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            20,
+            22
+          ],
+          "name": "TextBox 22",
+          "sample_text": "If I could…, I would…  (Second Conditional)\nGerçek olmayan veya düşük ihtimalli durumlar için kullanılır.\n\"If I could change one rule, I would make Mondays optional.\"\n\"If everyone could fly, nobody would take the bus.\"\n✓ DO:  \"If I had more time, I would travel.\"\n✗ DON'T:  \"If I would have more time, I would travel.\"",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            6949440,
+            2957322
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "If I could…, I would…  (Second Conditional)",
+                  "font": "Arial Bold",
+                  "size_pt": 19.1,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "Gerçek olmayan veya düşük ihtimalli durumlar için kullanılır.",
+                  "font": "Arial Italics",
+                  "size_pt": 14.4,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"If I could change one rule, I would make Mondays optional.\"",
+                  "font": "Arial",
+                  "size_pt": 16.2,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"If everyone could fly, nobody would take the bus.\"",
+                  "font": "Arial",
+                  "size_pt": 16.2,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "✓ DO:  ",
+                  "font": "Arial Bold",
+                  "size_pt": 15.3,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "\"If I had more time, I would travel.\"",
+                  "font": "Arial",
+                  "size_pt": 15.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "✗ DON'T:  ",
+                  "font": "Arial Bold",
+                  "size_pt": 15.3,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "\"If I would have more time, I would travel.\"",
+                  "font": "Arial",
+                  "size_pt": 15.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            25,
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28,
+            30
+          ],
+          "name": "TextBox 30",
+          "sample_text": "I wish / If only + past perfect\nGeçmişte farklı olmasını istediğimiz durumlar için pişmanlık ifade eder.\n\"I wish I had known the rules before I moved here.\"\n\"If only I had pressed rewind before I sent that message!\"\n✓ DO:  \"I wish I had studied harder.\"\n✗ DON'T:  \"I wish I would have studied harder.\"",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            6949440,
+            2957322
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "I wish / If only + past perfect",
+                  "font": "Arial Bold",
+                  "size_pt": 19.1,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "Geçmişte farklı olmasını istediğimiz durumlar için pişmanlık ifade eder.",
+                  "font": "Arial Italics",
+                  "size_pt": 14.4,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"I wish I had known the rules before I moved here.\"",
+                  "font": "Arial",
+                  "size_pt": 16.2,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "\"If only I had pressed rewind before I sent that message!\"",
+                  "font": "Arial",
+                  "size_pt": 16.2,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "✓ DO:  ",
+                  "font": "Arial Bold",
+                  "size_pt": 15.3,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "\"I wish I had studied harder.\"",
+                  "font": "Arial",
+                  "size_pt": 15.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "✗ DON'T:  ",
+                  "font": "Arial Bold",
+                  "size_pt": 15.3,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "\"I wish I would have studied harder.\"",
+                  "font": "Arial",
+                  "size_pt": 15.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Give a brief mini-grammar reminder rather than a lecture: A2 can/can’t + base verb; B2 second conditional; C1 wish/if only + past perfect for regrets. Compare each correct and incorrect example."
+    },
+    {
+      "source_slide": 7,
+      "role": "round1_intro",
+      "fields": [
+        {
+          "shape_path": [
+            2
+          ],
+          "name": "TextBox 2",
+          "sample_text": "💬",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            1331595,
+            6126480,
+            451485
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "💬",
+                  "font": "Calibri (MS)",
+                  "size_pt": 48.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            3
+          ],
+          "name": "TextBox 3",
+          "sample_text": "ROUND 1",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            2129790,
+            6126480,
+            659130
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "ROUND 1",
+                  "font": "Arial Bold",
+                  "size_pt": 42.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "Discussion Questions",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            2952750,
+            6126480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Discussion Questions",
+                  "font": "Arial Bold",
+                  "size_pt": 21.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "10 questions  •  3 levels per question\nPick the version that fits your level.\nUse the Toolkit phrases!\nShare your ideas, listen, and have fun.",
+          "content_key": null,
+          "bounds_emu": [
+            822960,
+            3958590,
+            5212080,
+            2213610
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "10 questions  •  3 levels per question",
+                  "font": "Arial",
+                  "size_pt": 20.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "Pick the version that fits your level.",
+                  "font": "Arial",
+                  "size_pt": 20.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "Use the Toolkit phrases!",
+                  "font": "Arial",
+                  "size_pt": 20.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "Share your ideas, listen, and have fun.",
+                  "font": "Arial",
+                  "size_pt": 20.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            8
+          ],
+          "name": "TextBox 8",
+          "sample_text": "⏱  About 30–35 minutes",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            6884670,
+            6126480,
+            293370
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "⏱  About 30–35 minutes",
+                  "font": "Arial Italics",
+                  "size_pt": 17.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Explain Round 1: ten scenarios, each with A2, B2 and C1 versions of the same situation. Participants choose a suitable level. Allow roughly three minutes per question. Encourage one Toolkit phrase per answer."
+    },
+    {
+      "source_slide": 8,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 1 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 1 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q1",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q1",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "The Sleep Rule",
+          "content_key": "deck.round1.0.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "The Sleep Rule",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "Nobody needs sleep anymore, so you get 8 extra hours every day. What do you do with them?",
+          "content_key": "deck.round1.0.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Nobody needs sleep anymore, so you get 8 extra hours every day. What do you do with them?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "Nobody needs sleep anymore — and your boss knows it. Would you use the extra 8 hours for fun, or would you end up working more?",
+          "content_key": "deck.round1.0.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Nobody needs sleep anymore — and your boss knows it. Would you use the extra 8 hours for fun, or would you end up working more?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "Sleep is gone and everyone has 8 extra hours. Honestly, would life get better, or would we just invent more ways to be busy?",
+          "content_key": "deck.round1.0.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Sleep is gone and everyone has 8 extra hours. Honestly, would life get better, or would we just invent more ways to be busy?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Ask what people would do with eight extra hours if sleep disappeared. Follow-up: Would you still rest for pleasure? A2 support: “I think…” / “I’d choose…” / “Because…”."
+    },
+    {
+      "source_slide": 9,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 2 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 2 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q2",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q2",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "No More Lies",
+          "content_key": "deck.round1.1.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "No More Lies",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "When would your nose turn red first — at work, at home, or with friends?",
+          "content_key": "deck.round1.1.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "When would your nose turn red first — at work, at home, or with friends?",
+                  "font": "Arial",
+                  "size_pt": 19.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "Your nose turns bright red when you lie. Which would be worst: a first date, a job interview or a family dinner?",
+          "content_key": "deck.round1.1.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Your nose turns bright red when you lie. Which would be worst: a first date, a job interview or a family dinner?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "Your nose goes red whenever you lie. Are white lies really harmless — or would the world be better if we all said what we think?",
+          "content_key": "deck.round1.1.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Your nose goes red whenever you lie. Are white lies really harmless — or would the world be better if we all said what we think?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "If lying turned noses red, where would participants get caught first? Allow playful answers without forcing personal disclosures. Follow-up: Are small white lies sometimes helpful?"
+    },
+    {
+      "source_slide": 10,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 3 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 3 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q3",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q3",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "The Age Swap",
+          "content_key": "deck.round1.2.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "The Age Swap",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "You can be any age for one week. Which age do you choose, and what do you do first?",
+          "content_key": "deck.round1.2.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "You can be any age for one week. Which age do you choose, and what do you do first?",
+                  "font": "Arial",
+                  "size_pt": 19.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "For one week you can be any age, and you keep all your memories. Which age do you pick, and what would you do differently this time?",
+          "content_key": "deck.round1.2.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "For one week you can be any age, and you keep all your memories. Which age do you pick, and what would you do differently this time?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "For one week you can be any age. Would you go younger to enjoy life more, or older to find out how things turn out?",
+          "content_key": "deck.round1.2.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "For one week you can be any age. Would you go younger to enjoy life more, or older to find out how things turn out?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Ask which age participants would choose for one week. Follow-up: What is the best thing about their current age? A2 support: “I’d choose…”; advanced: compare memories, experiences and opportunities."
+    },
+    {
+      "source_slide": 11,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 4 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 4 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q4",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q4",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "The Price Tag",
+          "content_key": "deck.round1.3.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "The Price Tag",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "Everything in the world costs exactly 1 lira. What are the first three things you buy?",
+          "content_key": "deck.round1.3.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Everything in the world costs exactly 1 lira. What are the first three things you buy?",
+                  "font": "Arial",
+                  "size_pt": 19.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "Everything costs exactly 1 lira. Would you still go to work tomorrow — and what would become the new way to show you're rich?",
+          "content_key": "deck.round1.3.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Everything costs exactly 1 lira. Would you still go to work tomorrow — and what would become the new way to show you're rich?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "If a car, a coffee and a holiday all cost 1 lira, would life be fairer — or would people just fight to get to the shop first?",
+          "content_key": "deck.round1.3.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "If a car, a coffee and a holiday all cost 1 lira, would life be fairer — or would people just fight to get to the shop first?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Invite participants to imagine everything costing one lira. Follow-up: Would they still work tomorrow? Encourage B1 “be worth it” or C1 “that being said” where natural."
+    },
+    {
+      "source_slide": 12,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 5 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 5 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q5",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q5",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "Instant Skills",
+          "content_key": "deck.round1.4.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Instant Skills",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "You can download one skill into your brain right now. Which skill do you choose, and why?",
+          "content_key": "deck.round1.4.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "You can download one skill into your brain right now. Which skill do you choose, and why?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "You can download one skill instantly, like playing the piano or speaking Japanese. Would you feel proud of it if you didn't work for it?",
+          "content_key": "deck.round1.4.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "You can download one skill instantly, like playing the piano or speaking Japanese. Would you feel proud of it if you didn't work for it?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "If anyone could download any skill instantly, would real talent still impress you — or would it stop meaning anything?",
+          "content_key": "deck.round1.4.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "If anyone could download any skill instantly, would real talent still impress you — or would it stop meaning anything?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Ask which ability participants would download instantly. Follow-up: Does earning a skill matter more than having it? A2 support: “I’d choose…”; B2/C1: use “trade-off” and “the thing is”."
+    },
+    {
+      "source_slide": 13,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 6 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 6 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q6",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q6",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "Your Personal Weather",
+          "content_key": "deck.round1.5.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Your Personal Weather",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "You can control the weather, but only 5 metres around you. What weather do you choose today?",
+          "content_key": "deck.round1.5.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "You can control the weather, but only 5 metres around you. What weather do you choose today?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "Everyone has a personal weather bubble, 5 metres wide. Your best friend wants rain and you want sun. How do you solve it?",
+          "content_key": "deck.round1.5.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Everyone has a personal weather bubble, 5 metres wide. Your best friend wants rain and you want sun. How do you solve it?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "If everyone had a personal weather bubble, would people be happier — or would we lose something by never sharing the same rainy day?",
+          "content_key": "deck.round1.5.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "If everyone had a personal weather bubble, would people be happier — or would we lose something by never sharing the same rainy day?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Discuss five-metre personal weather bubbles. Follow-up: What if a friend wants different weather? Invite compromise solutions. B2 support: “the thing is…”; A2 support: “I think…”."
+    },
+    {
+      "source_slide": 14,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 7 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 7 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q7",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q7",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "Time Glitch",
+          "content_key": "deck.round1.6.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Time Glitch",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "One hour of your day replays every night. Which hour do you choose, and why?",
+          "content_key": "deck.round1.6.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "One hour of your day replays every night. Which hour do you choose, and why?",
+                  "font": "Arial",
+                  "size_pt": 19.3,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "One hour of your day replays every night, but you can change one thing each time. Which hour do you pick, and what do you change?",
+          "content_key": "deck.round1.6.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "One hour of your day replays every night, but you can change one thing each time. Which hour do you pick, and what do you change?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "If you could relive the same perfect hour every night, would you stay happy — or would the magic be gone after a week?",
+          "content_key": "deck.round1.6.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "If you could relive the same perfect hour every night, would you stay happy — or would the magic be gone after a week?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Have participants pick an hour they would repeat. Follow-up: Does a perfect moment lose its magic after repetition? Encourage examples and responses to other speakers."
+    },
+    {
+      "source_slide": 15,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 8 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 8 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q8",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q8",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "Life's Soundtrack",
+          "content_key": "deck.round1.7.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Life's Soundtrack",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "Your life has background music that everyone can hear. What song plays when you walk into work?",
+          "content_key": "deck.round1.7.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Your life has background music that everyone can hear. What song plays when you walk into work?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "Everyone can hear the music of your mood. What song plays at a job interview, and what plays when you see your crush?",
+          "content_key": "deck.round1.7.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Everyone can hear the music of your mood. What song plays at a job interview, and what plays when you see your crush?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "If your mood played as music for everyone to hear, would we be more honest — or would we all learn to fake a happy tune?",
+          "content_key": "deck.round1.7.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "If your mood played as music for everyone to hear, would we be more honest — or would we all learn to fake a happy tune?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Invite participants to suggest their own background music. Follow-up: What would play during a family dinner? Advanced learners can use “draw the line at” to discuss emotional privacy."
+    },
+    {
+      "source_slide": 16,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 9 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 9 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q9",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q9",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "The Rating System",
+          "content_key": "deck.round1.8.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "The Rating System",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "People can rate each other like restaurants, with stars. How many stars would your best friend give you? And your neighbour?",
+          "content_key": "deck.round1.8.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "People can rate each other like restaurants, with stars. How many stars would your best friend give you? And your neighbour?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "People rate each other like restaurants, and everyone can see the stars. Who would give you one star — and what would they write?",
+          "content_key": "deck.round1.8.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "People rate each other like restaurants, and everyone can see the stars. Who would give you one star — and what would they write?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "If everyone had a public star rating, would people become kinder — or just better at pretending? Would you check someone's rating before a date?",
+          "content_key": "deck.round1.8.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "If everyone had a public star rating, would people become kinder — or just better at pretending? Would you check someone's rating before a date?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Discuss public ratings of people. Follow-up: Would you look up someone’s stars before a date? Avoid naming or insulting anyone present. C1 support: “That being said…” and “take for granted”."
+    },
+    {
+      "source_slide": 17,
+      "role": "discussion",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "TALKING CARDS",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TALKING CARDS",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "Round 1 — Question 10 of 10",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            393192,
+            6126480,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Round 1 — Question 10 of 10",
+                  "font": "Arial Italics",
+                  "size_pt": 12.8,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Q10",
+          "content_key": null,
+          "bounds_emu": [
+            137160,
+            721995,
+            1143000,
+            558165
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Q10",
+                  "font": "Arial Bold",
+                  "size_pt": 39.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "The Language Flip",
+          "content_key": "deck.round1.9.title",
+          "bounds_emu": [
+            1371600,
+            803910,
+            4846320,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "The Language Flip",
+                  "font": "Arial Bold",
+                  "size_pt": 26.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            12,
+            14
+          ],
+          "name": "TextBox 14",
+          "sample_text": "A2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "Tomorrow you can speak only one language — but it's not your mother tongue. Which language do you choose?",
+          "content_key": "deck.round1.9.a2",
+          "bounds_emu": [
+            1280160,
+            1608582,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Tomorrow you can speak only one language — but it's not your mother tongue. Which language do you choose?",
+                  "font": "Arial",
+                  "size_pt": 18.7,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            18,
+            20
+          ],
+          "name": "TextBox 20",
+          "sample_text": "B2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "B2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "Tomorrow you can speak only one language, and it's not your mother tongue. Which one would you pick, and what would go wrong on the first day?",
+          "content_key": "deck.round1.9.b2",
+          "bounds_emu": [
+            1280160,
+            3409950,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Tomorrow you can speak only one language, and it's not your mother tongue. Which one would you pick, and what would go wrong on the first day?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            792480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "C1",
+                  "font": "Arial Bold",
+                  "size_pt": 12.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27
+          ],
+          "name": "TextBox 27",
+          "sample_text": "If you could only speak a language that isn't your own, would you become a different person — funnier, braver, or just more confused?",
+          "content_key": "deck.round1.9.c1",
+          "bounds_emu": [
+            1280160,
+            5211318,
+            5029200,
+            1482090
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "If you could only speak a language that isn't your own, would you become a different person — funnier, braver, or just more confused?",
+                  "font": "Arial",
+                  "size_pt": 17.89,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "Why? Can you give an example?",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            7433310,
+            6126480,
+            347472
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Why? Can you give an example?",
+                  "font": "Arial Bold Italics",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Finish with the one-language scenario. Follow-up: Does speaking another language change your personality? Invite short answers, then summarise a few Toolkit phrases used during the round."
+    },
+    {
+      "source_slide": 18,
+      "role": "break",
+      "fields": [
+        {
+          "shape_path": [
+            2
+          ],
+          "name": "TextBox 2",
+          "sample_text": "☕  BREAK",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            2703195,
+            6126480,
+            725805
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "☕  BREAK",
+                  "font": "Calibri (MS) Bold",
+                  "size_pt": 42.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            3
+          ],
+          "name": "TextBox 3",
+          "sample_text": "15–20 minutes",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            3602355,
+            6126480,
+            375285
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "15–20 minutes",
+                  "font": "Arial Bold",
+                  "size_pt": 24.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Grab a drink, stretch, chat with someone new.\nWe'll start Round 2 when everyone's back!",
+          "content_key": null,
+          "bounds_emu": [
+            822960,
+            4598670,
+            5212080,
+            842010
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Grab a drink, stretch, chat with someone new.",
+                  "font": "Arial",
+                  "size_pt": 20.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "We'll start Round 2 when everyone's back!",
+                  "font": "Arial",
+                  "size_pt": 20.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Allow a 15–20 minute break. Give a two-minute warning. Invite everyone to chat with someone new. Prepare the Round 2 link only when the actual game is ready."
+    },
+    {
+      "source_slide": 19,
+      "role": "round2_intro",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "ROUND 2",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "ROUND 2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "ROUND 2",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            666750,
+            6126480,
+            476250
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "ROUND 2",
+                  "font": "Arial Bold",
+                  "size_pt": 33.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            8,
+            10
+          ],
+          "name": "TextBox 10",
+          "sample_text": "A new glitch. Two possible fixes.\nPick PATCH A or B, face its unexpected twist,\nthen decide: KEEP or RESET.\n\n20 cards per level  •  No points  •  One host",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -28575,
+            7697889,
+            3093504
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A new glitch. Two possible fixes.",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "Pick PATCH A or B, face its unexpected twist,",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "then decide: KEEP or RESET.",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": []
+            },
+            {
+              "runs": [
+                {
+                  "text": "20 cards per level  •  No points  •  One host",
+                  "font": "Arial",
+                  "size_pt": 21.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            13,
+            15
+          ],
+          "name": "TextBox 15",
+          "sample_text": "PATCH NOTES:",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7010400,
+            436245
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "PATCH NOTES:",
+                  "font": "Arial Bold",
+                  "size_pt": 24.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            16,
+            18
+          ],
+          "name": "TextBox 18",
+          "sample_text": "REALITY UPDATE",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7010400,
+            448437
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "REALITY UPDATE",
+                  "font": "Arial Bold",
+                  "size_pt": 25.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            21,
+            23
+          ],
+          "name": "TextBox 23",
+          "sample_text": "!",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            1487424,
+            774954
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "!",
+                  "font": "Arial Bold",
+                  "size_pt": 22.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            24,
+            26
+          ],
+          "name": "TextBox 26",
+          "sample_text": "GLITCH",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            1560576,
+            277749
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "GLITCH",
+                  "font": "Arial Bold",
+                  "size_pt": 14.1,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            29,
+            31
+          ],
+          "name": "TextBox 31",
+          "sample_text": "A / B",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            1487424,
+            774954
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "A / B",
+                  "font": "Arial Bold",
+                  "size_pt": 22.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            32,
+            34
+          ],
+          "name": "TextBox 34",
+          "sample_text": "PATCH",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            1560576,
+            277749
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "PATCH",
+                  "font": "Arial Bold",
+                  "size_pt": 14.1,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            37,
+            39
+          ],
+          "name": "TextBox 39",
+          "sample_text": "?",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            1487424,
+            774954
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "?",
+                  "font": "Arial Bold",
+                  "size_pt": 22.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            40,
+            42
+          ],
+          "name": "TextBox 42",
+          "sample_text": "TWIST",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            1560576,
+            277749
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "TWIST",
+                  "font": "Arial Bold",
+                  "size_pt": 14.1,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            43,
+            45
+          ],
+          "name": "TextBox 45",
+          "sample_text": "›",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            219456,
+            497205
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "›",
+                  "font": "Arial Bold",
+                  "size_pt": 24.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            46,
+            48
+          ],
+          "name": "TextBox 48",
+          "sample_text": "›",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            219456,
+            497205
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "›",
+                  "font": "Arial Bold",
+                  "size_pt": 24.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            49,
+            51
+          ],
+          "name": "TextBox 51",
+          "sample_text": "REVEAL ONLY THE CHOSEN CONSEQUENCE",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            5754624,
+            299466
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "REVEAL ONLY THE CHOSEN CONSEQUENCE",
+                  "font": "Arial Bold",
+                  "size_pt": 13.5,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "ROUND 2 — PATCH NOTES: REALITY UPDATE (25–30 minutes). Open the companion offline HTML game. Select Elementary A2–B1 or Advanced B2–C1. Each mode contains 20 original scenarios, but it is not necessary to play all 20 in this time window: use approximately 6–10, depending on discussion. One host controls the screen. Participants speak together; there are no scores or written answers. On this slide, introduce the four concepts: glitch, choose one patch, reveal its consequence, then keep or reset."
+    },
+    {
+      "source_slide": 20,
+      "role": "how_to_play",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "ROUND 2",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "ROUND 2",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "HOW TO PLAY",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            666750,
+            6126480,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "HOW TO PLAY",
+                  "font": "Arial Bold",
+                  "size_pt": 30.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            8,
+            10
+          ],
+          "name": "TextBox 10",
+          "sample_text": "1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "1",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            11,
+            13
+          ],
+          "name": "TextBox 13",
+          "sample_text": "READ the strange GLITCH together.",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            7210209,
+            889419
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "READ the strange GLITCH together.",
+                  "font": "Arial Bold",
+                  "size_pt": 21.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            14,
+            16
+          ],
+          "name": "TextBox 16",
+          "sample_text": "2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "2",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            17,
+            19
+          ],
+          "name": "TextBox 19",
+          "sample_text": "DISCUSS PATCH A vs PATCH B.",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            7210209,
+            889419
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "DISCUSS PATCH A vs PATCH B.",
+                  "font": "Arial Bold",
+                  "size_pt": 21.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            20,
+            22
+          ],
+          "name": "TextBox 22",
+          "sample_text": "3",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "3",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            23,
+            25
+          ],
+          "name": "TextBox 25",
+          "sample_text": "CHOOSE a patch. Reveal its PLOT TWIST.",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            7210209,
+            889419
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "CHOOSE a patch. Reveal its PLOT TWIST.",
+                  "font": "Arial Bold",
+                  "size_pt": 21.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            26,
+            28
+          ],
+          "name": "TextBox 28",
+          "sample_text": "4",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "4",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            29,
+            31
+          ],
+          "name": "TextBox 31",
+          "sample_text": "Vote: KEEP the change or RESET reality.",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            7210209,
+            889419
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Vote: KEEP the change or RESET reality.",
+                  "font": "Arial Bold",
+                  "size_pt": 21.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            32,
+            34
+          ],
+          "name": "TextBox 34",
+          "sample_text": "No teams. No scores. Just spontaneous English!",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            8412480,
+            445770
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "No teams. No scores. Just spontaneous English!",
+                  "font": "Arial Bold",
+                  "size_pt": 17.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Host rules: (1) Read the Glitch from the HTML game aloud. (2) Let the group discuss both patches using the Toolkit; avoid rushing shy speakers. (3) Once the group chooses A or B, click that patch; only that patch’s consequence is revealed. Invite surprise, laughter and reconsideration. (4) Choose KEEP to live with the patched world, or RESET to return to ordinary reality, then click Next Glitch. One host operates the browser; other players simply speak. No points, typing, timers or individual phones. Use the Elementary or Advanced level appropriate for your table."
+    },
+    {
+      "source_slide": 21,
+      "role": "play",
+      "fields": [
+        {
+          "shape_path": [
+            2,
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "▶  PLAY",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -57150,
+            5486400,
+            2739390
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "▶  ",
+                  "font": "Calibri (MS) Bold",
+                  "size_pt": 37.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "PLAY",
+                  "font": "Calibri (MS) Bold",
+                  "size_pt": 37.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5,
+            7
+          ],
+          "name": "TextBox 7",
+          "sample_text": "CLICK TO OPEN THE COMPANION GAME",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            8412480,
+            506730
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "CLICK TO OPEN THE COMPANION GAME",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            8,
+            10
+          ],
+          "name": "TextBox 10",
+          "sample_text": "PATCH NOTES: REALITY UPDATE",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7680960,
+            594741
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "PATCH NOTES: REALITY UPDATE",
+                  "font": "Arial Bold",
+                  "size_pt": 25.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            11,
+            13
+          ],
+          "name": "TextBox 13",
+          "sample_text": "ELEMENTARY A2–B1   /   ADVANCED B2–C1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7339584,
+            424053
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "ELEMENTARY A2–B1   /   ADVANCED B2–C1",
+                  "font": "Arial Bold",
+                  "size_pt": 16.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            14,
+            16
+          ],
+          "name": "TextBox 16",
+          "sample_text": "Keep the PowerPoint and HTML file together.",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -9525,
+            7315200,
+            387477
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Keep the PowerPoint and HTML file together.",
+                  "font": "Arial",
+                  "size_pt": 15.5,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Click PLAY in PowerPoint slideshow mode to open the companion HTML file TalkLine_PATCH_NOTES_FINAL_REPAIRED.html. This is a relative file hyperlink: the PPTX and HTML must stay in the same extracted directory. PowerPoint may show a security prompt before opening a local HTML file. If the click is blocked, open the HTML manually in Chrome or Edge from the same folder, then choose the level. The HTML game runs offline. For shared use, distribute the ZIP package with both files, extract it first, and test the link on the host computer before the event."
+    },
+    {
+      "source_slide": 22,
+      "role": "cooldown",
+      "fields": [
+        {
+          "shape_path": [
+            4
+          ],
+          "name": "TextBox 4",
+          "sample_text": "COOLDOWN",
+          "content_key": null,
+          "bounds_emu": [
+            91440,
+            63246,
+            6675120,
+            210312
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "COOLDOWN",
+                  "font": "Arial Bold",
+                  "size_pt": 12.6,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "COOLDOWN",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            666750,
+            5943600,
+            384810
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "COOLDOWN",
+                  "font": "Arial Bold",
+                  "size_pt": 30.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Let's wrap up and reflect",
+          "content_key": null,
+          "bounds_emu": [
+            457200,
+            1078230,
+            5943600,
+            201930
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Let's wrap up and reflect",
+                  "font": "Arial Italics",
+                  "size_pt": 14.0,
+                  "bold": null,
+                  "italic": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            11,
+            13
+          ],
+          "name": "TextBox 13",
+          "sample_text": "1",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "1",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            14,
+            16
+          ],
+          "name": "TextBox 16",
+          "sample_text": "Which glitch would you KEEP? Which one would you RESET immediately?",
+          "content_key": "deck.cooldown.0",
+          "bounds_emu": [
+            0,
+            -9525,
+            6949440,
+            1106805
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Which glitch would you KEEP? Which one would you RESET immediately?",
+                  "font": "Arial",
+                  "size_pt": 22.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            19,
+            21
+          ],
+          "name": "TextBox 21",
+          "sample_text": "2",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "2",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            22,
+            24
+          ],
+          "name": "TextBox 24",
+          "sample_text": "Did a plot twist change your mind? What made you switch?",
+          "content_key": "deck.cooldown.1",
+          "bounds_emu": [
+            0,
+            -9525,
+            6949440,
+            1106805
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Did a plot twist change your mind? What made you switch?",
+                  "font": "Arial",
+                  "size_pt": 22.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            27,
+            29
+          ],
+          "name": "TextBox 29",
+          "sample_text": "3",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -19050,
+            548640,
+            567690
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "3",
+                  "font": "Arial Bold",
+                  "size_pt": 18.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            30,
+            32
+          ],
+          "name": "TextBox 32",
+          "sample_text": "Which new English phrase did you actually use today?",
+          "content_key": "deck.cooldown.2",
+          "bounds_emu": [
+            0,
+            -9525,
+            6949440,
+            1106805
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Which new English phrase did you actually use today?",
+                  "font": "Arial",
+                  "size_pt": 22.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Cooldown: invite three short reflections. Ask which Round 1 glitch or Round 2 Patch participants would keep, which they would reset, whether a surprising consequence changed their opinion, and which real Toolkit phrase they used. Invite natural answers rather than correcting every error."
+    },
+    {
+      "source_slide": 23,
+      "role": "feedback",
+      "fields": [
+        {
+          "shape_path": [
+            2
+          ],
+          "name": "TextBox 2",
+          "sample_text": "Don't forget to rate us!",
+          "content_key": null,
+          "bounds_emu": [
+            365760,
+            2038350,
+            6126480,
+            476250
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Don't forget to rate us!",
+                  "font": "Arial Bold",
+                  "size_pt": 27.99,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            3,
+            5
+          ],
+          "name": "TextBox 5",
+          "sample_text": "⭐  RATE US",
+          "content_key": null,
+          "bounds_emu": [
+            0,
+            -28575,
+            5486400,
+            1857375
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "⭐  ",
+                  "font": "Arial Bold",
+                  "size_pt": 37.0,
+                  "bold": true,
+                  "italic": null
+                },
+                {
+                  "text": "RATE US",
+                  "font": "Arial Bold",
+                  "size_pt": 37.0,
+                  "bold": true,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shape_path": [
+            6
+          ],
+          "name": "TextBox 6",
+          "sample_text": "Thank you for joining TalkLine tonight!\nYour feedback helps us make every session better.\nSee you next time! 🎉",
+          "content_key": null,
+          "bounds_emu": [
+            548640,
+            5695950,
+            5760720,
+            1573530
+          ],
+          "paragraphs": [
+            {
+              "runs": [
+                {
+                  "text": "Thank you for joining TalkLine tonight!",
+                  "font": "Arial",
+                  "size_pt": 19.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "Your feedback helps us make every session better.",
+                  "font": "Arial",
+                  "size_pt": 19.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            },
+            {
+              "runs": [
+                {
+                  "text": "See you next time! 🎉",
+                  "font": "Arial",
+                  "size_pt": 19.0,
+                  "bold": null,
+                  "italic": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sample_notes": "Thank the group and ask for feedback. The RATE US button remains a native editable PowerPoint shape. A real evaluation URL was not supplied, so no link is invented; add your actual survey link to the button when available (Insert > Link) and test it in slideshow mode. There is intentionally no QR code."
+    }
+  ]
+}

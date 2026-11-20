@@ -1,0 +1,9 @@
+I am transferring the DEVELOPMENT of my TalkLine Studio desktop application from a long ChatGPT discussion into Codex. I am NOT asking Codex to generate weekly presentations. Your role is to BUILD AND MAINTAIN the reusable Windows software, which will later produce everything itself from one topic using local Ollama.
+
+The project folder contains a working starter, design references, and a structured handoff of our prior decisions. Before changing anything, read AGENTS.md, docs/CHAT_HANDOFF_FA.md, docs/PRODUCT_SPEC.md, docs/IMPLEMENTATION_ROADMAP.md, README.md, and the actual code in app.py and src/. Inspect references/ and templates/. Treat those files as source of truth and preserve working code.
+
+My computer is Windows 11 with 32 GB RAM and Python 3.14. I am a beginner; explain actions in SIMPLE PERSIAN. No paid API or cloud dependency in the finished app. Use local Ollama (qwen3:8b as a starting option). It must eventually generate, from one topic: (1) editable 23-slide TalkLine PPTX retaining the reference design and host notes; (2) original topic-appropriate 20+20-card offline speaking HTML game; (3) high-quality animated looping Full HD 1080x1920 invitation GIF; (4) a working ZIP package.
+
+VERY IMPORTANT: the current program is only a prototype (5 slide PPTX, 2 sample JSON game cards, a GIF). Never pretend the full product is already made. Codex is for coding the generator, not for being the generator's paid backend.
+
+START NOW with Milestone M0: inspect and test the Windows startup, Python 3.14 dependencies and the existing offline Demo pipeline, add small automated smoke tests, and fix real problems without changing the visual brand. Then implement the smallest useful next milestone if baseline passes. Show EXACTLY what you tested and what remains. Do NOT ask for approval before routine safe changes; ask before destructive operations or major design changes. Work only inside this folder.

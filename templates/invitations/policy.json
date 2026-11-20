@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "language": "en",
+  "source": "TalkLine_Approved_Invitations.pptx",
+  "allowed_content_changes": ["topic", "invitation_text", "date", "time", "venue"],
+  "design_policy": "Preserve the selected original sample. Use only provided color options. Do not rebuild its design.",
+  "animation_policy": "Animation may be chosen by the renderer provided it preserves the sample's design and composition. Keep the completed invitation readable.",
+  "preserve": ["slide_aspect_ratio", "shape_geometry", "typography", "images", "logos", "background_artwork", "composition"],
+  "overflow_policy": "Shorten or regenerate text; do not shrink fonts or move elements to fit.",
+  "implementation_status": "Streamlit exports English invitations through original-slide text substitution, LibreOffice rendering and looping GIF encoding. Five category presets have visual smoke checks; the 48-slide source library is retained. Native PowerPoint visual equivalence and all 48 variants have not been verified."
+}

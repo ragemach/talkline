@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>$title | $topic</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #111a2e; color: #f6f9ff; font: 1.1rem/1.55 system-ui, sans-serif; overflow-wrap: anywhere; }
+main { max-width: 54rem; margin: auto; padding: clamp(1rem, 4vw, 3rem); }
+header { color: #6ee6ef; font-size: .95rem; }
+h1 { font-size: clamp(1.8rem, 5vw, 3.2rem); margin: .3rem 0; line-height: 1.15; }
+h2 { font-size: clamp(1.4rem, 4vw, 2.2rem); margin: 0; line-height: 1.2; }
+h3 { margin-top: 0; }
+article { border: 1px solid #4c6091; border-radius: .9rem; background: #1e2945; padding: clamp(1rem, 3vw, 2rem); }
+.choices, nav { display: flex; flex-wrap: wrap; gap: .6rem; }
+.choices button { flex: 1 1 15rem; text-align: left; }
+button { font: inherit; background: #c5f4f8; color: #111a2e; border: 2px solid transparent; border-radius: .55rem; padding: .6rem .85rem; min-height: 44px; cursor: pointer; min-width: 0; }
+button:focus-visible { outline: 3px solid #ffd873; outline-offset: 3px; }
+button:disabled { color: #ccd4e5; background: #394460; cursor: default; }
+button[aria-pressed="true"] { color: #f6f9ff; background: #265071; border-color: #a4e8f2; }
+fieldset { min-inline-size: 0; border: 0; padding: 0; margin: 1.5rem 0 0; }
+legend { font-weight: 700; margin-bottom: .65rem; }
+nav { margin-top: 1.2rem; }
+#outcome { border-left: 4px solid #ffd873; padding-left: 1rem; margin-top: 1.5rem; }
+#feedback { color: #ffd873; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main data-mechanic="$mechanic">
+  <header>TalkLine Studio</header>
+  <h1>$title</h1>
+  <p>$topic</p>
+  <p>$intro</p>
+  $instructions
+  <fieldset id="level-controls" hidden>
+    <legend>Choose a level</legend>
+    <div class="choices">
+      <button id="elementary" type="button" aria-pressed="false">Elementary · A2–B1</button>
+      <button id="advanced" type="button" aria-pressed="false">Advanced · B2–C1</button>
+    </div>
+  </fieldset>
+  <p id="progress" aria-live="polite"></p>
+  <article id="card" aria-labelledby="title" hidden>
+    <h2 id="title" tabindex="-1"></h2>
+    <p id="glitch"></p>
+    <div class="choices" id="patches">
+      <button id="patch-a" type="button"></button>
+      <button id="patch-b" type="button"></button>
+    </div>
+    <section id="outcome" hidden>
+      <h3 id="result-title" tabindex="-1"></h3>
+      <p id="selected-patch"></p>
+      <p id="consequence"></p>
+      <div class="choices" id="decisions">
+        <button id="keep" type="button">Keep this patch</button>
+        <button id="reset" type="button">Reset to the old rule</button>
+      </div>
+    </section>
+    <p id="feedback" tabindex="-1" hidden></p>
+  </article>
+  <article id="finished" hidden>
+    <h2 id="finish-title" tabindex="-1">Session complete</h2>
+    <p>$closing</p>
+  </article>
+  <nav id="game-controls" aria-label="Game controls" hidden>
+    <button id="back" type="button">Back</button>
+    <button id="next" type="button">Next card</button>
+    <button id="restart" type="button">Restart</button>
+  </nav>
+</main>
+<script id="cards" type="application/json">$cards</script>
+<script>
+'use strict';
+const element = id => document.getElementById(id);
+const gameData = JSON.parse(element('cards').textContent);
+const isPrototype = Array.isArray(gameData);
+const isVerdict = document.querySelector('main').dataset.mechanic === 'smart_or_sneaky';
+const choiceLabels = isVerdict ? {a: 'Smart move', b: 'Sneaky trick'} : {a: 'Patch A', b: 'Patch B'};
+const decks = isPrototype ? {prototype: gameData} : gameData;
+const levelNames = {elementary: 'Elementary', advanced: 'Advanced'};
+const newLevel = cards => ({
+  index: 0,
+  decisions: cards.map(() => ({patch: null, response: null}))
+});
+const states = Object.fromEntries(Object.entries(decks).map(([level, cards]) => [level, newLevel(cards)]));
+let level = isPrototype ? 'prototype' : null;
+
+function render() {
+  element('level-controls').hidden = isPrototype;
+  if (!isPrototype) {
+    Object.keys(levelNames).forEach(name => element(name).setAttribute('aria-pressed', name === level));
+  }
+  const state = states[level];
+  element('game-controls').hidden = !state;
+  element('card').hidden = !state;
+  element('finished').hidden = true;
+  element('progress').textContent = '';
+  if (!state) return;
+
+  const {index, decisions} = state;
+  const cards = decks[level];
+  const complete = index === cards.length;
+  element('card').hidden = complete;
+  element('finished').hidden = !complete;
+  element('back').disabled = index === 0;
+  element('next').hidden = complete;
+  element('restart').textContent = complete ? 'Play again' : 'Restart';
+  const progress = complete ? 'All cards played' : 'Card ' + (index + 1) + ' of ' + cards.length;
+  element('progress').textContent = isPrototype ? progress : levelNames[level] + ' · ' + progress;
+  if (complete) return;
+
+  const card = cards[index];
+  const {patch, response} = decisions[index];
+  element('title').textContent = card.title;
+  element('glitch').textContent = card.glitch;
+  element('patch-a').textContent = choiceLabels.a + ': ' + card.patch_a;
+  element('patch-b').textContent = choiceLabels.b + ': ' + card.patch_b;
+  element('patches').hidden = Boolean(patch);
+  element('outcome').hidden = !patch;
+  element('result-title').textContent = patch ? (isVerdict ? 'Plot twist' : choiceLabels[patch] + ' outcome') : '';
+  element('selected-patch').textContent = patch ?
+    (isVerdict ? choiceLabels[patch] + ': ' : '') + card['patch_' + patch] : '';
+  element('consequence').textContent = patch ? card['consequence_' + patch] : '';
+  element('decisions').hidden = isVerdict || Boolean(response);
+  element('feedback').hidden = isVerdict ? !patch : !response;
+  element('feedback').textContent = isVerdict ? 'Would you change your mind?' :
+    response === 'keep' ? 'Patch kept. Why would you keep it?' :
+    response === 'reset' ? 'Original rule restored. What would you try instead?' : '';
+  element('next').disabled = isVerdict ? !patch : !response;
+  element('next').textContent = index + 1 === cards.length ? 'Finish' : 'Next card';
+}
+
+function choose(patch) {
+  const {index, decisions} = states[level];
+  if (!decisions[index] || decisions[index].patch) return;
+  decisions[index].patch = patch;
+  render();
+  element('result-title').focus();
+}
+
+function decide(response) {
+  if (isVerdict) return;
+  const {index, decisions} = states[level];
+  if (!decisions[index] || !decisions[index].patch || decisions[index].response) return;
+  decisions[index].response = response;
+  render();
+  element('feedback').focus();
+}
+
+function focusCurrentCard() {
+  const complete = states[level].index === decks[level].length;
+  element(complete ? 'finish-title' : 'title').focus();
+}
+
+Object.keys(levelNames).forEach(name => {
+  element(name).onclick = () => {
+    level = name;
+    render();
+    focusCurrentCard();
+  };
+});
+element('patch-a').onclick = () => choose('a');
+element('patch-b').onclick = () => choose('b');
+element('keep').onclick = () => decide('keep');
+element('reset').onclick = () => decide('reset');
+element('next').onclick = () => {
+  const state = states[level];
+  const decision = state.decisions[state.index];
+  if (!(isVerdict ? decision?.patch : decision?.response)) return;
+  state.index += 1;
+  render();
+  focusCurrentCard();
+};
+element('back').onclick = () => {
+  const state = states[level];
+  if (state.index === 0) return;
+  state.index -= 1;
+  render();
+  focusCurrentCard();
+};
+element('restart').onclick = () => {
+  states[level] = newLevel(decks[level]);
+  render();
+  focusCurrentCard();
+};
+render();
+</script>
+</body>
+</html>

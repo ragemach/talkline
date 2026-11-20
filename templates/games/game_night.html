@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>$title | $topic</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #fff6e2; color: #2a2117; font: 1.05rem/1.55 system-ui, sans-serif; overflow-wrap: anywhere; }
+main { max-width: 52rem; margin: auto; padding: clamp(1rem, 4vw, 2.5rem); }
+header { margin-bottom: 1.5rem; }
+header p { margin: .25rem 0; }
+header p:first-child, #progress { color: #644124; font-weight: 650; }
+h1, h2, h3 { line-height: 1.18; margin: 0; }
+h1 { font-size: clamp(1.9rem, 7vw, 3rem); }
+h2 { font-size: clamp(1.35rem, 5vw, 2.1rem); }
+h3 { font-size: 1.2rem; }
+details { margin: 1rem 0; }
+summary { cursor: pointer; font-weight: 650; }
+ol { padding-left: 1.3rem; }
+fieldset { min-inline-size: 0; margin: 1rem 0; padding: 0; border: 0; }
+legend { padding: 0; font-weight: 700; margin-bottom: .5rem; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; }
+button, select { font: inherit; border: 2px solid #864818; border-radius: .5rem; min-height: 44px; padding: .45rem .75rem; color: #2a2117; background: #fff6e2; }
+button { cursor: pointer; }
+button.action, button[aria-pressed="true"] { color: white; background: #853d0d; }
+button:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid #276074; outline-offset: 3px; }
+button:disabled, select:disabled { cursor: default; opacity: .65; }
+.scores { display: flex; flex-wrap: wrap; gap: .65rem; margin: 1rem 0; padding: 0; list-style: none; }
+.scores li { flex: 1; min-width: 7rem; border: 1px solid #caad88; border-radius: .65rem; padding: .6rem .8rem; background: #fffaf0; }
+.scores strong { margin-left: .5rem; color: #79380e; font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+article { margin: .8rem 0 1.2rem; background: #fffaf0; border: 1px solid #caad88; border-radius: .85rem; padding: clamp(1rem, 4vw, 1.7rem); }
+article p { margin: .6rem 0; }
+article .row { margin-top: 1rem; }
+#taboo-card { margin: 1rem 0; border-left: 4px solid #93501e; padding-left: .9rem; }
+#target-word { font-size: clamp(1.65rem, 6vw, 2.65rem); color: #76390f; }
+#forbidden { display: flex; flex-wrap: wrap; gap: .5rem; margin: .4rem 0; padding: 0; list-style: none; }
+#forbidden li { background: #ffe6c2; border-radius: .35rem; padding: .22rem .55rem; }
+#timer { font-weight: 700; font-variant-numeric: tabular-nums; }
+#status:empty { display: none; }
+.challenge { border-left: 4px solid #93501e; padding-left: .9rem; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p>TalkLine Studio · Game Night</p>
+    <h1>$title</h1>
+    <p>$topic</p>
+  </header>
+  <details open>
+    <summary>How to play</summary>
+    <ol>$instructions</ol>
+  </details>
+  <fieldset id="levels">
+    <legend>Choose a level</legend>
+    <div class="row">
+      <button id="elementary" type="button" aria-pressed="false">Elementary · A2–B1</button>
+      <button id="advanced" type="button" aria-pressed="false">Advanced · B2–C1</button>
+    </div>
+  </fieldset>
+  <section id="play" hidden>
+    <div class="row">
+      <strong id="progress"></strong>
+      <button id="restart" type="button">Restart level</button>
+    </div>
+    <ul class="scores" aria-label="Scores">
+      <li>Team A <strong id="score-a">0</strong></li>
+      <li>Team B <strong id="score-b">0</strong></li>
+    </ul>
+    <p id="status" role="status"></p>
+    <article id="taboo" hidden>
+      <h2 id="taboo-team" tabindex="-1"></h2>
+      <div class="row">
+        <label for="duration">Turn length</label>
+        <select id="duration">
+          <option value="30">30 seconds</option>
+          <option value="60">60 seconds</option>
+          <option value="90">90 seconds</option>
+          <option value="0">Untimed</option>
+        </select>
+        <button id="start-turn" class="action" type="button">Start turn</button>
+        <button id="end-turn" type="button" hidden>End turn</button>
+      </div>
+      <p><output id="timer" for="duration" aria-live="off" hidden></output></p>
+      <div id="clue-controls" hidden>
+        <button id="reveal-card" type="button" aria-controls="taboo-card" aria-expanded="false">Show card</button>
+        <div id="taboo-card" hidden>
+          <h3 id="target-word" tabindex="-1"></h3>
+          <p>Forbidden clues</p>
+          <ul id="forbidden"></ul>
+        </div>
+        <div class="row">
+          <button id="correct" class="action" type="button">Correct +1</button>
+          <button id="forbidden-word" type="button">Forbidden word</button>
+          <button id="skip" type="button">Skip</button>
+        </div>
+      </div>
+    </article>
+    <article id="problem-solver" hidden>
+      <h2 id="problem-title" tabindex="-1"></h2>
+      <p id="problem-team"></p>
+      <p id="situation"></p>
+      <p id="challenge" class="challenge"></p>
+      <div class="row">
+        <button id="present" class="action" type="button">Present solution</button>
+      </div>
+      <fieldset id="points" hidden>
+        <legend id="point-scorer" tabindex="-1"></legend>
+        <div class="row">
+          <button id="point-1" type="button">1 point</button>
+          <button id="point-2" type="button">2 points</button>
+          <button id="point-3" type="button">3 points</button>
+        </div>
+      </fieldset>
+    </article>
+    <article id="finish" hidden>
+      <h2 id="finish-title" tabindex="-1">Level complete</h2>
+      <p id="winner"></p>
+      <p>Replay this level or choose another one above.</p>
+    </article>
+  </section>
+  <noscript><p>Open this file in a browser with JavaScript enabled to play.</p></noscript>
+</main>
+<script id="game-data" type="application/json">$game_data</script>
+<script>
+'use strict';
+const element = id => document.getElementById(id);
+const {mechanic, decks} = JSON.parse(element('game-data').textContent);
+const levelNames = {elementary: 'Elementary', advanced: 'Advanced'};
+const teams = ['Team A', 'Team B'];
+const isTaboo = mechanic === 'taboo';
+const newState = () => ({
+  index: 0, team: 0, scores: [0, 0], phase: 'ready', duration: 60, remaining: 0,
+  deadline: null, cardVisible: false, message: ''
+});
+const states = Object.fromEntries(Object.keys(decks).map(name => [name, newState()]));
+let activeLevel = null;
+const current = () => states[activeLevel];
+const deck = () => decks[activeLevel];
+
+function render() {
+  const state = current();
+  element('play').hidden = !state;
+  Object.keys(levelNames).forEach(name => element(name).setAttribute('aria-pressed', name === activeLevel));
+  if (!state) return;
+  const complete = state.index === deck().length;
+  element('score-a').textContent = state.scores[0];
+  element('score-b').textContent = state.scores[1];
+  element('progress').textContent = levelNames[activeLevel] + (complete ?
+    ' · All ' + deck().length + ' cards played' : ' · Card ' + (state.index + 1) + ' of ' + deck().length);
+  element('status').textContent = state.message;
+  element('restart').textContent = complete ? 'Replay this level' : 'Restart level';
+  element('taboo').hidden = !isTaboo || complete;
+  element('problem-solver').hidden = isTaboo || complete;
+  element('finish').hidden = !complete;
+  if (complete) {
+    const [a, b] = state.scores;
+    element('winner').textContent = a === b ? 'Both teams tied.' : (a > b ? teams[0] : teams[1]) + ' wins!';
+    return;
+  }
+  const card = deck()[state.index];
+  if (isTaboo) renderTaboo(state, card);
+  else renderProblem(state, card);
+}
+
+function renderTaboo(state, card) {
+  const playing = state.phase === 'playing';
+  element('taboo-team').textContent = teams[state.team] + ' gives clues';
+  element('duration').value = state.duration;
+  element('duration').disabled = state.phase !== 'ready';
+  element('start-turn').hidden = playing;
+  element('start-turn').textContent = state.phase === 'paused' ? 'Resume turn' : 'Start turn';
+  element('end-turn').hidden = state.phase === 'ready';
+  element('clue-controls').hidden = !playing;
+  element('taboo-card').hidden = !playing || !state.cardVisible;
+  element('reveal-card').textContent = state.cardVisible ? 'Hide card' : 'Show card';
+  element('reveal-card').setAttribute('aria-expanded', playing && state.cardVisible);
+  element('target-word').textContent = playing && state.cardVisible ? card.word : '';
+  const clues = playing && state.cardVisible ? card.forbidden.map(clue => {
+    const li = document.createElement('li');
+    li.textContent = clue;
+    return li;
+  }) : [];
+  element('forbidden').replaceChildren(...clues);
+  updateTimer();
+}
+
+function updateTimer() {
+  const state = current();
+  if (!state || !isTaboo || state.index === deck().length) return;
+  const timer = element('timer');
+  timer.hidden = state.phase === 'ready';
+  if (timer.hidden) return;
+  if (!state.duration) {
+    timer.textContent = state.phase === 'paused' ? 'Paused' : 'Untimed turn';
+    return;
+  }
+  const milliseconds = state.deadline === null ? state.remaining : state.deadline - Date.now();
+  if (state.phase === 'playing' && milliseconds <= 0) {
+    endTurn('Time is up.');
+    return;
+  }
+  const seconds = Math.ceil(Math.max(0, milliseconds) / 1000);
+  timer.textContent = seconds + ' seconds left' + (state.phase === 'paused' ? ' · Paused' : '');
+}
+
+function focusCurrent() {
+  if (current().index === deck().length) element('finish-title').focus();
+  else element(isTaboo ? 'taboo-team' : 'problem-title').focus();
+}
+
+function startTurn() {
+  const state = current();
+  if (state.phase === 'playing') return;
+  if (state.phase === 'ready') state.remaining = state.duration * 1000;
+  state.phase = 'playing';
+  state.deadline = state.duration ? Date.now() + state.remaining : null;
+  state.cardVisible = true;
+  state.message = '';
+  render();
+  if (state.phase === 'playing') element('target-word').focus();
+}
+
+function endTurn(message) {
+  const state = current();
+  if (state.phase === 'ready') return;
+  state.phase = 'ready';
+  state.deadline = null;
+  state.cardVisible = false;
+  state.team = 1 - state.team;
+  state.message = message + ' ' + teams[state.team] + ' gives clues next.';
+  render();
+  focusCurrent();
+}
+
+function recordGuess(points, message) {
+  const state = current();
+  if (state.phase !== 'playing' || state.index >= deck().length) return;
+  if (state.deadline !== null && Date.now() >= state.deadline) {
+    endTurn('Time is up.');
+    return;
+  }
+  state.scores[state.team] += points;
+  state.index += 1;
+  state.message = message;
+  if (state.index === deck().length) {
+    state.phase = 'ready';
+    state.deadline = null;
+    state.cardVisible = false;
+  }
+  render();
+  if (state.cardVisible) element('target-word').focus();
+  else focusCurrent();
+}
+
+function renderProblem(state, card) {
+  element('problem-title').textContent = card.title;
+  element('problem-team').textContent = teams[state.team] + ' presents a solution.';
+  element('situation').textContent = card.situation;
+  element('challenge').textContent = card.challenge;
+  const presenting = state.phase === 'presenting';
+  element('present').hidden = presenting;
+  element('points').hidden = !presenting;
+  element('point-scorer').textContent = teams[1 - state.team] + ' awards points';
+}
+
+function awardPoints(points) {
+  const state = current();
+  if (state.phase !== 'presenting' || state.index >= deck().length) return;
+  state.scores[state.team] += points;
+  state.message = teams[state.team] + ' earned ' + points + (points === 1 ? ' point.' : ' points.');
+  state.team = 1 - state.team;
+  state.phase = 'ready';
+  state.index += 1;
+  render();
+  focusCurrent();
+}
+
+Object.keys(levelNames).forEach(name => {
+  element(name).onclick = () => {
+    if (name === activeLevel) return;
+    const previous = current();
+    if (isTaboo && previous?.phase === 'playing') {
+      const now = Date.now();
+      if (previous.deadline !== null && now >= previous.deadline) endTurn('Time is up.');
+      else {
+        previous.remaining = previous.deadline === null ? 0 : previous.deadline - now;
+        previous.phase = 'paused';
+        previous.deadline = null;
+        previous.cardVisible = false;
+      }
+    }
+    activeLevel = name;
+    render();
+    focusCurrent();
+  };
+});
+element('duration').onchange = event => { current().duration = Number(event.target.value); };
+element('start-turn').onclick = startTurn;
+element('end-turn').onclick = () => endTurn('Turn ended.');
+element('reveal-card').onclick = () => {
+  const state = current();
+  if (state.phase !== 'playing') return;
+  state.cardVisible = !state.cardVisible;
+  render();
+  if (state.cardVisible) element('target-word').focus();
+};
+element('correct').onclick = () => recordGuess(1, 'Correct guess. One point.');
+element('forbidden-word').onclick = () => recordGuess(0, 'Forbidden word used. No point.');
+element('skip').onclick = () => recordGuess(0, 'Card skipped.');
+element('present').onclick = () => {
+  current().phase = 'presenting';
+  current().message = '';
+  render();
+  element('point-scorer').focus();
+};
+[1, 2, 3].forEach(points => { element('point-' + points).onclick = () => awardPoints(points); });
+element('restart').onclick = () => {
+  const state = current();
+  states[activeLevel] = {...newState(), duration: state.duration};
+  render();
+  focusCurrent();
+};
+if (isTaboo) setInterval(updateTimer, 200);
+render();
+</script>
+</body>
+</html>
