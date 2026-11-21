@@ -57,6 +57,7 @@ def set_event_widgets(state):
     if metadata := state.get('metadata'):
         for field, key in EVENT_WIDGETS.items():
             state[key] = metadata[field]
+        state['concept_input'] = metadata.get('concept_selection', metadata['concept'])
     elif toolkit := state.get('toolkit'):
         state['topic_input'] = toolkit['topic']
 
@@ -79,6 +80,8 @@ def validate_draft(draft):
         EventDetails(meta['venue'], meta['date'], meta['time'])
         if meta['concept'] not in ['auto', *LABELS] or meta['mode'] not in (DEMO_MODE, LOCAL_MODE):
             raise ValueError('Saved concept or engine is unsupported.')
+        if 'concept_selection' in meta and (meta['concept_selection'] != 'auto' or meta['concept'] not in LABELS):
+            raise ValueError('Saved automatic selection needs a resolved session concept.')
         if meta['mode'] == LOCAL_MODE:
             UserSettings(model=meta['model'])
         elif meta['model'] is not None:

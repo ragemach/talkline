@@ -32,18 +32,50 @@ def isolated_settings(tmp_path):
     path=tmp_path/'settings.json'
     with patch('src.settings.load_settings',side_effect=lambda:load_settings(path)), \
          patch('src.settings.save_settings',side_effect=lambda settings:save_settings(settings,path)), \
+         patch('src.ai_content.available_models', return_value=[]), \
          patch('src.run_store.RUN_PATH', tmp_path/'last_run.zip'), \
          patch('src.checkpoints.SPONTANEOUS_PROGRESS_PATH', tmp_path/'spontaneous-progress.json'), \
-         patch('src.checkpoints.GAME_NIGHT_PROGRESS_PATH', tmp_path/'game-night-progress.json'):
+         patch('src.checkpoints.GAME_NIGHT_PROGRESS_PATH', tmp_path/'game-night-progress.json'), \
+         patch('src.checkpoints.BUSINESS_PROGRESS_PATH', tmp_path/'business-progress.json'):
         yield path
 
 
-def test_demo_ui_exports_real_zip_without_ai():
-    with patch('src.ai_content.urlopen', side_effect=AssertionError('Demo must be offline')):
+@pytest.fixture
+def prepared_local_ai(monkeypatch):
+    """Replace model responses only so the tests can exercise real local exports."""
+    from src.ai_content import demo_brief
+    from src.business_content import generate_business
+    from src.game_night_content import generate_game_night
+    from src.invitation_content import detect_category, prepare_invitation
+    from src.spontaneous_content import generate_spontaneous
+    from src.spontaneous_demo_toolkit import demo_spontaneous_toolkit
+
+    monkeypatch.setattr('src.ai_content.available_models', lambda: ['qwen3:8b'])
+    monkeypatch.setattr('src.ai_content.create_with_ollama', lambda topic, model: demo_brief(topic))
+    monkeypatch.setattr('src.ai_content.review_brief', lambda *args, **kwargs: {'summary': 'Reviewed', 'issues': []})
+    monkeypatch.setattr('src.spontaneous_content.generate_spontaneous',
+                        lambda topic, model, **kwargs: generate_spontaneous(topic))
+    monkeypatch.setattr('src.business_content.generate_business',
+                        lambda topic, model, **kwargs: generate_business(topic))
+    monkeypatch.setattr('src.game_night_content.generate_game_night',
+                        lambda topic, model, **kwargs: generate_game_night(topic))
+    monkeypatch.setattr('src.toolkit.generate_toolkit',
+                        lambda topic, model: dict(demo_spontaneous_toolkit(topic), model=model))
+    monkeypatch.setattr('src.invitation_content.detect_category', lambda topic, model: detect_category(topic))
+    monkeypatch.setattr('src.session_export.prepare_invitation',
+                        lambda topic, brief, event, category, model: prepare_invitation(topic, brief, event, category))
+
+
+def test_local_ui_exports_real_zip_and_preserves_previous_run(prepared_local_ai):
+    with patch('src.ai_content.urlopen', side_effect=AssertionError('Model replies are provided by the test')):
         app = AppTest.from_file(str(APP), default_timeout=60).run()
         assert not app.exception
-        assert [field.value for field in app.text_input][1:] == ['', '', '']
+        assert not app.radio
+        assert app.selectbox(key='concept_input').value == 'auto'
+        assert [field.value for field in app.text_input] == ['', '', '', '']
+        assert app.button(key='generate').disabled
         app.text_input[0].set_value('Unexpected Travel Adventures')
+        app.selectbox(key='concept_input').set_value('culture_exchange').run()
         app.button(key='generate').click().run()
         assert not app.exception
         app.button(key='build').click().run(timeout=60)
@@ -60,6 +92,8 @@ def test_demo_ui_exports_real_zip_without_ai():
                        for paragraph in shape.text_frame.paragraphs for run in paragraph.runs)
             data = json.loads(archive.read('content.json'))
             assert data['topic'] == 'Unexpected Travel Adventures'
+            assert data['invitation']['category'] == 'culture_exchange'
+            assert data['engine']['model'] == 'qwen3:8b'
             assert data['event'] == {'venue': '', 'date': '', 'time': ''}
             titles = [stage['title'] for stage in data['session_sequence']]
             assert titles == ['Welcome', 'Warm-up', 'Round 1: Discussion', 'Break',
@@ -97,8 +131,9 @@ def test_demo_ui_exports_real_zip_without_ai():
 
         # A failed replacement preserves the successful run but hides its files
         # while the form shows a different event.
-        reopened.text_input(key='topic_input').set_value('Unfinished replacement')
-        with patch('src.ai_content.demo_brief', side_effect=ValueError('invalid content')):
+        reopened.text_input(key='topic_input').set_value('Unfinished replacement travel traditions').run()
+        assert reopened.selectbox(key='concept_input').value == 'auto'
+        with patch('src.ai_content.create_with_ollama', side_effect=ValueError('invalid content')):
             reopened.button(key='generate').click().run()
         assert reopened.error
         assert reopened.session_state['package'] == good_zip
@@ -120,6 +155,19 @@ def test_demo_ui_exports_real_zip_without_ai():
         assert not fresh.exception
         assert fresh.session_state['package'] == good_zip
 
+        # Earlier releases stored only 'auto' when the invitation style was automatic.
+        from src.run_state import export_revision
+        from src.run_store import load_run, save_run
+        saved = load_run()
+        saved.draft['metadata'].pop('concept_selection', None)
+        saved.draft['metadata']['concept'] = 'auto'
+        save_run(saved.draft, package=good_zip, export_revision=export_revision(saved.draft))
+        with patch('src.ai_content.available_models', return_value=[]):
+            legacy = AppTest.from_file(str(APP)).run()
+            assert not legacy.exception and not legacy.error
+            assert legacy.session_state['package'] == good_zip
+            assert any('prototype ZIP' in button.label for button in legacy.get('download_button'))
+
 
 def test_resume_local_draft_without_ollama_or_export():
     from src.business_content import generate_business
@@ -131,11 +179,10 @@ def test_resume_local_draft_without_ollama_or_export():
          patch('src.toolkit.generate_toolkit', return_value=toolkit), \
          patch('src.business_content.generate_business', return_value=draft):
         app = AppTest.from_file(str(APP), default_timeout=30).run()
-        app.radio(key='engine_input').set_value('Local Ollama AI (free)').run()
         app.text_input(key='topic_input').set_value('A local topic')
         app.text_input(key='venue_input').set_value('Office')
         app.text_input(key='time_input').set_value('20:15')
-        app.selectbox(key='concept_input').set_value('business')
+        app.selectbox(key='concept_input').set_value('business').run()
         app.button(key='generate').click().run()
         assert not app.exception and not app.error
 
@@ -184,7 +231,7 @@ def test_saved_defaults_reload_in_a_new_session(isolated_settings):
     assert fresh.text_input(key='time_input').value == '19:30'
 
 
-def test_spontaneous_demo_exports_and_edits_full_offline_session():
+def test_spontaneous_exports_and_edits_full_offline_session(prepared_local_ai):
     from html.parser import HTMLParser
     from pptx import Presentation
 
@@ -197,11 +244,13 @@ def test_spontaneous_demo_exports_and_edits_full_offline_session():
             if tag == 'a':
                 self.targets.append(dict(attrs)['href'])
 
-    with patch('src.ai_content.urlopen', side_effect=AssertionError('Demo must work offline')):
+    with patch('src.ai_content.urlopen', side_effect=AssertionError('Model replies are provided by the test')):
         app = AppTest.from_file(str(APP), default_timeout=90).run()
-        app.selectbox(key='concept_input').set_value('spontaneous')
+        app.text_input(key='topic_input').set_value('Reality Has a Glitch!')
+        app.selectbox(key='concept_input').set_value('spontaneous').run()
         app.button(key='generate').click().run()
         assert not app.exception and not app.error
+        assert any(section.label == 'Round 1 discussion cards' for section in app.get('expander'))
         app.button(key='build').click().run()
         assert not app.exception and not app.error, [error.value for error in app.error]
         package = app.session_state['package']
@@ -236,14 +285,74 @@ def test_spontaneous_demo_exports_and_edits_full_offline_session():
         assert fresh.session_state['brief']['game'] == brief['game']
 
 
-def test_game_night_demo_exports_and_recovers_both_offline_games():
+def test_long_discussion_edits_survive_reopen_and_export(prepared_local_ai):
+    from html import unescape
+    from pptx import Presentation
+    from src.content_rules import ROUND_CARD_TEXT_LIMITS
+    from src.run_state import LOCAL_MODE
+    from src.run_store import save_run
+    from src.session_sequence import FULL_SPONTANEOUS
+    from src.spontaneous_content import generate_spontaneous
+    from src.spontaneous_demo_toolkit import demo_spontaneous_toolkit
+    from src.template_blueprints import text_shapes
+
+    topic = 'What if people could trade one memory each year?'
+    scene = 'An old man gains his daughter’s college graduation memory. '
+    draft = generate_spontaneous(topic, model=None)
+    card = draft['round1'][1]
+    card['title'] = 'Happy Memories'
+    card['a2'] = scene + 'Where would you go to relive your favorite childhood memory?'
+    save_run({'metadata': {'topic': topic, 'venue': '', 'date': '', 'time': '', 'concept': 'spontaneous',
+                           'workflow': FULL_SPONTANEOUS, 'mode': LOCAL_MODE, 'model': 'qwen3:8b'},
+              'brief': draft, 'toolkit': demo_spontaneous_toolkit(topic)})
+    edits = {
+        'a2': scene + 'Which day with your family or friends would you most like to remember when you are older?',
+        'b2': scene + 'Why do families remember the same day in different ways, and what gets lost when someone else remembers it for them?',
+        'c1': scene + 'How should families weigh the comfort of sharing an important day against a person’s right to keep a private memory?',
+    }
+    app = AppTest.from_file(str(APP), default_timeout=90).run()
+    app.selectbox(key='edit_session_part').set_value('Round 1 question').run()
+    next(box for box in app.selectbox if box.label == 'Discussion card').set_value(1).run()
+    for tier, value in edits.items():
+        field = next(field for field in app.text_area if field.label == f'{tier.upper()} question')
+        assert field.proto.max_chars == ROUND_CARD_TEXT_LIMITS[tier]
+        assert field.value == card[tier]
+        assert (115 if tier == 'a2' else 165) < len(value) <= field.proto.max_chars
+        field.set_value(value)
+    next(button for button in app.button if button.label == 'Save question').click().run()
+    assert not app.error and not app.exception
+
+    reopened = AppTest.from_file(str(APP), default_timeout=90).run()
+    assert reopened.session_state['brief']['round1'][1] == {**card, **edits}
+    reopened.button(key='build').click().run()
+    assert not reopened.error and not reopened.exception
+    with zipfile.ZipFile(BytesIO(reopened.session_state['package'])) as archive:
+        content = json.loads(archive.read('content.json'))['content']
+        assert content['round1'][1] == {**card, **edits}
+        guide = unescape(archive.read('TalkLine_Host_Guide.html').decode('utf-8'))
+        deck = Presentation(BytesIO(archive.read('TalkLine_Presentation.pptx')))
+        for slide in deck.slides:
+            texts = [shape.text for _, shape in text_shapes(slide.shapes)]
+            if card['title'] in texts:
+                break
+        else:
+            pytest.fail('The edited discussion slide is missing.')
+        for value in edits.values():
+            assert value in texts and value in slide.notes_slide.notes_text_frame.text
+            assert value in guide
+
+
+def test_game_night_exports_and_recovers_both_offline_games(prepared_local_ai):
     from pptx import Presentation
     from src.session_sequence import FULL_GAME_NIGHT, GAME_NIGHT_FILES
 
-    with patch('src.ai_content.urlopen', side_effect=AssertionError('Demo must work offline')):
+    with patch('src.ai_content.urlopen', side_effect=AssertionError('Model replies are provided by the test')), \
+         patch('src.invitation_content.detect_category', return_value='business') as classify:
         app = AppTest.from_file(str(APP), default_timeout=90).run()
-        app.text_input(key='topic_input').set_value('A Night of Team Challenges')
-        app.selectbox(key='concept_input').set_value('game_night')
+        app.text_input(key='topic_input').set_value('A Night of Team Challenges').run()
+        assert 'Business English' in app.button(key='generate').label
+        app.selectbox(key='concept_input').set_value('game_night').run()
+        assert 'Game Night' in app.button(key='generate').label
         app.button(key='generate').click().run()
         assert not app.exception and not app.error, [error.value for error in app.error]
         app.button(key='build').click().run()
@@ -253,6 +362,7 @@ def test_game_night_demo_exports_and_recovers_both_offline_games():
             assert kit.testzip() is None
             payload = json.loads(kit.read('content.json'))
             assert payload['stage'] == FULL_GAME_NIGHT
+            assert payload['invitation']['category'] == 'game_night'
             assert [game['mechanic'] for game in payload['content']['games']] == ['taboo', 'problem_solver']
             assert all(len(game[level]) == 20 for game in payload['content']['games']
                        for level in ('elementary', 'advanced'))
@@ -272,6 +382,7 @@ def test_game_night_demo_exports_and_recovers_both_offline_games():
         reopened = AppTest.from_file(str(APP), default_timeout=90).run()
         assert not reopened.exception and not reopened.error
         assert reopened.selectbox(key='concept_input').value == 'game_night'
+        classify.assert_called_once()
         assert reopened.session_state['package'] == package
         reopened.selectbox(key='edit_session_part').set_value('Round 1 game card').run()
         target = next(field for field in reopened.text_input if field.label == 'Target word')
@@ -281,22 +392,36 @@ def test_game_night_demo_exports_and_recovers_both_offline_games():
         assert 'package' not in reopened.session_state
         assert reopened.session_state['brief']['games'][0]['elementary'][0]['word'] == 'Concert ticket'
         assert reopened.session_state['brief']['games'][1] == payload['content']['games'][1]
+        reopened.text_input(key='topic_input').set_value('Presenting a budget').run()
+        assert reopened.selectbox(key='concept_input').value == 'auto'
+        assert 'Business English' in reopened.button(key='generate').label
+        assert classify.call_count == 2
+        assert reopened.button(key='build').disabled
 
 
-def test_business_demo_exports_the_business_deck_and_verdict_game():
+def test_automatic_business_concept_drives_deck_game_invitation_and_saved_run(prepared_local_ai):
     from pptx import Presentation
     from src.session_sequence import BUSINESS_GAME_FILE, FULL_BUSINESS
 
-    with patch('src.ai_content.urlopen', side_effect=AssertionError('Demo must work offline')):
+    topic = 'Business Beyond the Office'
+    with patch('src.ai_content.urlopen', side_effect=AssertionError('Model replies are provided by the test')), \
+         patch('src.invitation_content.detect_category', return_value='business') as classify, \
+         patch('src.session_export.detect_category', side_effect=AssertionError('Export must use the saved concept')):
         app = AppTest.from_file(str(APP), default_timeout=90).run()
-        app.text_input(key='topic_input').set_value('Business Beyond the Office')
-        app.selectbox(key='concept_input').set_value('business')
+        classify.assert_not_called()
+        app.text_input(key='topic_input').set_value(topic).run()
+        assert 'Business English' in app.button(key='generate').label
+        app.text_input(key='time_input').set_value('20:00').run()
+        classify.assert_called_once_with(topic, 'qwen3:8b')
         app.button(key='generate').click().run()
+        assert app.session_state['metadata']['concept'] == 'business'
+        assert app.session_state['metadata']['concept_selection'] == 'auto'
         app.button(key='build').click().run()
         assert not app.exception and not app.error, [error.value for error in app.error]
         with zipfile.ZipFile(BytesIO(app.session_state['package'])) as kit:
             payload = json.loads(kit.read('content.json'))
             assert payload['stage'] == FULL_BUSINESS
+            assert payload['invitation']['category'] == 'business'
             assert payload['content']['game']['mechanic'] == 'smart_or_sneaky'
             assert len(payload['content']['round1']) == 10
             assert len(payload['content']['game']['advanced']) == 20
@@ -306,6 +431,21 @@ def test_business_demo_exports_the_business_deck_and_verdict_game():
             assert any(rel.target_ref == BUSINESS_GAME_FILE for slide in deck.slides
                        for rel in slide.part.rels.values() if rel.is_external)
             assert BUSINESS_GAME_FILE in kit.namelist()
+        classify.assert_called_once()
+
+        with patch('src.ai_content.available_models', return_value=[]):
+            reopened = AppTest.from_file(str(APP)).run()
+            assert not reopened.exception and not reopened.error
+            assert reopened.selectbox(key='concept_input').value == 'auto'
+            assert reopened.button(key='generate').disabled
+            assert reopened.session_state['package'] == app.session_state['package']
+            assert any(button.label == 'Download PowerPoint' for button in reopened.get('download_button'))
+        with patch('src.ai_content.available_models', return_value=['another-local-model']):
+            reopened = AppTest.from_file(str(APP)).run()
+            assert not reopened.error and not reopened.exception
+            assert reopened.button(key='generate').label == 'Generate Business English session'
+            assert any(button.label == 'Download PowerPoint' for button in reopened.get('download_button'))
+        classify.assert_called_once()
 
 
 def test_spontaneous_generation_resumes_after_local_connection_failure():
@@ -332,25 +472,44 @@ def test_spontaneous_generation_resumes_after_local_connection_failure():
         return sample
 
     with patch('src.ai_content.available_models', return_value=['qwen3:8b']), \
+         patch('src.invitation_content.detect_category', return_value='spontaneous') as classify, \
          patch('src.toolkit.generate_toolkit', return_value=demo_spontaneous_toolkit(topic)), \
          patch('src.spontaneous_content.generate_spontaneous', side_effect=[None]) as generate:
-        def configure(app):
-            app.radio(key='engine_input').set_value('Local Ollama AI (free)')
-            app.selectbox(key='concept_input').set_value('spontaneous')
-            app.text_input(key='topic_input').set_value(topic)
-            return app.run()
-
         generate.side_effect = interrupted
-        first = configure(AppTest.from_file(str(APP)).run())
+        first = AppTest.from_file(str(APP)).run()
+        first.text_input(key='topic_input').set_value(topic).run()
         first.button(key='generate').click().run()
         assert first.error and 'Local connection lost' in first.error[0].value
+        classify.assert_called_once_with(topic, 'qwen3:8b')
+        classify.side_effect = AssertionError('Recover the checkpoint concept before asking Ollama')
         generate.side_effect = continue_run
-        reopened = configure(AppTest.from_file(str(APP)).run())
+        reopened = AppTest.from_file(str(APP)).run()
         assert reopened.button(key='generate').label == 'Resume Spontaneous Talk generation'
         reopened.button(key='generate').click().run()
         assert not reopened.error and not reopened.exception
         assert reopened.session_state['brief'] == sample
-        assert configure(AppTest.from_file(str(APP)).run()).button(key='generate').label == 'Generate Spontaneous Talk session'
+        assert AppTest.from_file(str(APP)).run().button(key='generate').label == 'Generate Spontaneous Talk session'
+        classify.assert_called_once()
+
+
+def test_changing_topic_updates_the_route_and_allows_retry_after_classification_failure(prepared_local_ai):
+    with patch('src.invitation_content.detect_category', side_effect=[
+        'spontaneous', RuntimeError('classifier temporarily unavailable'), 'pop_culture',
+    ]) as classify:
+        app = AppTest.from_file(str(APP)).run()
+        app.text_input(key='topic_input').set_value('A funny misunderstanding').run()
+        assert 'Spontaneous Talk' in app.button(key='generate').label
+        app.text_input(key='topic_input').set_value('Streaming culture').run()
+        assert app.button(key='generate').disabled
+        assert any('classifier temporarily unavailable' in alert.value for alert in app.warning)
+        app.button(key='retry_concept').click().run()
+        assert not app.button(key='generate').disabled
+        assert any('Pop Culture' in row.value and 'prototype' in row.value for row in app.markdown)
+        app.button(key='generate').click().run()
+        assert not app.error and not app.exception
+        assert app.session_state['metadata']['concept'] == 'pop_culture'
+        assert 'workflow' not in app.session_state['metadata']
+        assert classify.call_count == 3
 
 
 def test_local_review_and_regeneration_clear_export():
@@ -365,7 +524,8 @@ def test_local_review_and_regeneration_clear_export():
          patch('src.ai_content.review_brief',return_value=report), \
          patch('src.ai_content.regenerate_section',return_value=updated):
         app=AppTest.from_file(str(APP),default_timeout=20).run()
-        app.radio[0].set_value('Local Ollama AI (free)').run()
+        app.text_input(key='topic_input').set_value('Travel')
+        app.selectbox(key='concept_input').set_value('culture_exchange').run()
         app.button(key='generate').click().run()
         assert generate.call_args.kwargs['model']=='qwen3:8b'
         app.button(key='review_content').click().run()
@@ -392,7 +552,8 @@ def test_remaining_critical_errors_gate_export_and_override_is_revision_specific
          patch('src.ai_content.repair_reviewed_brief',return_value=repaired) as repair, \
          patch('src.ai_content.regenerate_section',return_value=changed):
         app=AppTest.from_file(str(APP),default_timeout=20).run()
-        app.radio[0].set_value('Local Ollama AI (free)').run()
+        app.text_input(key='topic_input').set_value('Travel')
+        app.selectbox(key='concept_input').set_value('culture_exchange').run()
         app.button(key='generate').click().run()
         repair.assert_called_once()
         assert app.button(key='build').disabled
@@ -415,7 +576,8 @@ def test_failed_automatic_repair_preserves_content_and_does_not_pass_review():
          patch('src.ai_content.review_brief',return_value=report), \
          patch('src.ai_content.repair_reviewed_brief',side_effect=RuntimeError('server stopped')):
         app=AppTest.from_file(str(APP),default_timeout=20).run()
-        app.radio[0].set_value('Local Ollama AI (free)').run()
+        app.text_input(key='topic_input').set_value('Travel')
+        app.selectbox(key='concept_input').set_value('culture_exchange').run()
         app.button(key='generate').click().run()
         assert app.session_state['brief']==brief and app.session_state['review']==report
         assert 'Automatic repair failed' in app.session_state['review_warning']

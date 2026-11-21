@@ -2,10 +2,11 @@ from io import BytesIO
 from zipfile import ZipFile
 
 from pptx import Presentation
+from pptx.enum.text import MSO_ANCHOR
 import pytest
 
 from src.session_sequence import RATE_US_URL
-from src.spontaneous_deck import build_spontaneous_deck
+from src.spontaneous_deck import _shape, build_spontaneous_deck
 from src.template_blueprints import text_shapes
 from src.toolkit_library import sample_toolkit
 
@@ -82,3 +83,23 @@ def test_reject_incomplete_cards_and_unsafe_game_link():
     session['round1'].pop()
     with pytest.raises(ValueError, match='ten Round 1'):
         build_spontaneous_deck('Travel', session)
+
+
+def test_card_titles_and_high_contrast_badges_fit_the_reference():
+    session = _session()
+    session['round1'][0]['title'] = 'A WORLDWIDE WORKPLACE MAKEOVER'
+    deck = Presentation(BytesIO(build_spontaneous_deck('Travel', session)))
+    long_card, short_card = list(deck.slides)[3:5]
+    title = _shape(long_card, (7,))
+    assert title.top + title.height <= _shape(long_card, (8,)).top
+    assert title.top < _shape(short_card, (7,)).top
+    for panel_id, badge_id, question_id, tier in ((10, 12, 15, 'a2'), (16, 18, 21, 'b2'), (22, 24, 27, 'c1')):
+        panel = _shape(long_card, (panel_id,))
+        badge = _shape(long_card, (badge_id,))
+        question = _shape(long_card, (question_id,))
+        assert abs((2 * badge.top + badge.height) - (2 * panel.top + panel.height)) <= 1
+        assert question.text_frame.vertical_anchor == MSO_ANCHOR.MIDDLE
+        assert panel.top < question.top < question.top + question.height < panel.top + panel.height
+        label = _shape(long_card, (badge_id, badge_id + 2)).text_frame.paragraphs[0].runs[0]
+        assert str(label.font.color.rgb) == ('FFFFFF' if tier == 'c1' else '1A112B')
+        assert session['round1'][0][tier] in long_card.notes_slide.notes_text_frame.text

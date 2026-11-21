@@ -10,23 +10,47 @@ from src.vocabulary_profile import profile_evidence
 LEVELS = ('a2', 'b1', 'b2_c1')
 LEVEL_LABELS = {'a2': 'A1/A2', 'b1': 'B1', 'b2_c1': 'B2/C1'}
 ENTRY = obj({'expression': text(70), 'turkish': text(160), 'example': text(220)})
+
+
+def level_schema(level):
+    idiom_bounds = {
+        'a2': {'maxItems': 0},
+        'b1': {'minItems': 0, 'maxItems': 1},
+        'b2_c1': {'minItems': 1, 'maxItems': 2},
+    }[level]
+    return obj({
+        'vocabulary': {'type': 'array', 'items': ENTRY, 'minItems': 7, 'maxItems': 10},
+        'phrases': items(ENTRY, 3),
+        'idioms': {'type': 'array', 'items': ENTRY, **idiom_bounds},
+        'mini_grammar': obj({'title': text(80), 'explanation': text(350),
+                             'pattern': text(160), 'examples': items(text(220), 2)}),
+    })
+
+
 LEVEL_SCHEMA = obj({
     'vocabulary': {'type': 'array', 'items': ENTRY, 'minItems': 7, 'maxItems': 10}, 'phrases': items(ENTRY, 3),
     'idioms': {'type': 'array', 'items': ENTRY, 'minItems': 0, 'maxItems': 2},
     'mini_grammar': obj({'title': text(80), 'explanation': text(350),
                          'pattern': text(160), 'examples': items(text(220), 2)}),
 })
-REVIEW_SCHEMA = obj({'summary': text(600), 'issues': {
+REVIEW_SCHEMA = obj({'summary': text(2500), 'issues': {
     'type': 'array', 'maxItems': 20, 'items': obj({
         'level': {'enum': list(LEVELS)},
         'severity': {'enum': ['warning', 'error']},
-        'message': text(400),
+        'message': text(1500),
     })}})
 
 
 def review_toolkit(toolkit, model=MODEL):
     """Advisory semantic review, separate from structural validation."""
     def validate(report):
+        if isinstance(report, dict):
+            if isinstance(report.get('summary'), str) and len(report['summary']) > 2500:
+                report['summary'] = report['summary'][:2500].strip()
+            if isinstance(report.get('issues'), list):
+                for issue in report['issues']:
+                    if isinstance(issue, dict) and isinstance(issue.get('message'), str) and len(issue['message']) > 1500:
+                        issue['message'] = issue['message'][:1500].strip()
         error = next(Draft202012Validator(REVIEW_SCHEMA).iter_errors(report), None)
         if error:
             raise ValueError(error.message)
@@ -49,13 +73,17 @@ def validate_level(data, level):
     error = next(Draft202012Validator(LEVEL_SCHEMA).iter_errors(data), None)
     if error:
         raise ValueError(f'{level}.{list(error.absolute_path)}: {error.message}')
-    expressions = []
+    seen = set()
+    duplicates = []
     for kind in ('vocabulary', 'phrases', 'idioms'):
         for entry in data[kind]:
-            expressions.append(normalized(entry['expression']))
+            expr = normalized(entry['expression'])
+            if expr in seen:
+                duplicates.append(entry['expression'])
+            seen.add(expr)
             validate_usage_example(entry['example'], f'{level}.{kind}')
-    if len(expressions) != len(set(expressions)):
-        raise ValueError('Toolkit expressions must be distinct within each level')
+    if duplicates:
+        raise ValueError(f'Toolkit expressions must be distinct within each level (duplicates found: {", ".join(duplicates)})')
     for example in data['mini_grammar']['examples']:
         validate_usage_example(example, f'{level}.mini_grammar')
     if level == 'b2_c1' and not data['idioms']:
@@ -115,9 +143,11 @@ context. Use an idiom when it fits the topic. For example, "walk on eggshells"
 fits a discussion about being extremely careful not to upset someone.
 Include ONE mini-grammar useful for discussing the topic at this level: short clear
 English explanation of use, construction pattern, and TWO complete English examples.
+All expressions across vocabulary, phrases, and idioms must be completely unique and distinct; never repeat the same word or phrase.
 Earlier-level expressions to avoid repeating: {[e['expression'] for d in levels.values() for k in ('vocabulary','phrases','idioms') for e in d[k]]}.
 Return JSON matching the supplied schema, with no commentary.'''
-        levels[level] = _validated_request(prompt, LEVEL_SCHEMA, model,
+        schema = level_schema(level)
+        levels[level] = _validated_request(prompt, schema, model,
                                            lambda data: validate_level(data, level))
     result = {'schema_version': 1, 'topic': topic, 'model': model,
               'levels': levels, 'review_status': 'structural_checks_only'}

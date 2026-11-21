@@ -6,6 +6,7 @@ import pytest
 
 from src.business_deck import build_business_deck
 from src.session_sequence import RATE_US_URL
+from src.spontaneous_deck import _shape
 from src.spontaneous_demo_toolkit import demo_spontaneous_toolkit
 from src.template_blueprints import text_shapes
 from src.toolkit import LEVEL_LABELS
@@ -111,3 +112,16 @@ def test_long_framing_fits_with_native_readable_type(content):
     assert title.top + title.height < subtitle.top
     assert subtitle.top + subtitle.height < deck.slide_height
     assert content['opening'] in _text(deck.slides[1])
+
+
+def test_business_discussion_panel_centers_the_native_text_block(content):
+    deck = Presentation(BytesIO(build_business_deck(TOPIC, content, demo_spontaneous_toolkit(TOPIC), GAME)))
+    slide = deck.slides[7]
+    for panel_id, label_id, question_id, tier in ((10, 12, 15, 'a2'), (16, 18, 21, 'b2'), (22, 24, 27, 'c1')):
+        panel = _shape(slide, (panel_id,))
+        label = _shape(slide, (label_id,))
+        question = _shape(slide, (question_id,))
+        assert question.left == label.left
+        assert label.top + label.height < question.top
+        assert abs(label.top + question.top + question.height - (2 * panel.top + panel.height)) <= 1
+        assert content['round1'][0][tier] in slide.notes_slide.notes_text_frame.text

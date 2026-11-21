@@ -32,11 +32,11 @@ def test_business_demo_uses_both_supplied_examples_without_ollama(monkeypatch):
         validate_spontaneous(content)
 
 
-def test_business_generation_resumes_without_repeating_batches(monkeypatch):
+def test_business_generation_resumes_without_repeating_batches(monkeypatch, round_model_batches):
     demo = generate_business(TOPIC)
     game = demo['game']
     responses = [
-        *[{'cards': demo['round1'][start:start + 5]} for start in (0, 5)],
+        *round_model_batches[0], *round_model_batches[1],
         *[{'cards': game[level][start:start + 5]}
           for level in ('elementary', 'advanced') for start in (0, 5, 10, 15)],
         {key: demo[key] for key in ('subtitle', 'tagline', 'opening', 'closing')},
@@ -72,7 +72,7 @@ def test_business_generation_resumes_without_repeating_batches(monkeypatch):
 
     monkeypatch.setattr(ai_content, '_ask_json', request)
     generated = generate_business(TOPIC, MODEL, resume=checkpoint, on_progress=report)
-    assert generated['round1'] == demo['round1']
+    assert generated['round1'] == checkpoint['round1']
     assert generated['game'] == game
     assert not responses
     assert snapshots[-1][0] == 11

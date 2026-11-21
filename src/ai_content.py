@@ -185,14 +185,14 @@ REVIEW_SCHEMA = {
     'type': 'object', 'additionalProperties': False,
     'required': ['summary','issues'],
     'properties': {
-        'summary': {'type':'string','minLength':1,'maxLength':240,'pattern':r'\S'},
-        'issues': {'type':'array','maxItems':12,'items': {
+        'summary': {'type':'string','minLength':1,'maxLength':2500,'pattern':r'\S'},
+        'issues': {'type':'array','maxItems':20,'items': {
             'type':'object','additionalProperties':False,
             'required':['section','severity','message'],
             'properties': {
                 'section': {'enum':list(BRIEF_SCHEMA['properties'])},
                 'severity': {'enum':['warning','error']},
-                'message': {'type':'string','minLength':1,'maxLength':240,'pattern':r'\S'}
+                'message': {'type':'string','minLength':1,'maxLength':1500,'pattern':r'\S'}
             }
         }}
     }
@@ -202,8 +202,25 @@ REVIEW_SCHEMA = {
 def review_brief(topic: str, brief: dict, model: str = MODEL) -> dict:
     _validate(brief)
     def validate(report):
+        if isinstance(report, dict):
+            if isinstance(report.get('summary'), str) and len(report['summary']) > 2500:
+                report['summary'] = report['summary'][:2500].strip()
+            if isinstance(report.get('issues'), list):
+                for issue in report['issues']:
+                    if isinstance(issue, dict) and isinstance(issue.get('message'), str) and len(issue['message']) > 1500:
+                        issue['message'] = issue['message'][:1500].strip()
         error = next(Draft202012Validator(REVIEW_SCHEMA).iter_errors(report), None)
         if error: raise ValueError(f'Invalid local review: {error.message}')
+        cleaned = []
+        for issue in report.get('issues', []):
+            msg = issue.get('message', '').strip().lower()
+            if any(p in msg for p in [
+                'no issue', 'no issues', 'no problem', 'no errors',
+                'none detected', 'not detected', 'no concerns'
+            ]) and not any(p in msg for p in ['instead of', 'however', 'but', 'except', 'unrealistic', 'inconsistent']):
+                continue
+            cleaned.append(issue)
+        report['issues'] = cleaned
         return report
     prompt = (
         'Review the following TalkLine prototype for adult English learners in Istanbul. '
@@ -222,7 +239,8 @@ def review_brief(topic: str, brief: dict, model: str = MODEL) -> dict:
         'synonyms. Report a game_cards error if a patch does not control its rule or its '
         'outcome is unrelated; name the exact causal gap. '
         'Do not demand a full deck or 40 cards: this is a 3-scenario/2-card prototype. '
-        'Report actual issues only, without rewriting the content. Return JSON. /no_think\n'
+        'Report actual issues only, without rewriting the content. Do NOT include an issue item '
+        'just to say "no issues detected" or praise a section. Return JSON. /no_think\n'
         + json.dumps({'topic':topic,'content':brief},ensure_ascii=False)
     )
     return _validated_request(prompt, REVIEW_SCHEMA, model, validate)
@@ -261,6 +279,13 @@ def repair_reviewed_brief(topic: str, brief: dict, report: dict, model: str = MO
     never mutates the caller's valid content or pretends the old review covers edits.
     """
     _validate(brief)
+    if isinstance(report, dict):
+        if isinstance(report.get('summary'), str) and len(report['summary']) > 2500:
+            report['summary'] = report['summary'][:2500].strip()
+        if isinstance(report.get('issues'), list):
+            for issue in report['issues']:
+                if isinstance(issue, dict) and isinstance(issue.get('message'), str) and len(issue['message']) > 1500:
+                    issue['message'] = issue['message'][:1500].strip()
     error=next(Draft202012Validator(REVIEW_SCHEMA).iter_errors(report),None)
     if error: raise ValueError(f'Invalid local review: {error.message}')
     errors=[issue for issue in report['issues'] if issue['severity']=='error']

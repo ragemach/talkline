@@ -5,7 +5,9 @@ import os
 import re
 import shutil
 import subprocess
+from functools import cache
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import pytest
 
@@ -66,6 +68,19 @@ def test_prototype_still_embeds_a_single_deck():
     assert _embedded_cards(build_patch_game('Demo', cards)) == cards
 
 
+def _dump_dom(browser, page, profile, *, timeout=40):
+    return subprocess.run(
+        [browser, '--headless=new', '--disable-gpu', '--no-first-run', '--disable-extensions',
+         '--disable-background-networking', f'--user-data-dir={profile}', '--dump-dom', page.as_uri()],
+        timeout=timeout,
+        capture_output=True,
+        encoding='utf-8',
+        errors='replace',
+        creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0,
+    )
+
+
+@cache
 def _headless_browser():
     candidates = [shutil.which(name) for name in ('msedge', 'chromium', 'chromium-browser', 'google-chrome')]
     for variable in ('PROGRAMFILES(X86)', 'PROGRAMFILES', 'LOCALAPPDATA'):
@@ -75,13 +90,29 @@ def _headless_browser():
                 Path(directory) / 'Microsoft' / 'Edge' / 'Application' / 'msedge.exe',
                 Path(directory) / 'Google' / 'Chrome' / 'Application' / 'chrome.exe',
             ]
-    return next((str(path) for path in candidates if path and Path(path).is_file()), None)
+    installed = dict.fromkeys(Path(path) for path in candidates if path and Path(path).is_file())
+    if not installed:
+        pytest.skip('A local Chromium browser is needed for this check.')
+    failures = []
+    with TemporaryDirectory(prefix='talkline-browser-', ignore_cleanup_errors=True) as directory:
+        root = Path(directory)
+        page = root / 'probe.html'
+        page.write_text('<body data-test-probe="ready">TalkLine</body>', encoding='utf-8')
+        for index, browser in enumerate(installed):
+            try:
+                result = _dump_dom(browser, page, root / f'profile-{index}', timeout=12)
+            except (OSError, subprocess.TimeoutExpired) as error:
+                failures.append(f'{browser}: {error}')
+                continue
+            if result.returncode == 0 and 'data-test-probe="ready"' in result.stdout:
+                return browser
+            failures.append(f'{browser}: exit {result.returncode}, {len(result.stdout)} characters of DOM, '
+                            f'stderr: {result.stderr[-400:].strip() or "(empty)"}')
+    pytest.fail('Installed browsers could not read the local probe page.\n' + '\n'.join(failures))
 
 
 def _check_browser_game(tmp_path, html, checks):
     browser = _headless_browser()
-    if browser is None:
-        pytest.skip('A local Chromium browser is needed for this check.')
     setup = '''
     const check = (condition, message) => {
       if (!condition) throw new Error(message);
@@ -93,16 +124,7 @@ def _check_browser_game(tmp_path, html, checks):
                 '} catch (error) { document.body.dataset.testResult = error.message; }</script>')
     page = tmp_path / 'game.html'
     page.write_text(html.replace('</body>', exercise + '</body>'), encoding='utf-8')
-    result = subprocess.run(
-        [browser, '--headless=new', '--disable-gpu', '--no-first-run', '--disable-extensions',
-         '--disable-background-networking', f'--user-data-dir={tmp_path / "profile"}',
-         '--dump-dom', page.as_uri()],
-        timeout=40,
-        capture_output=True,
-        encoding='utf-8',
-        errors='replace',
-        creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0,
-    )
+    result = _dump_dom(browser, page, tmp_path / 'profile')
     body = re.search(r'<body[^>]*>', result.stdout)
     assert result.returncode == 0, result.stderr
     assert body and 'data-test-result="talkline-pass"' in body.group(0), (body and body.group(0), result.stderr)

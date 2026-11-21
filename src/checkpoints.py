@@ -10,16 +10,29 @@ GAME_NIGHT_PROGRESS_PATH = SPONTANEOUS_PROGRESS_PATH.with_name('game-night-progr
 BUSINESS_PROGRESS_PATH = SPONTANEOUS_PROGRESS_PATH.with_name('business-progress.json')
 
 
-def _progress_path(concept):
+def _progress_paths():
     return {
         'spontaneous': SPONTANEOUS_PROGRESS_PATH, 'game_night': GAME_NIGHT_PROGRESS_PATH,
         'business': BUSINESS_PROGRESS_PATH,
-    }[concept]
+    }
+
+
+def load_automatic_concept(topic, model):
+    """Keep an interrupted automatic run on the same concept when Studio reopens."""
+    for concept, path in _progress_paths().items():
+        try:
+            saved = load_checkpoint(path)
+        except (OSError, ValueError):
+            # The selected workflow reports its own damaged or unreadable progress.
+            continue
+        if saved.get('automatic') is True and (saved.get('topic'), saved.get('model')) == (topic, model):
+            return concept
+    return None
 
 
 def load_session_progress(concept, topic, model):
     try:
-        saved = load_checkpoint(_progress_path(concept))
+        saved = load_checkpoint(_progress_paths()[concept])
     except FileNotFoundError:
         return None
     if (saved.get('topic'), saved.get('model')) != (topic, model):
@@ -30,13 +43,15 @@ def load_session_progress(concept, topic, model):
     return progress
 
 
-def save_session_progress(concept, topic, model, progress):
-    save_checkpoint(_progress_path(concept), {'topic': topic, 'model': model, 'progress': progress})
+def save_session_progress(concept, topic, model, progress, *, automatic=False):
+    save_checkpoint(_progress_paths()[concept], {
+        'topic': topic, 'model': model, 'progress': progress, 'automatic': automatic,
+    })
 
 
 def clear_session_progress(concept, topic, model, progress):
     if progress is not None and load_session_progress(concept, topic, model) == progress:
-        _progress_path(concept).unlink(missing_ok=True)
+        _progress_paths()[concept].unlink(missing_ok=True)
 
 
 def content_fingerprint(content: dict) -> str:

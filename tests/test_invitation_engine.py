@@ -114,3 +114,32 @@ def test_missing_renderer_reports_error_without_substituting_a_design():
     ('Job interview','business'),('Taboo game night','game_night'),('Everyday surprises','spontaneous')])
 def test_demo_topic_routing_uses_five_concepts(topic,expected):
     assert detect_category(topic)==expected
+
+
+@pytest.mark.parametrize('topic,expected', [
+    ('Game Night', 'game_night'),
+    (' BUSINESS ENGLISH — Small talk at the coffee machine ', 'business'),
+    ('Culture Exchange: Greeting a new neighbour', 'culture_exchange'),
+    ('pop culture - remakes from the nineties', 'pop_culture'),
+    ('Spontaneous Talk – racing the clock', 'spontaneous'),
+])
+def test_named_formats_are_recognized_without_a_model_request(topic, expected):
+    with patch('src.ai_content._ask_json', side_effect=AssertionError('Unexpected model request')):
+        assert detect_category(topic, 'qwen3:8b') == expected
+
+
+def test_unlabelled_topic_is_classified_in_context_by_the_local_model():
+    topic = 'Why does everyone still quote that video game?'
+    with patch('src.ai_content._ask_json', return_value={'category': 'pop_culture'}) as request:
+        assert detect_category(topic, 'qwen3:8b') == 'pop_culture'
+    prompt, schema, model = request.call_args.args
+    assert json.loads(prompt.split('/no_think\n')[1]) == {'topic': topic}
+    assert set(schema['properties']['category']['enum']) == set(PRESETS)
+    assert model == 'qwen3:8b'
+
+
+def test_invalid_model_category_is_retried_and_rejected():
+    with patch('src.ai_content._ask_json', return_value={'category': 'other'}) as request:
+        with pytest.raises(ValueError, match='after 2 attempts'):
+            detect_category('The last bus home', 'qwen3:8b')
+    assert request.call_count == 2

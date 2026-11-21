@@ -1,6 +1,9 @@
 """Shared content requirements clarified by the owner, not inferred from old samples."""
 import re
 
+# Characters available for the scene and its question together on a discussion slide.
+ROUND_CARD_TEXT_LIMITS = {'a2': 160, 'b2': 175, 'c1': 175}
+
 WARMUP_GUIDANCE = (
     'Warm-ups must be VERY simple, polite everyday check-ins or preferences, accessible to A2. '
     'For example: How are you? How was your day? How was your week? Do you like watching movies? '

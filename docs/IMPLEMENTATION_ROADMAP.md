@@ -1,6 +1,14 @@
 # TalkLine Studio implementation roadmap
 
-## Delivery order
+## Where to start
+
+Follow the [ordered roadmap and acceptance checks in the README](../README.md#development-roadmap). The R0–R6 labels below group engineering work by subsystem. Several groups already have working code. The immediate product milestone is Round 1 quality and layout in the two discussion formats.
+
+The app selects a concept from the topic before generation and uses it for both
+the session format and invitation style. The host can override it. Local Ollama
+writes the content for the editable PowerPoint and invitation GIF. Game links
+open the HTML files beside the deck after ZIP extraction. The final slide links
+to the approved Rate Us form.
 
 Use the TalkLine Brand Guide and the corresponding supplied deck as the session
 reference. The program assembles a welcome and warm-up, Toolkit and mini grammar,
@@ -9,27 +17,8 @@ and closing paragraphs go into the host's materials. Concept examples determine
 the order for exceptions such as Game Night. Ollama runs locally and produces
 content. Application code owns the sequence, template bindings and exports.
 
-1. **Working baseline.** Keep Windows startup, Demo and local Ollama usable.
-   Preserve the last successful draft and matching ZIP when a run fails or the
-   browser closes. The saved-run and launcher checks passed.
-2. **First complete session.** Connect Spontaneous Talk from the app through ten
-   tiered discussion cards, the Toolkit, one playable levelled game, an editable
-   deck, the host guide and the original-template GIF. Check the extracted ZIP
-   offline and run a fresh topic through local Ollama.
-3. **Weekly workflow.** Let the owner review, edit or regenerate one section and
-   keep the others. Recover completed sections after interruptions. Finish this
-   workflow before repeating it across concepts.
-4. **Remaining concepts.** Add the supplied Business, Culture Exchange and Pop
-   Culture formats. Add Game Night with its two different games. Each concept
-   gets a full package and a render check before it is called ready.
-5. **Weekly readiness.** Test Windows startup, real-model runs, resume, file
-   links, phone-sized game controls and broken-dependency recovery. Mark the
-   app ready only when a new weekly topic can be generated and run without Codex.
-   Online publishing is a separate workflow for a verified eligible free account.
-
-Work through the stages in this order. A Demo proves packaging and navigation.
-A fresh local-model run is the content-generation check. Record what each test
-actually covers.
+Keep the example fixtures for offline tests of packaging and navigation. A fresh
+local-model run verifies content generation. Record what each test covers.
 
 Owner scope: one personal session roughly weekly. Slide count and sequence follow
 the concept and approved sample, not a universal 23-slide structure. Every session
@@ -42,8 +31,8 @@ Windows/Python 3.14 bootstrap, local Ollama qwen3:8b, critique and section
 regeneration, saved event defaults, original-template invitation export and five
 invitation styles are present. The Windows launcher health check passed.
 
-Spontaneous Talk, Business English and Game Night can build complete offline Demo
-kits. Each produces an editable presentation with speaker notes, a Toolkit with
+Spontaneous Talk, Business English and Game Night have local generation and offline export paths.
+Each produces an editable presentation with speaker notes, a Toolkit with
 separate levels and grammar, a host guide, game files, and an original-template
 invitation GIF. Spontaneous Talk includes ten tiered discussions followed by
 Patch Notes. Business English uses its blue reference deck with Smart or Sneaky. Game
@@ -53,8 +42,7 @@ three forbidden clues for Taboo follow the current HTML contract. The Toolkit
 retains its three learner groups.
 
 Pop Culture and Culture Exchange still use a short prototype. Live Business AI
-generation needs a test on a fresh topic. Online game publishing, Canva import
-verification, and broader weekly-use testing remain open.
+generation needs a test on a fresh topic. Broader weekly-use tests remain open.
 
 ## R0 — shared session plan and template blueprints
 
@@ -83,9 +71,9 @@ IDs, and receives stable IDs during binding. Full-session demos and local
 generation use the structural validators. Check language level and relevance
 when reviewing the generated material.
 
-- Introduce version 2 without silently reinterpreting the existing v1 contract:
+- Extend the full-session version 2 export without silently reinterpreting the existing v1 contract:
   concept, template, event metadata, ordered activities, games[], levelled Toolkit,
-  invitation content, review status and local/verified online links.
+  invitation content, review status and working links to the local games and Rate Us.
 - Catalogue supplied presentation layouts and editable fields per concept.
 - Model mechanic-specific requirements; do not force Taboo or Problem Solver into
   two-choice cards. Require exactly two games for Game Night. Assign IDs in code.
@@ -122,31 +110,25 @@ when reviewing the generated material.
 
 ## R4 — Game Night and remaining concepts
 
-- Implement both mechanics required by the Game Night sample, two independent
-  HTML files and corresponding presentation pages.
-- Add Business English, Pop Culture and Culture Exchange using their own samples.
+- Verify the existing Game Night mechanics, their two independent HTML files
+  and corresponding presentation pages on a fresh topic.
+- Verify the existing Business English flow. Build Pop Culture and Culture
+  Exchange from their own samples.
 - Replace hardcoded Patch Notes selection with compatible mechanic selection.
 - Acceptance: each concept passes content, rendering, game and package checks.
 
-## R5 — free publishing and verified presentation links
+## R5 — public game hosting (deferred)
 
-- Owner selected Vercel Free and explicitly rejected Netlify. Export a static
-  archive retaining old event paths; verify the connected account and deployment
-  capability before claiming publication. No paid upgrade or Pro trial.
-- Keep hosting limits/terms distinct from technical HTML compatibility. Commercial
-  events are confirmed; do not certify plan eligibility from deployment success.
-- Verify real game URLs before final online PPTX; keep offline links available.
-- Use the real Rate Us form and links.txt for manual Canva link placement.
-- Test actual Canva import for fonts/layout/links; do not promise untested fidelity.
-- Automatic authenticated publishing follows account setup as a later integration.
+The owner has paused publishing and its Canva link checks. Weekly readiness
+uses the local HTML files in the extracted session folder. [Current decisions](../README.md#concept-selection-and-hosting)
 
 ## R6 — reliable UI and Windows convenience
 
 - Progress, cancellation, checkpoints, history and interruption recovery.
 - Separate services from Streamlit; workers do not directly call UI APIs.
 - Preserve launcher; evaluate EXE packaging after full-kit stability.
-- Measure full-session speed/resources on actual 6 GB GPU, test startup/install,
-  and write short Persian instructions.
+- Measure full-session speed and resources on the target 6 GB GPU, check Windows
+  startup and installation, and write short instructions in plain English.
 
 ## Working rules
 

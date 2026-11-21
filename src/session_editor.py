@@ -4,6 +4,7 @@ from copy import deepcopy
 import streamlit as st
 
 from src.checkpoints import content_fingerprint
+from src.content_rules import ROUND_CARD_TEXT_LIMITS
 
 
 def edit_session(brief, validate):
@@ -23,9 +24,9 @@ def edit_session(brief, validate):
             with st.form(f'session_edit_{revision}_discussion_{index}'):
                 card = edited['round1'][index]
                 card['title'] = st.text_input('Card title', value=card['title'], max_chars=32).strip()
-                for level in ('a2', 'b2', 'c1'):
+                for level, limit in ROUND_CARD_TEXT_LIMITS.items():
                     card[level] = st.text_area(f'{level.upper()} question', value=card[level],
-                                               max_chars=115 if level == 'a2' else 165).strip()
+                                               max_chars=limit).strip()
                 submitted = st.form_submit_button('Save question')
         elif section.endswith('game card'):
             if 'games' in edited:

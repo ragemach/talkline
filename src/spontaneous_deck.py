@@ -8,6 +8,7 @@ import re
 
 from PIL import ImageFont
 from pptx import Presentation
+from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE
 from pptx.util import Inches, Pt
 
@@ -26,6 +27,7 @@ REFERENCE_GAME_RULES = (
     'Choose one patch and reveal its outcome.',
     'Decide whether to keep the change or reset.',
 )
+DISCUSSION_TIERS = ('a2', 'b2', 'c1')
 
 
 def _shape(slide, path):
@@ -123,6 +125,42 @@ def _fit_top_level(shape, max_bottom, *, size=None, lead=None):
 
 def _notes(slide, text):
     slide.notes_slide.notes_text_frame.text = text
+
+
+def _discussion_notes(slide, card, introduction):
+    prompts = '\n'.join(f'{tier.upper()} — {card[tier]}' for tier in DISCUSSION_TIERS)
+    _notes(slide, f'{card["title"]}\n{introduction}\n\n{prompts}\n\n'
+           'A2: Ask for one concrete detail. B2: Invite a reason and an example. '
+           'C1: Ask what could change the speaker’s view.')
+
+
+def _single_paragraph(shape):
+    for paragraph in shape.text_frame.paragraphs[1:]:
+        paragraph._p.getparent().remove(paragraph._p)
+
+
+def _layout_discussion(slide, title, questions):
+    title_font = title.text_frame.paragraphs[0].runs[0].font
+    lines = _line_count(title.text, title.width.pt, title_font.size.pt, bold=True)
+    title.top = Inches(.88 if lines == 1 else .68)
+    _fit_top_level(title, Inches(1.45), lead=24)
+    for tier, panel_id, badge_id in zip(DISCUSSION_TIERS, (10, 16, 22), (12, 18, 24), strict=True):
+        panel = _shape(slide, (panel_id,))
+        badge = _shape(slide, (badge_id,))
+        badge.height = Inches(.36)
+        badge.top = panel.top + (panel.height - badge.height) // 2
+        label = _shape(slide, (badge_id, badge_id + 2))
+        font = label.text_frame.paragraphs[0].runs[0].font
+        font.size = Pt(14)
+        if tier != 'c1':
+            font.color.rgb = RGBColor.from_string('1A112B')
+        question = questions[tier]
+        _single_paragraph(question)
+        padding = Inches(.13)
+        question.top = panel.top + padding
+        question.height = panel.height - 2 * padding
+        question.text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
+        _fit_top_level(question, panel.top + panel.height - padding, lead=19.5)
 
 
 def _set_link(slide, button_path, filename):
@@ -294,18 +332,15 @@ def build_spontaneous_deck(topic, content, toolkit=None, game_file=GAME_FILENAME
     _notes(intro, 'Use one of the three levels on each card. Let each pair choose the version that suits them.')
     for number, card in enumerate(content['round1'], 8):
         slide = slides[number - 1]
+        fields = {}
         for field in blueprint['slides'][number - 1]['fields']:
             key = field['content_key']
             if key is None:
                 continue
             role = key.rsplit('.', 1)[-1]
-            shape = _write(slide, field['shape_path'], card[role])
-            if role == 'title':
-                shape.top = Inches(.68)
-                _fit_top_level(shape, Inches(1.45), lead=26)
-            else:
-                _fit_top_level(shape, shape.top + Inches(1.72))
-        _notes(slide, f'{card["title"]}\nChoose A2, B2 or C1. Follow up with “Why?” or “Can you give an example?”')
+            fields[role] = _write(slide, field['shape_path'], card[role])
+        _layout_discussion(slide, fields.pop('title'), fields)
+        _discussion_notes(slide, card, 'Let each pair pick a level. Give everyone a moment to picture the situation.')
 
     _notes(slides[17], 'Give the group a break and announce what time to return.')
     game = content['game']

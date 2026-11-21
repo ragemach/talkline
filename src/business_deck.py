@@ -6,7 +6,7 @@ import re
 
 from pptx import Presentation
 from pptx.dml.color import RGBColor
-from pptx.enum.text import PP_ALIGN
+from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.oxml.ns import qn
 from pptx.util import Inches, Pt
 
@@ -16,7 +16,10 @@ from src.game_night_deck import (
     _template,
 )
 from src.session_sequence import RATE_US_URL
-from src.spontaneous_deck import _arrange_slides, _fit_top_level, _notes, _remove, _shape, _write
+from src.spontaneous_deck import (
+    _arrange_slides, _discussion_notes, _fit_top_level, _line_count, _notes, _remove, _shape,
+    _single_paragraph, _write,
+)
 from src.template_blueprints import verify_blueprint_source
 from src.toolkit import LEVEL_LABELS, validate_level
 
@@ -152,11 +155,30 @@ def _build_warmup(slide, content):
 
 
 def _build_discussion(slide, card):
-    _add_text(slide, 'Discussion card title', card['title'], 2.08, .96, 4.9, 1.88, 24, bold=True)
-    for (tier, shape_id, background) in (('a2', 15, 10), ('b2', 21, 16), ('c1', 27, 22)):
+    title = _add_text(slide, 'Discussion card title', card['title'], 2.08, .91, 4.9, 1.88, 24, bold=True)
+    number = _shape(slide, (7,))
+    title.top = number.top + (number.height - title.height) // 2
+    for tier, shape_id, background, badge in (('a2', 15, 10, 12), ('b2', 21, 16, 18), ('c1', 27, 22, 24)):
         panel = _shape(slide, (background,))
-        _template(slide, (shape_id,), card[tier], panel.top.inches + panel.height.inches - .04, lead=18)
-    _notes(slide, f'{card["title"]}\nLet participants choose A2, B2 or C1. Ask them for a reason or a specific example.')
+        label = _shape(slide, (badge,))
+        question = _write(slide, (shape_id,), ' '.join(card[tier].split()))
+        _single_paragraph(question)
+        question.left, question.width = label.left, Inches(5.87)
+        frame = question.text_frame
+        frame.vertical_anchor = MSO_ANCHOR.TOP
+        frame.paragraphs[0].alignment = PP_ALIGN.LEFT
+        size = frame.paragraphs[0].runs[0].font.size.pt
+        lines = _line_count(question.text, question.width.pt, size)
+        leading = 18
+        question.height = Pt(lines * leading + 2)
+        gap = Pt(2)
+        block_height = label.height + gap + question.height
+        if block_height + Pt(5) > panel.height:
+            raise ValueError(f'Round 1 {tier.upper()} question is too long for the Business English card.')
+        label.top = panel.top + (panel.height - block_height) // 2
+        question.top = label.top + label.height + gap
+        _fit_top_level(question, panel.top + panel.height, lead=leading)
+    _discussion_notes(slide, card, 'Invite a workplace example. Everyone may answer at the level they choose.')
 
 
 def _build_game(intro, rules, filename):
